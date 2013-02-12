@@ -48,6 +48,9 @@ public class jfrPrincipal extends javax.swing.JFrame {
         jmMovimientos = new javax.swing.JMenu();
         jmiEntrada = new javax.swing.JMenuItem();
         jmiSalida = new javax.swing.JMenuItem();
+        jmProductos = new javax.swing.JMenu();
+        jmiConsultar = new javax.swing.JMenuItem();
+        jmiMantenimiento = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,10 +102,10 @@ public class jfrPrincipal extends javax.swing.JFrame {
 
         jmInventario.setText("Inventario");
 
-        jmMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMovimiento16x16.png"))); // NOI18N
+        jmMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMovimiento32x32.png"))); // NOI18N
         jmMovimientos.setText("Movimientos");
 
-        jmiEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEntrada16x16.png"))); // NOI18N
+        jmiEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEntrada32x32.png"))); // NOI18N
         jmiEntrada.setText("Entrada");
         jmiEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,7 +114,7 @@ public class jfrPrincipal extends javax.swing.JFrame {
         });
         jmMovimientos.add(jmiEntrada);
 
-        jmiSalida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnSalida16x16.png"))); // NOI18N
+        jmiSalida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnSalida32x32.png"))); // NOI18N
         jmiSalida.setText("Salida");
         jmiSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +124,29 @@ public class jfrPrincipal extends javax.swing.JFrame {
         jmMovimientos.add(jmiSalida);
 
         jmInventario.add(jmMovimientos);
+
+        jmProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnProductos32x32.png"))); // NOI18N
+        jmProductos.setText("Productos");
+
+        jmiConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEntrada16x16.png"))); // NOI18N
+        jmiConsultar.setText("Consultar");
+        jmiConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConsultarActionPerformed(evt);
+            }
+        });
+        jmProductos.add(jmiConsultar);
+
+        jmiMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnSalida16x16.png"))); // NOI18N
+        jmiMantenimiento.setText("Mantenimiento");
+        jmiMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiMantenimientoActionPerformed(evt);
+            }
+        });
+        jmProductos.add(jmiMantenimiento);
+
+        jmInventario.add(jmProductos);
 
         jmbMenuPrincipal.add(jmInventario);
 
@@ -154,6 +180,14 @@ public class jfrPrincipal extends javax.swing.JFrame {
         jdfMovimientoSalida ventanaMovimientoSalida = new jdfMovimientoSalida(this, true);
         ventanaMovimientoSalida.setVisible(true);
     }//GEN-LAST:event_jmiSalidaActionPerformed
+
+    private void jmiConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiConsultarActionPerformed
+
+    private void jmiMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMantenimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiMantenimientoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,9 +235,12 @@ public class jfrPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlblUsuario;
     private javax.swing.JMenu jmInventario;
     private javax.swing.JMenu jmMovimientos;
+    private javax.swing.JMenu jmProductos;
     private javax.swing.JMenu jmReportes;
     private javax.swing.JMenuBar jmbMenuPrincipal;
+    private javax.swing.JMenuItem jmiConsultar;
     private javax.swing.JMenuItem jmiEntrada;
+    private javax.swing.JMenuItem jmiMantenimiento;
     private javax.swing.JMenuItem jmiSalida;
     private javax.swing.JPanel jpnlBarraEstado;
     private VistaJPanelConFondo.JPanelConFondo jpnlFondo;
