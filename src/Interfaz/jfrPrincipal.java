@@ -128,7 +128,7 @@ public class jfrPrincipal extends javax.swing.JFrame {
         jmProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnProductos32x32.png"))); // NOI18N
         jmProductos.setText("Productos");
 
-        jmiConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEntrada16x16.png"))); // NOI18N
+        jmiConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnConsultarProductos32x32.png"))); // NOI18N
         jmiConsultar.setText("Consultar");
         jmiConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,7 +137,7 @@ public class jfrPrincipal extends javax.swing.JFrame {
         });
         jmProductos.add(jmiConsultar);
 
-        jmiMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnSalida16x16.png"))); // NOI18N
+        jmiMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMantenimientoProductos32x32.png"))); // NOI18N
         jmiMantenimiento.setText("Mantenimiento");
         jmiMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
