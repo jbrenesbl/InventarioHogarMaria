@@ -14,6 +14,7 @@ public class Producto {
     private String categoria;
     private String unidadMedida;
     private double cantidad;
+    private double cantidadMinima;
     private Calendar ultimaEntrada;
     private Calendar ultimaSalida;
 
@@ -21,13 +22,21 @@ public class Producto {
     }
 
     //Metodos Get y Set de la clase
-
+    
     public double getCantidad() {
         return cantidad;
     }
 
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public double getCantidadMinima() {
+        return cantidadMinima;
+    }
+
+    public void setCantidadMinima(double cantidadMinima) {
+        this.cantidadMinima = cantidadMinima;
     }
 
     public String getCategoria() {
@@ -58,18 +67,16 @@ public class Producto {
         return ultimaEntrada;
     }
 
-    public void setUltimaEntrada(int year, int month, int date, int hourOfDay, int minute, int second) {
-        this.ultimaEntrada = Calendar.getInstance();
-        this.ultimaEntrada.set(year, month, date, hourOfDay, minute, second);
+    public void setUltimaEntrada(Calendar ultimaEntrada) {
+        this.ultimaEntrada = ultimaEntrada;
     }
 
     public Calendar getUltimaSalida() {
         return ultimaSalida;
     }
 
-    public void setUltimaSalida(int year, int month, int date, int hourOfDay, int minute, int second) {
-        this.ultimaSalida = Calendar.getInstance();
-        this.ultimaSalida.set(year, month, date, hourOfDay, minute, second);
+    public void setUltimaSalida(Calendar ultimaSalida) {
+        this.ultimaSalida = ultimaSalida;
     }
 
     public String getUnidadMedida() {
@@ -79,5 +86,4 @@ public class Producto {
     public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
-    
 }
