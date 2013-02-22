@@ -43,10 +43,12 @@ public class jdfConsultarProducto extends javax.swing.JDialog {
         jpnlResultados = new javax.swing.JPanel();
         jspnResultados = new javax.swing.JScrollPane();
         jtblResultados = new javax.swing.JTable();
+        jbtnImprimir = new javax.swing.JButton();
+        jbtnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jpnlTitulo.setLayout(new java.awt.GridLayout());
+        jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -111,7 +113,7 @@ public class jdfConsultarProducto extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jpnlResultados.setLayout(new java.awt.GridLayout());
+        jpnlResultados.setLayout(new java.awt.GridLayout(1, 0));
 
         jtblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,6 +161,10 @@ public class jdfConsultarProducto extends javax.swing.JDialog {
 
         jpnlResultados.add(jspnResultados);
 
+        jbtnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnImprimir32x32.png"))); // NOI18N
+
+        jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
+
         javax.swing.GroupLayout jpnlConsultarProductosLayout = new javax.swing.GroupLayout(jpnlConsultarProductos);
         jpnlConsultarProductos.setLayout(jpnlConsultarProductosLayout);
         jpnlConsultarProductosLayout.setHorizontalGroup(
@@ -170,7 +176,12 @@ public class jdfConsultarProducto extends javax.swing.JDialog {
                     .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpnlConsultarProductosLayout.createSequentialGroup()
                         .addComponent(jpnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlConsultarProductosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jpnlConsultarProductosLayout.setVerticalGroup(
@@ -180,8 +191,12 @@ public class jdfConsultarProducto extends javax.swing.JDialog {
                 .addComponent(jpnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnlResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jpnlConsultarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -189,13 +204,11 @@ public class jdfConsultarProducto extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlConsultarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
+            .addComponent(jpnlConsultarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpnlConsultarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+            .addComponent(jpnlConsultarProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -251,6 +264,8 @@ public class jdfConsultarProducto extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbtnBuscar;
+    private javax.swing.JButton jbtnImprimir;
     private javax.swing.JComboBox jcbxCategoria;
     private javax.swing.JComboBox jcbxEstado;
     private javax.swing.JCheckBox jckbCategoria;
