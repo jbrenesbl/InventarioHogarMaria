@@ -17,6 +17,7 @@ public class Producto {
     private double cantidadMinima;
     private Calendar ultimaEntrada;
     private Calendar ultimaSalida;
+    private String estado;
 
     public Producto() {
     }
@@ -85,5 +86,13 @@ public class Producto {
 
     public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

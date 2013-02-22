@@ -219,7 +219,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -229,19 +229,23 @@
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jcbxCategoria" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jcbxCategoria" min="-2" pref="156" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Component id="jlblTituloUnidadMedida" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Component id="jtxtUnidadMedida" min="-2" pref="85" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Component id="jlblTituloCantidad" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                      <Component id="jtxtCantidad" min="-2" pref="55" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jtxtCantidad" min="-2" pref="85" max="-2" attributes="0"/>
+                                      <Component id="jlblTituloCantidadMinima" max="32767" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jtxtCantidadMinima" min="-2" pref="63" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jtxtNombre" min="-2" pref="630" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -287,17 +291,15 @@
                           <Component id="jtxtNombre" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jlblTituloCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtxtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jlblTituloCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jcbxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jlblTituloUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtxtUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jlblTituloCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jcbxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlblTituloUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlblTituloCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlblTituloCantidadMinima" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtCantidadMinima" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="16" max="32767" attributes="0"/>
                   </Group>
@@ -417,6 +419,20 @@
             <Component class="javax.swing.JTextField" name="jtxtCantidad">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value="Cantidad a Ingresar"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jlblTituloCantidadMinima">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cantidad M&#xed;nima:"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[57, 14]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jtxtCantidadMinima">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Cantidad a Ingresar"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

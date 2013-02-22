@@ -51,7 +51,7 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
         setTitle("Buscar Producto");
         setResizable(false);
 
-        jpnlTitulo.setLayout(new java.awt.GridLayout());
+        jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -83,7 +83,7 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                     .addComponent(jtxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtunidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         jpnlDatosBuscarLayout.setVerticalGroup(
             jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,28 +103,28 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jpnlResultados.setLayout(new java.awt.GridLayout());
+        jpnlResultados.setLayout(new java.awt.GridLayout(1, 0));
 
         jtblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Categoria", "Unidad Medida"
+                "Código", "Nombre", "Categoría", "Unidad Medida", "Cantidad", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -167,7 +167,9 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlBuscarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpnlBuscarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

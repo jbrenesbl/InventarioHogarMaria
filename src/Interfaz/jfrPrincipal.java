@@ -51,6 +51,7 @@ public class jfrPrincipal extends javax.swing.JFrame {
         jmProductos = new javax.swing.JMenu();
         jmiConsultar = new javax.swing.JMenuItem();
         jmiMantenimiento = new javax.swing.JMenuItem();
+        jmiBajoStock = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -146,6 +147,15 @@ public class jfrPrincipal extends javax.swing.JFrame {
         });
         jmProductos.add(jmiMantenimiento);
 
+        jmiBajoStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnConsultarProductos32x32.png"))); // NOI18N
+        jmiBajoStock.setText("Bajo Stock");
+        jmiBajoStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiBajoStockActionPerformed(evt);
+            }
+        });
+        jmProductos.add(jmiBajoStock);
+
         jmInventario.add(jmProductos);
 
         jmbMenuPrincipal.add(jmInventario);
@@ -182,12 +192,17 @@ public class jfrPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiSalidaActionPerformed
 
     private void jmiConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultarActionPerformed
-        // TODO add your handling code here:
+        jdfConsultarProducto ventanaConsultarProducto = new jdfConsultarProducto(this, true);
+        ventanaConsultarProducto.setVisible(true);
     }//GEN-LAST:event_jmiConsultarActionPerformed
 
     private void jmiMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMantenimientoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiMantenimientoActionPerformed
+
+    private void jmiBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBajoStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiBajoStockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,6 +253,7 @@ public class jfrPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jmProductos;
     private javax.swing.JMenu jmReportes;
     private javax.swing.JMenuBar jmbMenuPrincipal;
+    private javax.swing.JMenuItem jmiBajoStock;
     private javax.swing.JMenuItem jmiConsultar;
     private javax.swing.JMenuItem jmiEntrada;
     private javax.swing.JMenuItem jmiMantenimiento;
