@@ -26,24 +26,24 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="770" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="790" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jpnPrincipal" min="-2" pref="770" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="700" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jpnPrincipal" min="-2" pref="640" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jpnPrincipal" min="-2" pref="678" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -206,7 +206,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="213" width="750" height="160"/>
+              <AbsoluteConstraints x="10" y="213" width="750" height="190"/>
             </Constraint>
           </Constraints>
 
@@ -230,11 +230,12 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jtxtUnidadMedida" min="-2" pref="85" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jlblTituloCantidad" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlblTituloExistencia" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jtxtCantidad" min="-2" pref="85" max="-2" attributes="0"/>
+                                      <Component id="jtxtExistencia" min="-2" pref="85" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jtxtNombre" alignment="0" min="-2" pref="630" max="-2" attributes="0"/>
+                                  <Component id="jtxtCantidad" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="12" max="32767" attributes="0"/>
                           </Group>
@@ -250,6 +251,11 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlblTituloCantidad" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -275,19 +281,20 @@
                           <Component id="jtxtNombre" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jlblTituloCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtxtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jlblTituloCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jcbxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jlblTituloUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtxtUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jlblTituloCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jcbxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlblTituloUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlblTituloExistencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtExistencia" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jlblTituloCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -386,6 +393,20 @@
                 <Property name="toolTipText" type="java.lang.String" value="Cantidad a Retirar"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="jlblTituloExistencia">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Existencia:"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[57, 14]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jtxtExistencia">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Cantidad a Retirar"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jlblDatosPorAplicar">
@@ -398,7 +419,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="383" width="750" height="191"/>
+              <AbsoluteConstraints x="10" y="413" width="750" height="191"/>
             </Constraint>
           </Constraints>
 
@@ -443,7 +464,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="650" y="580" width="48" height="48"/>
+              <AbsoluteConstraints x="650" y="610" width="48" height="48"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -459,7 +480,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="710" y="580" width="48" height="48"/>
+              <AbsoluteConstraints x="710" y="610" width="48" height="48"/>
             </Constraint>
           </Constraints>
         </Component>

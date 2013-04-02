@@ -4,24 +4,137 @@
  */
 package Interfaz;
 
+import Clases.Auxiliares.BusquedasBaseDatos;
+import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Datos.Producto;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
 /**
  *
  * @author JoBren8
  */
 public class jdfBuscarProducto extends javax.swing.JDialog {
 
-    /**
-     * Creates new form jdfBuscarProducto
-     */
+    //Variables
+    Producto producto = new Producto();
+
     public jdfBuscarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
-    public jdfBuscarProducto(javax.swing.JDialog parent, boolean modal) {
+
+    public jdfBuscarProducto(javax.swing.JDialog parent, boolean modal, Producto producto) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        this.producto = producto;
+        inicializarDatos();
+    }
+
+    private void inicializarDatos() {
+        try {
+            //CATEGORIAS
+            //Se obtiene el ResultSet con las categorias
+            ResultSet rs = BusquedasBaseDatos.buscarCategorias();
+
+            //Llenamos el modelo del combobox
+            DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+            while (rs.next()) {
+                modeloCombo.addElement(rs.getObject(1));
+            }
+            jcbxCategoria.setModel(modeloCombo);
+
+            //UNIDADES MEDIDA
+            rs = BusquedasBaseDatos.buscarUnidadesMedida();
+            modeloCombo = new DefaultComboBoxModel();
+
+            //Llenamos el modelo del combobox
+            while (rs.next()) {
+                modeloCombo.addElement(rs.getObject(1));
+            }
+            jcbxUnidadMedida.setModel(modeloCombo);
+
+        } catch (Exception ex) {
+        }
+
+        //Añadimos el evento de Doble Click al JTable
+        jtblResultados.addMouseListener(new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() > 1) {
+                    int fila = jtblResultados.rowAtPoint(e.getPoint());
+                    int columna = jtblResultados.columnAtPoint(e.getPoint());
+                    if ((fila > -1) && (columna > -1)) {
+                        System.out.println(jtblResultados.getModel().getValueAt(fila, 0));
+                    }
+                }
+            }
+        });
+    }
+
+    private void buscarProducto() {
+
+        //Parametros a buscar
+        String nombre = "";
+        String categoria = "";
+        String unidadMedida = "";
+
+        //Verificamos cuales estan con check
+        if (jckbNombre.isSelected()) {
+            nombre = jtxtNombre.getText();
+        }
+        if (jckbCategoria.isSelected()) {
+            categoria = jcbxCategoria.getSelectedItem().toString();
+        }
+        if (jckbUnidadMedida.isSelected()) {
+            unidadMedida = jcbxUnidadMedida.getSelectedItem().toString();
+        }
+
+        boolean vacio = true;
+        try {
+            ResultSet rs = BusquedasBaseDatos.buscarProducto(nombre, categoria, unidadMedida);
+
+            //Creamos un modelo no editable de celdas
+            NoEditableTableModel modelo = new NoEditableTableModel();
+            jtblResultados.setModel(modelo);
+
+            // Creamos las columnas.
+            modelo.addColumn("Código");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Categoría");
+            modelo.addColumn("Unidad Medida");
+            modelo.addColumn("Cantidad");
+            modelo.addColumn("Estado");
+
+            // Se crea un array que será una de las filas de la tabla. 
+            Object[] fila = new Object[6]; // Hay cuatro columnas en la tabla
+            while (rs.next()) {
+                // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+                for (int i = 0; i < 6; i++) {
+                    fila[i] = rs.getObject(i + 1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
+                }
+                // Se añade al modelo la fila completa.
+                modelo.addRow(fila);
+                //Se indica que el ResultSet no esta vacio
+                vacio = false;
+            }
+
+            if (vacio) {
+                JOptionPane.showMessageDialog(this, "No se encontro el producto.", "Uppsss!",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "No se encontro el producto.", "Uppsss!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error.", "Uppsss!", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -42,7 +155,7 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
         jckbCategoria = new javax.swing.JCheckBox();
         jcbxCategoria = new javax.swing.JComboBox();
         jckbUnidadMedida = new javax.swing.JCheckBox();
-        jtxtunidadMedida = new javax.swing.JTextField();
+        jcbxUnidadMedida = new javax.swing.JComboBox();
         jbtnBuscar = new javax.swing.JButton();
         jpnlResultados = new javax.swing.JPanel();
         jspnResultados = new javax.swing.JScrollPane();
@@ -65,11 +178,14 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
 
         jckbCategoria.setText("Categoria");
 
-        jcbxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jckbUnidadMedida.setText("Unidad Medida");
 
         jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
+        jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlDatosBuscarLayout = new javax.swing.GroupLayout(jpnlDatosBuscar);
         jpnlDatosBuscar.setLayout(jpnlDatosBuscarLayout);
@@ -84,7 +200,7 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
-                        .addComponent(jtxtunidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
@@ -110,7 +226,7 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jckbUnidadMedida)
-                            .addComponent(jtxtunidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jcbxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlDatosBuscarLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -150,6 +266,8 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jtblResultados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jtblResultados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jspnResultados.setViewportView(jtblResultados);
 
         jpnlResultados.add(jspnResultados);
@@ -193,6 +311,11 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
+        buscarProducto();
+        jtblResultados.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+    }//GEN-LAST:event_jbtnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +369,7 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnBuscar;
     private javax.swing.JComboBox jcbxCategoria;
+    private javax.swing.JComboBox jcbxUnidadMedida;
     private javax.swing.JCheckBox jckbCategoria;
     private javax.swing.JCheckBox jckbNombre;
     private javax.swing.JCheckBox jckbUnidadMedida;
@@ -257,6 +381,5 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
     private javax.swing.JScrollPane jspnResultados;
     private javax.swing.JTable jtblResultados;
     private javax.swing.JTextField jtxtNombre;
-    private javax.swing.JTextField jtxtunidadMedida;
     // End of variables declaration//GEN-END:variables
 }

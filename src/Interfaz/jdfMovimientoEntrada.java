@@ -4,6 +4,7 @@
  */
 package Interfaz;
 
+import Clases.Datos.Producto;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,6 +52,10 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
         jtxtObservacion = new javax.swing.JTextField();
         jlblTituloEncargado = new javax.swing.JLabel();
         jtxtEncargado = new javax.swing.JTextField();
+        jlblTituloProveedor = new javax.swing.JLabel();
+        jcbxProveedor = new javax.swing.JComboBox();
+        jlblTituloMonto = new javax.swing.JLabel();
+        jtxtMonto = new javax.swing.JTextField();
         jpnlDatosProducto = new javax.swing.JPanel();
         jbtnBuscarProducto = new javax.swing.JButton();
         jbtnNuevoProducto = new javax.swing.JButton();
@@ -95,46 +100,120 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
         jpnPrincipal.add(jpnlTituloVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 750, 70));
 
         jpnDatosEntrada.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jpnDatosEntrada.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblTituloConsecutivo.setText("Consecutivo:");
-        jpnDatosEntrada.add(jlblTituloConsecutivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, 73, -1));
 
         jtxtConsecutivo.setText("236");
         jtxtConsecutivo.setToolTipText("Consecutivo del Movimiento");
         jtxtConsecutivo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtConsecutivo.setEnabled(false);
-        jpnDatosEntrada.add(jtxtConsecutivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 13, 77, -1));
 
         jlblTituloFecha.setText("Fecha:");
-        jpnDatosEntrada.add(jlblTituloFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 43, -1));
 
         jtxtFecha.setText("11/01/2013");
         jtxtFecha.setToolTipText("Fecha del Movimiento");
         jtxtFecha.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtFecha.setEnabled(false);
-        jpnDatosEntrada.add(jtxtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 13, 77, -1));
 
         jlblTituloFactura.setText("Factura:");
-        jpnDatosEntrada.add(jlblTituloFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 16, 51, -1));
 
         jtxtFactura.setText("312478");
         jtxtFactura.setToolTipText("Factura Correspondinte");
-        jpnDatosEntrada.add(jtxtFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 13, 77, -1));
 
         jlblTituloObservacion.setText("Observación:");
-        jpnDatosEntrada.add(jlblTituloObservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 54, 74, -1));
 
         jtxtObservacion.setToolTipText("Descripción de la Entrada");
-        jpnDatosEntrada.add(jtxtObservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 51, 630, -1));
 
         jlblTituloEncargado.setText("Encargado:");
-        jpnDatosEntrada.add(jlblTituloEncargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 92, 65, -1));
 
         jtxtEncargado.setToolTipText("Encargado del Ingreso");
-        jpnDatosEntrada.add(jtxtEncargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 89, 630, -1));
 
-        jpnPrincipal.add(jpnDatosEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 83, 750, 120));
+        jlblTituloProveedor.setText("Proveedor:");
+
+        jcbxProveedor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jlblTituloMonto.setText("Monto:");
+
+        jtxtMonto.setText("312478");
+        jtxtMonto.setToolTipText("Factura Correspondinte");
+
+        javax.swing.GroupLayout jpnDatosEntradaLayout = new javax.swing.GroupLayout(jpnDatosEntrada);
+        jpnDatosEntrada.setLayout(jpnDatosEntradaLayout);
+        jpnDatosEntradaLayout.setHorizontalGroup(
+            jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                        .addComponent(jlblTituloObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jtxtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                        .addComponent(jlblTituloEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(jtxtEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                        .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlblTituloConsecutivo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlblTituloFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                                .addComponent(jtxtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jlblTituloProveedor))
+                            .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                                .addComponent(jtxtConsecutivo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jlblTituloFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                                .addComponent(jcbxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jlblTituloMonto)
+                                .addGap(18, 18, 18)
+                                .addComponent(jtxtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(18, 18, 18))
+        );
+        jpnDatosEntradaLayout.setVerticalGroup(
+            jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                        .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxtConsecutivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlblTituloConsecutivo)
+                                    .addComponent(jlblTituloFecha))))
+                        .addGap(14, 14, 14)
+                        .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlblTituloFactura)
+                            .addComponent(jtxtFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlblTituloProveedor)))
+                    .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
+                        .addComponent(jtxtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jcbxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlblTituloMonto)
+                            .addComponent(jtxtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlblTituloObservacion)
+                    .addComponent(jtxtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlblTituloEncargado)
+                    .addComponent(jtxtEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
+        jpnPrincipal.add(jpnDatosEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 83, 750, 170));
 
         jpnlDatosProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -268,7 +347,7 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jpnPrincipal.add(jpnlDatosProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 213, 750, 160));
+        jpnPrincipal.add(jpnlDatosProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 750, 160));
 
         jlblDatosPorAplicar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jlblDatosPorAplicar.setLayout(new java.awt.GridLayout(1, 0));
@@ -303,11 +382,11 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
 
         jlblDatosPorAplicar.add(jspnProductos);
 
-        jpnPrincipal.add(jlblDatosPorAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 383, 750, 191));
+        jpnPrincipal.add(jlblDatosPorAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 750, 191));
 
         jbtnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAplicar44x44.png"))); // NOI18N
         jbtnAplicar.setToolTipText("Aplicar Cambios");
-        jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 580, 48, 48));
+        jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 620, 48, 48));
 
         jbtnDescartar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnDescartar44x44.png"))); // NOI18N
         jbtnDescartar.setToolTipText("Descartar Cambios");
@@ -316,9 +395,9 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
                 jbtnDescartarActionPerformed(evt);
             }
         });
-        jpnPrincipal.add(jbtnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 580, 48, 48));
+        jpnPrincipal.add(jbtnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 620, 48, 48));
 
-        getContentPane().add(jpnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 640));
+        getContentPane().add(jpnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -338,7 +417,8 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void jbtnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarProductoActionPerformed
-        jdfBuscarProducto ventanaBuscarProducto = new jdfBuscarProducto(this, true);
+        Producto producto = new Producto();
+        jdfBuscarProducto ventanaBuscarProducto = new jdfBuscarProducto(this, true, producto);
         ventanaBuscarProducto.setVisible(true);
     }//GEN-LAST:event_jbtnBuscarProductoActionPerformed
 
@@ -404,6 +484,7 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
     private javax.swing.JButton jbtnDescartar;
     private javax.swing.JButton jbtnNuevoProducto;
     private javax.swing.JComboBox jcbxCategoria;
+    private javax.swing.JComboBox jcbxProveedor;
     private javax.swing.JPanel jlblDatosPorAplicar;
     private javax.swing.JLabel jlblTituloCantidad;
     private javax.swing.JLabel jlblTituloCantidadMinima;
@@ -413,8 +494,10 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
     private javax.swing.JLabel jlblTituloEncargado;
     private javax.swing.JLabel jlblTituloFactura;
     private javax.swing.JLabel jlblTituloFecha;
+    private javax.swing.JLabel jlblTituloMonto;
     private javax.swing.JLabel jlblTituloNombre;
     private javax.swing.JLabel jlblTituloObservacion;
+    private javax.swing.JLabel jlblTituloProveedor;
     private javax.swing.JLabel jlblTituloUnidadMedida;
     private javax.swing.JLabel jlblTituloVentana;
     private javax.swing.JPanel jpnDatosEntrada;
@@ -430,6 +513,7 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
     private javax.swing.JTextField jtxtEncargado;
     private javax.swing.JTextField jtxtFactura;
     private javax.swing.JTextField jtxtFecha;
+    private javax.swing.JTextField jtxtMonto;
     private javax.swing.JTextField jtxtNombre;
     private javax.swing.JTextField jtxtObservacion;
     private javax.swing.JTextField jtxtUnidadMedida;
