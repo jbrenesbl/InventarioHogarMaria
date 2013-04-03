@@ -22,18 +22,29 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
 
     //Variables
     Producto producto = new Producto();
+    jdfMovimientoEntrada padreEntrada;
+    jdfMovimientoSalida padreSalida;
+    int tipoMovimiento = 0;
 
     public jdfBuscarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public jdfBuscarProducto(javax.swing.JDialog parent, boolean modal, Producto producto) {
+    public jdfBuscarProducto(javax.swing.JDialog parent, boolean modal, int movimiento) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        this.producto = producto;
         inicializarDatos();
+        this.tipoMovimiento = movimiento;
+        switch (tipoMovimiento) {
+            case 0:
+                this.padreEntrada = (jdfMovimientoEntrada) parent;
+                break;
+            case 1:
+                this.padreSalida = (jdfMovimientoSalida) parent;
+                break;
+        }
     }
 
     private void inicializarDatos() {
@@ -48,6 +59,8 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                 modeloCombo.addElement(rs.getObject(1));
             }
             jcbxCategoria.setModel(modeloCombo);
+            //Cerramos la conexion
+            BusquedasBaseDatos.cerrar();
 
             //UNIDADES MEDIDA
             rs = BusquedasBaseDatos.buscarUnidadesMedida();
@@ -58,23 +71,17 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                 modeloCombo.addElement(rs.getObject(1));
             }
             jcbxUnidadMedida.setModel(modeloCombo);
+            //Cerramos la conexion
+            BusquedasBaseDatos.cerrar();
 
         } catch (Exception ex) {
         }
 
-        //Añadimos el evento de Doble Click al JTable
-        jtblResultados.addMouseListener(new MouseAdapter() {
-
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() > 1) {
-                    int fila = jtblResultados.rowAtPoint(e.getPoint());
-                    int columna = jtblResultados.columnAtPoint(e.getPoint());
-                    if ((fila > -1) && (columna > -1)) {
-                        System.out.println(jtblResultados.getModel().getValueAt(fila, 0));
-                    }
-                }
-            }
-        });
+//        //Añadimos el evento de Doble Click al JTable
+//        jtblResultados.addMouseListener(new MouseAdapter() {
+//            public void mouseClicked(MouseEvent e) {                
+//            }
+//        });
     }
 
     private void buscarProducto() {
@@ -123,6 +130,7 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
                 //Se indica que el ResultSet no esta vacio
                 vacio = false;
             }
+            BusquedasBaseDatos.cerrar();
 
             if (vacio) {
                 JOptionPane.showMessageDialog(this, "No se encontro el producto.", "Uppsss!",
@@ -268,6 +276,11 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
         });
         jtblResultados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jtblResultados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtblResultados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblResultadosMouseClicked(evt);
+            }
+        });
         jspnResultados.setViewportView(jtblResultados);
 
         jpnlResultados.add(jspnResultados);
@@ -316,6 +329,26 @@ public class jdfBuscarProducto extends javax.swing.JDialog {
         buscarProducto();
         jtblResultados.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }//GEN-LAST:event_jbtnBuscarActionPerformed
+
+    private void jtblResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblResultadosMouseClicked
+        if (evt.getClickCount() > 1) {
+            int fila = jtblResultados.rowAtPoint(evt.getPoint());
+            int columna = jtblResultados.columnAtPoint(evt.getPoint());
+            if ((fila > -1) && (columna > -1)) {
+                producto.llenarDatos(BusquedasBaseDatos.buscarProductoDetallado(
+                        Integer.parseInt(jtblResultados.getModel().getValueAt(fila, 0).toString())));
+                BusquedasBaseDatos.cerrar();
+                switch (tipoMovimiento) {
+                    case 0:
+                        padreEntrada.setProducto(producto);
+                        break;
+                    case 1:
+                        padreSalida.setProducto(producto);
+                }
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_jtblResultadosMouseClicked
 
     /**
      * @param args the command line arguments

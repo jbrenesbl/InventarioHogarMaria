@@ -4,7 +4,14 @@
  */
 package Interfaz;
 
+import Clases.Auxiliares.BusquedasBaseDatos;
+import Clases.Auxiliares.HelpMethods;
+import Clases.Auxiliares.NoEditableTableModel;
 import Clases.Datos.Producto;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,13 +20,51 @@ import javax.swing.JOptionPane;
  */
 public class jdfMovimientoSalida extends javax.swing.JDialog {
 
-    /**
-     * Creates new form jdfMovimientoSalida
-     */
+    //Variables
+    Producto producto = null;
+    NoEditableTableModel modeloProductos = new NoEditableTableModel();
+
     public jdfMovimientoSalida(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        crearModeloTablaProductos();
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    private void crearModeloTablaProductos() {
+        jtblProductos.setModel(modeloProductos);
+        //Añadimos las columnas al modelo de la tabla
+        modeloProductos.addColumn("Código");
+        modeloProductos.addColumn("Nombre");
+        modeloProductos.addColumn("Categoría");
+        modeloProductos.addColumn("Unidad Medida");
+        modeloProductos.addColumn("Cantidad");
+    }
+
+    private void limpiarCampos() {
+        jtxtCodigo.setText("");
+        jtxtNombre.setText("");
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        modelo.addElement("");
+        jcbxCategoria.setModel(modelo);
+        jtxtUnidadMedida.setText("");
+        jtxtExistencia.setText("");
+        jtxtCantidad.setText("");
+    }
+
+    private void añadirProductoTabla() {
+        Object[] filaProducto = new Object[5];
+        filaProducto[0] = jtxtCodigo.getText();
+        filaProducto[1] = jtxtNombre.getText();
+        filaProducto[2] = jcbxCategoria.getSelectedItem().toString();
+        filaProducto[3] = jtxtUnidadMedida.getText();
+        filaProducto[4] = Double.parseDouble(jtxtCantidad.getText());
+        //Añadimos la fila al modelo
+        modeloProductos.addRow(filaProducto);
     }
 
     /**
@@ -152,12 +197,18 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
         jlblTituloCategoria.setPreferredSize(new java.awt.Dimension(61, 14));
 
         jcbxCategoria.setToolTipText("Categoría del Producto");
+        jcbxCategoria.setEnabled(false);
         jcbxCategoria.setPreferredSize(new java.awt.Dimension(190, 20));
 
         jlblTituloCantidad.setText("Cantidad:");
         jlblTituloCantidad.setPreferredSize(new java.awt.Dimension(57, 14));
 
         jtxtCantidad.setToolTipText("Cantidad a Retirar");
+        jtxtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtCantidadKeyPressed(evt);
+            }
+        });
 
         jlblTituloExistencia.setText("Existencia:");
         jlblTituloExistencia.setPreferredSize(new java.awt.Dimension(57, 14));
@@ -267,6 +318,11 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
             }
         });
         jtblProductos.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jtblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblProductosMouseClicked(evt);
+            }
+        });
         jspnProductos.setViewportView(jtblProductos);
 
         jlblDatosPorAplicar.add(jspnProductos);
@@ -311,9 +367,18 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarProductoActionPerformed
-        Producto producto = new Producto();
-        jdfBuscarProducto ventanaBuscarProducto = new jdfBuscarProducto(this, true, producto);
+        jdfBuscarProducto ventanaBuscarProducto = new jdfBuscarProducto(this, true, 1);
         ventanaBuscarProducto.setVisible(true);
+        if (this.producto != null) {
+            jtxtCodigo.setText("" + producto.getIdProducto());
+            jtxtNombre.setText(producto.getNombre());
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+            modelo.addElement(producto.getCategoria());
+            jcbxCategoria.setModel(modelo);
+            jtxtUnidadMedida.setText(producto.getUnidadMedida());
+            jtxtExistencia.setText("" + producto.getCantidad());
+            jtxtCantidad.requestFocus();
+        }
     }//GEN-LAST:event_jbtnBuscarProductoActionPerformed
 
     private void jbtnDescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDescartarActionPerformed
@@ -330,10 +395,31 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void jtxtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCantidadKeyPressed
+        if (evt.getKeyCode() == 10 && HelpMethods.isDouble(jtxtCantidad.getText())) {
+            if (Double.parseDouble(jtxtExistencia.getText()) >= Double.parseDouble(jtxtCantidad.getText())) {
+                añadirProductoTabla();
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "La cantidad a retirar es mayor que la existencia",
+                        "Verifique", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jtxtCantidadKeyPressed
+
+    private void jtblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblProductosMouseClicked
+        if (evt.getClickCount() > 1) {
+            int fila = jtblProductos.rowAtPoint(evt.getPoint());
+            int columna = jtblProductos.columnAtPoint(evt.getPoint());
+            if ((fila > -1) && (columna > -1)) {
+                modeloProductos.removeRow(fila);
+            }
+        }
+    }//GEN-LAST:event_jtblProductosMouseClicked
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -348,16 +434,32 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(jdfMovimientoSalida.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -371,7 +473,7 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+        public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });

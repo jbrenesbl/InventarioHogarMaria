@@ -12,13 +12,12 @@ import java.sql.ResultSet;
  */
 public class BusquedasBaseDatos 
 {
-    private static ConexionBaseDatos conexion;
+    private static ConexionBaseDatos conexion = new ConexionBaseDatos();
     
     //BUSCAR CATEGORIA
     public static ResultSet buscarCategorias()
     {
         //Ejecutar la consulta
-        conexion = new ConexionBaseDatos();
         if (conexion.abrirConexion())
         {
             ResultSet rs =conexion.obtenerDatos("SELECT DISTINCT Categoria FROM Productos "
@@ -36,7 +35,6 @@ public class BusquedasBaseDatos
     public static ResultSet buscarUnidadesMedida()
     {
         //Ejecutar la consulta
-        conexion = new ConexionBaseDatos();
         if (conexion.abrirConexion())
         {
             ResultSet rs =conexion.obtenerDatos("SELECT DISTINCT UnidadMedida FROM Productos "
@@ -97,7 +95,6 @@ public class BusquedasBaseDatos
         }
         
         //Ejecutar la consulta
-        conexion = new ConexionBaseDatos();
         if (conexion.abrirConexion())
         {
             ResultSet rs =conexion.obtenerDatos(sentenciaSQL.toString());
@@ -108,5 +105,27 @@ public class BusquedasBaseDatos
             conexion.cerrarConexion();
             return null;
         }
+    }
+    
+    //BUSCAR PRODUCTO BASICO
+    public static ResultSet buscarProductoDetallado(int codigo)
+    {
+        String sentenciaSQL = "SELECT * FROM Productos WHERE idProducto = " + codigo;
+        //Ejecutar la consulta
+        if (conexion.abrirConexion())
+        {
+            ResultSet rs =conexion.obtenerDatos(sentenciaSQL.toString());
+            return rs; 
+        }
+        else
+        {
+            conexion.cerrarConexion();
+            return null;
+        }
+    }
+    
+    public static void cerrar()
+    {
+        conexion.cerrarConexion();
     }
 }

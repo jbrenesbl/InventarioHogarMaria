@@ -1,6 +1,10 @@
 package Clases.Datos;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +27,6 @@ public class Producto {
     }
 
     //Metodos Get y Set de la clase
-    
     public double getCantidad() {
         return cantidad;
     }
@@ -94,5 +97,34 @@ public class Producto {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    //Llenar Datos del Producto en base a un ResultSet
+    public void llenarDatos(ResultSet rs) {
+        try {
+            rs.next();
+            setIdProducto(Integer.parseInt(rs.getObject(1).toString()));
+            setNombre(rs.getObject(2).toString());
+            setCategoria(rs.getObject(3).toString());
+            setUnidadMedida(rs.getObject(4).toString());
+            setCantidad(Double.parseDouble(rs.getObject(5).toString()));
+            setCantidadMinima(Double.parseDouble(rs.getObject(6).toString()));
+            //Formato de la Fecha Ultima Entrada
+            Calendar fechaFormateada = Calendar.getInstance();
+            fechaFormateada.set(Integer.parseInt(rs.getObject(7).toString().substring(0, 4)), 
+                    Integer.parseInt(rs.getObject(7).toString().substring(5, 7)) - 1, 
+                    Integer.parseInt(rs.getObject(7).toString().substring(8, 10)));
+            setUltimaEntrada(fechaFormateada);
+            //Formato de la Fecha Ultima Salida
+            fechaFormateada.set(Integer.parseInt(rs.getObject(8).toString().substring(0, 4)), 
+                    Integer.parseInt(rs.getObject(8).toString().substring(5, 7)) - 1, 
+                    Integer.parseInt(rs.getObject(8).toString().substring(8, 10)));
+            setUltimaSalida(fechaFormateada);
+            setEstado(rs.getObject(9).toString());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

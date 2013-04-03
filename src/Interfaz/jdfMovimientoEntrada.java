@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class jdfMovimientoEntrada extends javax.swing.JDialog {
 
+    //Varialbles
+    Producto producto = new Producto();
+    
     /**
      * Creates new form jdfMovimientoEntrada
      */
@@ -27,6 +30,11 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
     {
         jlblTituloCantidadMinima.setVisible(false);
         jtxtCantidadMinima.setVisible(false);
+    }
+    
+    public void setProducto(Producto producto)
+    {
+        this.producto = producto;
     }
 
     /**
@@ -417,8 +425,7 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void jbtnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarProductoActionPerformed
-        Producto producto = new Producto();
-        jdfBuscarProducto ventanaBuscarProducto = new jdfBuscarProducto(this, true, producto);
+        jdfBuscarProducto ventanaBuscarProducto = new jdfBuscarProducto(this, true, 0);
         ventanaBuscarProducto.setVisible(true);
     }//GEN-LAST:event_jbtnBuscarProductoActionPerformed
 

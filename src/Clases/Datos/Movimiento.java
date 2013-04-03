@@ -8,21 +8,24 @@ import java.util.Calendar;
  */
 public class Movimiento {
     //Variables de clase
+
     private int idMovimiento;
     private String tipo;
     private int idProducto;
     private double cantidad;
     private String observacion;
+    private int idProveedor;
     private String numeroFactura;
+    private Double monto;
+    private String numeroCheque;
     private String solicitante;
     private Calendar fechaMovimiento;
     private int idUsuario;
 
     public Movimiento() {
     }
-    
-    //Metodos Get y Set de la clase
 
+    //Metodos Get y Set de la clase
     public double getCantidad() {
         return cantidad;
     }
@@ -95,5 +98,28 @@ public class Movimiento {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
+
+    public int getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(int idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public Double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
+
+    public String getNumeroCheque() {
+        return numeroCheque;
+    }
+
+    public void setNumeroCheque(String numeroCheque) {
+        this.numeroCheque = numeroCheque;
+    }
 }
