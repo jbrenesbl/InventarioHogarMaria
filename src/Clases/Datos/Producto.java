@@ -1,5 +1,6 @@
 package Clases.Datos;
 
+import Clases.Auxiliares.ConexionBaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -111,20 +112,30 @@ public class Producto {
             setCantidadMinima(Double.parseDouble(rs.getObject(6).toString()));
             //Formato de la Fecha Ultima Entrada
             Calendar fechaFormateada = Calendar.getInstance();
-            fechaFormateada.set(Integer.parseInt(rs.getObject(7).toString().substring(0, 4)), 
-                    Integer.parseInt(rs.getObject(7).toString().substring(5, 7)) - 1, 
+            fechaFormateada.set(Integer.parseInt(rs.getObject(7).toString().substring(0, 4)),
+                    Integer.parseInt(rs.getObject(7).toString().substring(5, 7)) - 1,
                     Integer.parseInt(rs.getObject(7).toString().substring(8, 10)));
             setUltimaEntrada(fechaFormateada);
             //Formato de la Fecha Ultima Salida
-            fechaFormateada.set(Integer.parseInt(rs.getObject(8).toString().substring(0, 4)), 
-                    Integer.parseInt(rs.getObject(8).toString().substring(5, 7)) - 1, 
+            fechaFormateada.set(Integer.parseInt(rs.getObject(8).toString().substring(0, 4)),
+                    Integer.parseInt(rs.getObject(8).toString().substring(5, 7)) - 1,
                     Integer.parseInt(rs.getObject(8).toString().substring(8, 10)));
             setUltimaSalida(fechaFormateada);
             setEstado(rs.getObject(9).toString());
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public static String sentenciaActualizarExistencia(int codigo, Double cantidad, String tipo, String fecha) {
+        if (tipo.equals("Entrada")) {
+            return "UPDATE Productos SET Cantidad = " + cantidad + ", "
+                    + "UltimaEntrada = '" + fecha + "' WHERE idProducto = " + codigo;
+        } else {
+            return "UPDATE Productos SET Cantidad = " + cantidad + ", "
+                    + "UltimaSalida = '" + fecha + "' WHERE idProducto = " + codigo;
+        }
     }
 }

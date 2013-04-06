@@ -4,13 +4,12 @@
  */
 package Interfaz;
 
-import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.HelpMethods;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Datos.Movimiento;
 import Clases.Datos.Producto;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.ComboBoxModel;
+import java.util.Calendar;
+import java.util.TimeZone;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -28,11 +27,19 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setFechaActual();
         crearModeloTablaProductos();
     }
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+    
+    private void setFechaActual()
+    {
+        Calendar fecha = Calendar.getInstance(TimeZone.getTimeZone("GMT-6:00"));
+        jtxtFecha.setText(fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + 
+                fecha.get(Calendar.YEAR));
     }
 
     private void crearModeloTablaProductos() {
@@ -110,6 +117,7 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Salida de Productos");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -134,7 +142,7 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
         jlblTituloConsecutivo.setText("Consecutivo:");
         jpnDatosEntrada.add(jlblTituloConsecutivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, 73, -1));
 
-        jtxtConsecutivo.setText("236");
+        jtxtConsecutivo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtxtConsecutivo.setToolTipText("Consecutivo del Movimiento");
         jtxtConsecutivo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtConsecutivo.setEnabled(false);
@@ -143,7 +151,7 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
         jlblTituloFecha.setText("Fecha:");
         jpnDatosEntrada.add(jlblTituloFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 43, -1));
 
-        jtxtFecha.setText("11/01/2013");
+        jtxtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtxtFecha.setToolTipText("Fecha del Movimiento");
         jtxtFecha.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtFecha.setEnabled(false);
@@ -159,7 +167,7 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
         jpnDatosEntrada.add(jlblTituloEncargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 92, 65, -1));
 
         jtxtEncargado.setToolTipText("Encargado de la Salida");
-        jpnDatosEntrada.add(jtxtEncargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 89, 630, -1));
+        jpnDatosEntrada.add(jtxtEncargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 89, 160, -1));
 
         jpnPrincipal.add(jpnDatosEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 83, 750, 120));
 
@@ -331,6 +339,11 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
 
         jbtnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAplicar44x44.png"))); // NOI18N
         jbtnAplicar.setToolTipText("Aplicar Cambios");
+        jbtnAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAplicarActionPerformed(evt);
+            }
+        });
         jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 610, 48, 48));
 
         jbtnDescartar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnDescartar44x44.png"))); // NOI18N
@@ -396,12 +409,33 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void jtxtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCantidadKeyPressed
+        boolean estaProducto = false;
+        //Validacion - Doble Click y valor Doble
         if (evt.getKeyCode() == 10 && HelpMethods.isDouble(jtxtCantidad.getText())) {
+            //Validacion - Existencia >= Cantidad
             if (Double.parseDouble(jtxtExistencia.getText()) >= Double.parseDouble(jtxtCantidad.getText())) {
-                añadirProductoTabla();
-                limpiarCampos();
+                //Validacion - Prodcuto no esta en el grid.
+                for (int x = 0; x < modeloProductos.getRowCount(); x++)
+                {
+                    if (jtxtCodigo.getText().equals(modeloProductos.getValueAt(x, 0).toString()))
+                    {
+                        estaProducto = true;
+                        limpiarCampos();
+                        break;
+                    }               
+                }
+                if (!estaProducto)
+                {
+                    añadirProductoTabla();
+                    limpiarCampos();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "El producto ya se encuentra en la lista!",
+                        "Verifique", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "La cantidad a retirar es mayor que la existencia",
+                JOptionPane.showMessageDialog(this, "La cantidad del producto a retirar, es mayor que la existencia!",
                         "Verifique", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -416,6 +450,20 @@ public class jdfMovimientoSalida extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jtblProductosMouseClicked
+
+    private void jbtnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAplicarActionPerformed
+        //Asignamos los valores del movimiento
+        Movimiento movimientoSalida = new Movimiento();
+        movimientoSalida.setObservacion(jtxtObservacion.getText());        
+        movimientoSalida.setTipo("Salida");
+        movimientoSalida.setIdProveedor(1);
+        movimientoSalida.setNumeroFactura("");
+        movimientoSalida.setMonto(0.0);
+        movimientoSalida.setNumeroCheque("");
+        movimientoSalida.setUsuario(jtxtEncargado.getText());
+        //Llamamos al metodo de aplicacion
+        movimientoSalida.aplicarMovimientoSalida(modeloProductos, jtxtFecha.getText());
+    }//GEN-LAST:event_jbtnAplicarActionPerformed
 /**
  * @param args the command line arguments
  */

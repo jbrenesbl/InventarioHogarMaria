@@ -1,6 +1,9 @@
 package Clases.Datos;
 
+import Clases.Auxiliares.BusquedasBaseDatos;
+import Clases.Auxiliares.ConexionBaseDatos;
 import java.util.Calendar;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,36 +14,25 @@ public class Movimiento {
 
     private int idMovimiento;
     private String tipo;
-    private int idProducto;
-    private double cantidad;
     private String observacion;
     private int idProveedor;
     private String numeroFactura;
     private Double monto;
     private String numeroCheque;
-    private String solicitante;
     private Calendar fechaMovimiento;
-    private int idUsuario;
+    private String usuario;
 
     public Movimiento() {
     }
 
     //Metodos Get y Set de la clase
-    public double getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(double cantidad) {
-        this.cantidad = cantidad;
-    }
-
     public Calendar getFechaMovimiento() {
         return fechaMovimiento;
     }
 
-    public void setFechaMovimiento(int year, int month, int date, int hourOfDay, int minute, int second) {
+    public void setFechaMovimiento(int year, int month, int date) {
         this.fechaMovimiento = Calendar.getInstance();
-        this.fechaMovimiento.set(year, month, date, hourOfDay, minute, second);
+        this.fechaMovimiento.set(year, month, date);
     }
 
     public int getIdMovimiento() {
@@ -49,22 +41,6 @@ public class Movimiento {
 
     public void setIdMovimiento(int idMovimiento) {
         this.idMovimiento = idMovimiento;
-    }
-
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public String getNumeroFactura() {
@@ -81,14 +57,6 @@ public class Movimiento {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
-    }
-
-    public String getSolicitante() {
-        return solicitante;
-    }
-
-    public void setSolicitante(String solicitante) {
-        this.solicitante = solicitante;
     }
 
     public String getTipo() {
@@ -121,5 +89,90 @@ public class Movimiento {
 
     public void setNumeroCheque(String numeroCheque) {
         this.numeroCheque = numeroCheque;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public boolean aplicarMovimientoSalida(DefaultTableModel datosMovimiento, String fecha) {
+        ConexionBaseDatos conexion = new ConexionBaseDatos();
+        String sentenciaSQL;
+        //Separamos la fecha para darle formato
+        String[] fechaActualizacion = fecha.split("/");
+        String fechaFormateada = fechaActualizacion[2] + "-"
+                + fechaActualizacion[1] + "-"
+                + fechaActualizacion[0];
+
+        //Buscamos el numero de consecutivo a utilizar
+        int consecutivo = BusquedasBaseDatos.buscarConsecutivoMovimiento();
+        BusquedasBaseDatos.cerrar();
+
+        //Iniciamos con la actualizacion de los datos
+        if (conexion.abrirConexion()) {
+            //Iniciar la transacción
+            if (conexion.executeUpdate("BEGIN")) {
+                //Recorremos los datos en el modelo
+                for (int x = 0; x < datosMovimiento.getRowCount(); x++) {
+                    //Obtener la cantidad actual del producto en la fila "x"
+                    double cantidadActual = BusquedasBaseDatos.buscarCantidadProducto(
+                            Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()));
+                    BusquedasBaseDatos.cerrar();
+                    //Restamos cantidad actual - cantidad a extraer para actualizar la tabla Productos
+                    cantidadActual -= Double.parseDouble(datosMovimiento.getValueAt(x, 4).toString());
+                    //Obtenemos la sentencia SQL de actualizacion de la cantidad
+                    sentenciaSQL = Producto.sentenciaActualizarExistencia(
+                            Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()),
+                            cantidadActual, tipo, fechaFormateada);
+                    //Ejecutamos la actualizacion del producto
+                    if (!conexion.executeUpdate(sentenciaSQL)) {
+                        conexion.executeUpdate("ROLLBACK");
+                        conexion.cerrarConexion();
+                        return false;
+                    }
+                    //Creamos la sentencia del movimiento
+                    sentenciaSQL = "INSERT INTO hm_produccion.movimientos("
+                            + "idMovimiento, "
+                            + "Tipo, "
+                            + "idProducto, "
+                            + "Cantidad, "
+                            + "Observacion, "
+                            + "idProveedor, "
+                            + "NumeroFactura, "
+                            + "Monto, "
+                            + "NumeroCheque, "
+                            + "FechaMovimiento, "
+                            + "Usuario) VALUES ("
+                            + consecutivo + ", '"
+                            + tipo + "', "
+                            + datosMovimiento.getValueAt(x, 0).toString() + ", "
+                            + datosMovimiento.getValueAt(x, 4).toString() + ", '"
+                            + this.observacion + "', "
+                            + this.idProveedor + ", '"
+                            + this.numeroFactura + "', "
+                            + this.monto + ", '"
+                            + this.numeroCheque + "', '"
+                            + fechaFormateada + "', '"
+                            + this.usuario + "')";
+                    //Ejecutamos la actualizacion del movimiento
+                    if (!conexion.executeUpdate(sentenciaSQL)) {
+                        conexion.executeUpdate("ROLLBACK");
+                        conexion.cerrarConexion();
+                        return false;
+                    }
+                }
+                conexion.executeUpdate("COMMIT");
+                conexion.cerrarConexion();
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
     }
 }

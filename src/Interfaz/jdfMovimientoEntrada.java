@@ -159,7 +159,7 @@ public class jdfMovimientoEntrada extends javax.swing.JDialog {
                     .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
                         .addComponent(jlblTituloEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23)
-                        .addComponent(jtxtEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtxtEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpnDatosEntradaLayout.createSequentialGroup()
                         .addGroup(jpnDatosEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlblTituloConsecutivo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
