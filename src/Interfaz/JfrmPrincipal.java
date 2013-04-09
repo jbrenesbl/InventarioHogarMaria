@@ -60,6 +60,9 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmiConsultar = new javax.swing.JMenuItem();
         jmiMantenimiento = new javax.swing.JMenuItem();
         jmiBajoStock = new javax.swing.JMenuItem();
+        jmProveedores = new javax.swing.JMenu();
+        jmiNuevo = new javax.swing.JMenuItem();
+        jmiModificar = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -166,6 +169,29 @@ public class JfrmPrincipal extends javax.swing.JFrame {
 
         jmInventario.add(jmProductos);
 
+        jmProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Proveedores32x32.png"))); // NOI18N
+        jmProveedores.setText("Proveedores");
+
+        jmiNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/NuevoProveedor32x32.png"))); // NOI18N
+        jmiNuevo.setText("Nuevo");
+        jmiNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiNuevoActionPerformed(evt);
+            }
+        });
+        jmProveedores.add(jmiNuevo);
+
+        jmiModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ModificarProveedor32x32.png"))); // NOI18N
+        jmiModificar.setText("Modificar");
+        jmiModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiModificarActionPerformed(evt);
+            }
+        });
+        jmProveedores.add(jmiModificar);
+
+        jmInventario.add(jmProveedores);
+
         jmbMenuPrincipal.add(jmInventario);
 
         jmReportes.setText("Reportes");
@@ -209,6 +235,14 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private void jmiBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBajoStockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiBajoStockActionPerformed
+
+    private void jmiNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiNuevoActionPerformed
+
+    private void jmiModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,12 +291,15 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jmInventario;
     private javax.swing.JMenu jmMovimientos;
     private javax.swing.JMenu jmProductos;
+    private javax.swing.JMenu jmProveedores;
     private javax.swing.JMenu jmReportes;
     private javax.swing.JMenuBar jmbMenuPrincipal;
     private javax.swing.JMenuItem jmiBajoStock;
     private javax.swing.JMenuItem jmiConsultar;
     private javax.swing.JMenuItem jmiEntrada;
     private javax.swing.JMenuItem jmiMantenimiento;
+    private javax.swing.JMenuItem jmiModificar;
+    private javax.swing.JMenuItem jmiNuevo;
     private javax.swing.JMenuItem jmiSalida;
     private javax.swing.JPanel jpnlBarraEstado;
     private VistaJPanelConFondo.JPanelConFondo jpnlFondo;

@@ -41,7 +41,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
             //Llenamos el modelo del combobox
             DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
             while (rs.next()) {
-                modeloCombo.addElement(rs.getObject(1));
+                modeloCombo.addElement(rs.getObject(1).toString() + "-" + rs.getObject(2).toString());
             }
             jcbxProveedor.setModel(modeloCombo);
             //Cerramos la conexion
