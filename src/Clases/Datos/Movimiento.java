@@ -102,14 +102,14 @@ public class Movimiento {
     public boolean aplicarMovimientoSalida(DefaultTableModel datosMovimiento, String fecha) {
         ConexionBaseDatos conexion = new ConexionBaseDatos();
         String sentenciaSQL;
-        //Separamos la fecha para darle formato
+        //Separamos la fecha para darle formato yyy-mm-dd
         String[] fechaActualizacion = fecha.split("/");
         String fechaFormateada = fechaActualizacion[2] + "-"
                 + fechaActualizacion[1] + "-"
                 + fechaActualizacion[0];
 
         //Buscamos el numero de consecutivo a utilizar
-        int consecutivo = BusquedasBaseDatos.buscarConsecutivoMovimiento();
+        int consecutivo = BusquedasBaseDatos.buscarProximoConsecutivoMovimiento();
         BusquedasBaseDatos.cerrar();
 
         //Iniciamos con la actualizacion de los datos
@@ -151,11 +151,11 @@ public class Movimiento {
                             + tipo + "', "
                             + datosMovimiento.getValueAt(x, 0).toString() + ", "
                             + datosMovimiento.getValueAt(x, 4).toString() + ", '"
-                            + this.observacion + "', "
+                            + this.observacion.replace("'", "''") + "', "
                             + this.idProveedor + ", '"
-                            + this.numeroFactura + "', "
+                            + this.numeroFactura.replace("'", "''") + "', "
                             + this.monto + ", '"
-                            + this.numeroCheque + "', '"
+                            + this.numeroCheque.replace("'", "''") + "', '"
                             + fechaFormateada + "', '"
                             + this.usuario + "')";
                     //Ejecutamos la actualizacion del movimiento
@@ -167,12 +167,12 @@ public class Movimiento {
                 }
                 conexion.executeUpdate("COMMIT");
                 conexion.cerrarConexion();
+                return true;
             } else {
                 return false;
             }
         } else {
             return false;
-        }
-        return true;
+        }        
     }
 }

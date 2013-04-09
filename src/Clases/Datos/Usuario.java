@@ -14,7 +14,9 @@ public class Usuario {
     private String usuario;
     private String rol;
 
-    public Usuario(String usuario) {
+    public Usuario() {
+        usuario = "";
+        rol = "";
     }
 
     //Metodos Get y Set de la clase

@@ -6,8 +6,6 @@ package Clases.Auxiliares;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -16,13 +14,41 @@ import java.util.logging.Logger;
 public class BusquedasBaseDatos {
 
     private static ConexionBaseDatos conexion = new ConexionBaseDatos();
+    
+    //BUSCAR USUARIO
+    public static ResultSet buscarUsuario(String usuario, String password)
+    {
+        //Ejecutamos la consulta
+        if (conexion.abrirConexion()) {
+            ResultSet rs = conexion.obtenerDatos("SELECT Usuario, Rol FROM Usuarios "
+                    + "WHERE Usuario = '" + usuario + "' AND Password = '" + password + "'");
+            return rs;
+        } else {
+            conexion.cerrarConexion();
+            return null;
+        }
+    }
 
-    //BUSCAR CATEGORIA
+    //BUSCAR CATEGORIAS
     public static ResultSet buscarCategorias() {
         //Ejecutar la consulta
         if (conexion.abrirConexion()) {
             ResultSet rs = conexion.obtenerDatos("SELECT DISTINCT Categoria FROM Productos "
                     + "ORDER BY Categoria ASC");
+            return rs;
+        } else {
+            conexion.cerrarConexion();
+            return null;
+        }
+    }
+    
+    //BUSCAR PROVEEDORES
+    public static ResultSet buscarProveedores() {
+        //Ejecutar la consulta
+        if (conexion.abrirConexion()) {
+            ResultSet rs = conexion.obtenerDatos("SELECT NombreProveedor FROM Proveedores "
+                    + "WHERE Idproveedor > 1 "
+                    + "ORDER BY NombreProveedor ASC");
             return rs;
         } else {
             conexion.cerrarConexion();
@@ -102,8 +128,8 @@ public class BusquedasBaseDatos {
         }
     }
 
-    //BUSCAR CONSECUTIVO MOVIMIENTO
-    public static int buscarConsecutivoMovimiento() {
+    //BUSCAR PROXIMO CONSECUTIVO MOVIMIENTO
+    public static int buscarProximoConsecutivoMovimiento() {
         String sentenciaSQL = "SELECT MAX(idMovimiento) FROM Movimientos";
         //Ejecutar la consulta
         if (conexion.abrirConexion()) {
@@ -116,6 +142,32 @@ public class BusquedasBaseDatos {
                  */
                 if (rs.getObject(1) != null) {
                     return (Integer.parseInt(rs.getObject(1).toString()) + 1);
+                } else {
+                    return 1;
+                }
+            } catch (SQLException ex) {
+                return 0;
+            }
+        } else {
+            conexion.cerrarConexion();
+            return 0;
+        }
+    }
+    
+    //BUSCAR ULTIMO CONSECUTIVO MOVIMIENTO
+    public static int buscarUltimoConsecutivoMovimiento() {
+        String sentenciaSQL = "SELECT MAX(idMovimiento) FROM Movimientos";
+        //Ejecutar la consulta
+        if (conexion.abrirConexion()) {
+            try {
+                ResultSet rs = conexion.obtenerDatos(sentenciaSQL.toString());
+                rs.next();
+                /*
+                 * Verificamos el valor maximo en la tabla de movimientos Si no hay,
+                 * se devuelve 1 Si hay, se le suma 1
+                 */
+                if (rs.getObject(1) != null) {
+                    return (Integer.parseInt(rs.getObject(1).toString()));
                 } else {
                     return 1;
                 }
