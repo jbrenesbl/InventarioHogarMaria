@@ -68,7 +68,7 @@ public class JdlgLogin extends javax.swing.JFrame {
         jbtnEntrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Entrar");
+        setTitle("Sistema de Inventario - Entrar");
         setResizable(false);
 
         jpnlPrincipal.setImagen("/Imagenes/Background.jpg");

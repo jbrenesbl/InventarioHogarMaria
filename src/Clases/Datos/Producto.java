@@ -110,23 +110,31 @@ public class Producto {
             setUnidadMedida(rs.getObject(4).toString());
             setCantidad(Double.parseDouble(rs.getObject(5).toString()));
             setCantidadMinima(Double.parseDouble(rs.getObject(6).toString()));
-            //Formato de la Fecha Ultima Entrada
             Calendar fechaFormateada = Calendar.getInstance();
-            fechaFormateada.set(Integer.parseInt(rs.getObject(7).toString().substring(0, 4)),
-                    Integer.parseInt(rs.getObject(7).toString().substring(5, 7)) - 1,
-                    Integer.parseInt(rs.getObject(7).toString().substring(8, 10)));
-            setUltimaEntrada(fechaFormateada);
-            //Formato de la Fecha Ultima Salida
-            fechaFormateada.set(Integer.parseInt(rs.getObject(8).toString().substring(0, 4)),
-                    Integer.parseInt(rs.getObject(8).toString().substring(5, 7)) - 1,
-                    Integer.parseInt(rs.getObject(8).toString().substring(8, 10)));
-            setUltimaSalida(fechaFormateada);
+            if (rs.getObject(7) != null) {
+                //Formato de la Fecha Ultima Entrada            
+                fechaFormateada.set(Integer.parseInt(rs.getObject(7).toString().substring(0, 4)),
+                        Integer.parseInt(rs.getObject(7).toString().substring(5, 7)) - 1,
+                        Integer.parseInt(rs.getObject(7).toString().substring(8, 10)));
+                setUltimaEntrada(fechaFormateada);
+            } else {
+                setUltimaEntrada(null);
+            }
+            if (rs.getObject(8) != null) {
+                //Formato de la Fecha Ultima Salida
+                fechaFormateada.set(Integer.parseInt(rs.getObject(8).toString().substring(0, 4)),
+                        Integer.parseInt(rs.getObject(8).toString().substring(5, 7)) - 1,
+                        Integer.parseInt(rs.getObject(8).toString().substring(8, 10)));
+                setUltimaSalida(fechaFormateada);
+            } else
+            {
+                setUltimaSalida(null);
+            }
             setEstado(rs.getObject(9).toString());
 
         } catch (SQLException ex) {
             Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static String sentenciaActualizarExistencia(int codigo, Double cantidad, String tipo, String fecha) {
@@ -136,6 +144,38 @@ public class Producto {
         } else {
             return "UPDATE Productos SET Cantidad = " + cantidad + ", "
                     + "UltimaSalida = '" + fecha + "' WHERE idProducto = " + codigo;
+        }
+    }
+
+    public boolean insertarProducto() {
+        ConexionBaseDatos conexion = new ConexionBaseDatos();
+        if (conexion.abrirConexion()) {
+            try {
+                String sentenciaSQL = "INSERT INTO productos ("
+                        + "Nombre, "
+                        + "Categoria, "
+                        + "UnidadMedida, "
+                        + "Cantidad, "
+                        + "CantidadMinima, "
+                        + "Estado) "
+                        + "VALUES ('"
+                        + nombre.replace("'", "''") + "', '"
+                        + categoria.replace("'", "''") + "', '"
+                        + unidadMedida.replace("'", "''") + "', "
+                        + "0, "
+                        + cantidadMinima + ", '"
+                        + "Activo')";
+                if (conexion.executeUpdate(sentenciaSQL)) {
+                    conexion.cerrarConexion();
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 }

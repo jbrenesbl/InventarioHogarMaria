@@ -66,7 +66,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmReportes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Hogar María");
+        setTitle("Sistema de Inventario - Fundación María");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
 
         jpnlFondo.setAlignmentX(0.0F);

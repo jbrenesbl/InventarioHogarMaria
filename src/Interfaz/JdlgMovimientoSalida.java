@@ -13,7 +13,6 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 
 /**
  *
@@ -426,27 +425,38 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
 
     private void jtxtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCantidadKeyPressed
         boolean estaProducto = false;
-        //Validacion - Doble Click y valor Doble
-        if (evt.getKeyCode() == 10 && HelpMethods.isDouble(jtxtCantidad.getText())) {
-            //Validacion - Existencia >= Cantidad
-            if (Double.parseDouble(jtxtExistencia.getText()) >= Double.parseDouble(jtxtCantidad.getText())) {
-                //Validacion - Prodcuto no esta en el grid.
-                for (int x = 0; x < modeloProductos.getRowCount(); x++) {
-                    if (jtxtCodigo.getText().equals(modeloProductos.getValueAt(x, 0).toString())) {
-                        estaProducto = true;
-                        limpiarCampos();
-                        break;
+        if (evt.getKeyCode() == 10) {
+            //Validacion - Cantidad de tipo Doble
+            if (HelpMethods.isDouble(jtxtCantidad.getText())) {
+                //Validacion - Existencia >= Cantidad
+                if (Double.parseDouble(jtxtExistencia.getText()) >= Double.parseDouble(jtxtCantidad.getText())) {
+                    //Validacion - Cantidad > 0
+                    if (Double.parseDouble(jtxtCantidad.getText()) > 0) {
+                        //Validacion - Producto no esta en el grid.
+                        for (int x = 0; x < modeloProductos.getRowCount(); x++) {
+                            if (jtxtCodigo.getText().equals(modeloProductos.getValueAt(x, 0).toString())) {
+                                estaProducto = true;
+                                limpiarCampos();
+                                break;
+                            }
+                        }
+                        if (!estaProducto) {
+                            añadirProductoTabla();
+                            limpiarCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "El producto ya se encuentra en la lista!",
+                                    "Verifique", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "La cantidad no puede ser cero!",
+                                "Verifique", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                if (!estaProducto) {
-                    añadirProductoTabla();
-                    limpiarCampos();
                 } else {
-                    JOptionPane.showMessageDialog(this, "El producto ya se encuentra en la lista!",
+                    JOptionPane.showMessageDialog(this, "La cantidad del producto a retirar, es mayor que la existencia!",
                             "Verifique", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "La cantidad del producto a retirar, es mayor que la existencia!",
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser un numero!",
                         "Verifique", JOptionPane.ERROR_MESSAGE);
             }
         }

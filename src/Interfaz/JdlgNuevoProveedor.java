@@ -4,6 +4,9 @@
  */
 package Interfaz;
 
+import Clases.Datos.Proveedor;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author JoBren8
@@ -11,11 +14,25 @@ package Interfaz;
 public class JdlgNuevoProveedor extends javax.swing.JDialog {
 
     //Variables
-    
-    
+    Proveedor proveedor = new Proveedor();
+
     public JdlgNuevoProveedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null); //Centrar Ventana
+    }
+
+    //Constructor para ser llamado desde un JDialog
+    public JdlgNuevoProveedor(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(null); //Centrar Ventana
+    }
+
+    private boolean añadirProveedor() {
+        proveedor.setNombreProveedor(jtxtNombreProveedor.getText());
+        proveedor.setTelefono(jtxtTelefono.getText());
+        return proveedor.insertarProveedor();
     }
 
     /**
@@ -30,69 +47,69 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
         jpnlPincipal = new javax.swing.JPanel();
         jpnlTitulo = new javax.swing.JPanel();
         jlblTitulo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jpnlContenedor = new javax.swing.JPanel();
+        jlblTituloNombreProveedor = new javax.swing.JLabel();
+        jtxtNombreProveedor = new javax.swing.JTextField();
+        jlblTituloTelefono = new javax.swing.JLabel();
+        jtxtTelefono = new javax.swing.JTextField();
+        jbtnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo Proveedor");
         setResizable(false);
 
-        jpnlTitulo.setLayout(new java.awt.GridLayout());
+        jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblTitulo.setText("Nuevo Proveedor");
         jpnlTitulo.add(jlblTitulo);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlContenedor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("Nombre del Proveedor:");
+        jlblTituloNombreProveedor.setText("Nombre del Proveedor:");
 
-        jLabel2.setText("Teléfono:");
+        jlblTituloTelefono.setText("Teléfono:");
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnAceptar.setText("Aceptar");
+        jbtnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtnAceptarActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpnlContenedorLayout = new javax.swing.GroupLayout(jpnlContenedor);
+        jpnlContenedor.setLayout(jpnlContenedorLayout);
+        jpnlContenedorLayout.setHorizontalGroup(
+            jpnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlContenedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
+                .addGroup(jpnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbtnAceptar)
+                    .addGroup(jpnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jpnlContenedorLayout.createSequentialGroup()
+                            .addComponent(jlblTituloNombreProveedor)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
+                            .addComponent(jtxtNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpnlContenedorLayout.createSequentialGroup()
+                            .addComponent(jlblTituloTelefono)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jtxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jpnlContenedorLayout.setVerticalGroup(
+            jpnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlContenedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(jpnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlblTituloNombreProveedor)
+                    .addComponent(jtxtNombreProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlblTituloTelefono)
+                    .addComponent(jtxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnAceptar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -105,7 +122,7 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
                 .addGroup(jpnlPincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpnlPincipalLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jpnlContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -115,7 +132,7 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jpnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnlContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -133,9 +150,16 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jbtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAceptarActionPerformed
+        if (añadirProveedor()) {
+            JOptionPane.showMessageDialog(this, "Proveedor agregado!", "Listo!",
+                    JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha podido agregar el proveedor", "Uuupppsss!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbtnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,14 +211,14 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton jbtnAceptar;
     private javax.swing.JLabel jlblTitulo;
+    private javax.swing.JLabel jlblTituloNombreProveedor;
+    private javax.swing.JLabel jlblTituloTelefono;
+    private javax.swing.JPanel jpnlContenedor;
     private javax.swing.JPanel jpnlPincipal;
     private javax.swing.JPanel jpnlTitulo;
+    private javax.swing.JTextField jtxtNombreProveedor;
+    private javax.swing.JTextField jtxtTelefono;
     // End of variables declaration//GEN-END:variables
 }
