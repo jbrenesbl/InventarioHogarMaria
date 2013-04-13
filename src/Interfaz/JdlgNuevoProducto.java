@@ -217,7 +217,7 @@ public class JdlgNuevoProducto extends javax.swing.JDialog {
 
     private void jbtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAceptarActionPerformed
         if (añadirProducto()) {
-            JOptionPane.showMessageDialog(this, "Prodcuto agregado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Producto agregado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "No se ha podido agregar el producto", "Uuupppsss!",

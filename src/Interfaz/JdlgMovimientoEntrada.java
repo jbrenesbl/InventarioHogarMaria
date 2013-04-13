@@ -7,6 +7,7 @@ package Interfaz;
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.HelpMethods;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Datos.Movimiento;
 import Clases.Datos.Producto;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -60,7 +61,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         //USUARIO
         jtxtEncargado.setText(((JfrmPrincipal) super.getParent()).getUsuarioActual().getUsuario());
     }
-    
+
     private void crearModeloTablaProductos() {
         jtblProductos.setModel(modeloProductos);
         //Añadimos las columnas al modelo de la tabla
@@ -79,6 +80,19 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         jcbxCategoria.setModel(modelo);
         jtxtUnidadMedida.setText("");
         jtxtCantidad.setText("");
+    }
+    
+    private void deshabilitarControles() {
+        jtxtFactura.setEnabled(false);
+        jcbxProveedor.setEnabled(false);
+        jbtnNuevoProveedor.setEnabled(false);
+        jtxtMonto.setEnabled(false);
+        jtxtObservacion.setEnabled(false);
+        jtxtCantidad.setEnabled(false);
+        jbtnNuevoProducto.setEnabled(false);
+        jbtnBuscarProducto.setEnabled(false);
+        jbtnAplicar.setEnabled(false);
+        jbtnDescartar.setEnabled(false);
     }
 
     private void añadirProductoTabla() {
@@ -380,11 +394,9 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jlblTituloCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)
-                                .addComponent(jtxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(85, 85, 85))
-                            .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
-                                .addComponent(jtxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12))))
+                                .addComponent(jtxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12))
                     .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
                         .addGroup(jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
@@ -466,6 +478,11 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
 
         jbtnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAplicar44x44.png"))); // NOI18N
         jbtnAplicar.setToolTipText("Aplicar Cambios");
+        jbtnAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAplicarActionPerformed(evt);
+            }
+        });
         jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 620, 48, 48));
 
         jbtnDescartar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnDescartar44x44.png"))); // NOI18N
@@ -553,6 +570,35 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         JdlgNuevoProducto ventanaNuevoProducto = new JdlgNuevoProducto(this, true);
         ventanaNuevoProducto.setVisible(true);
     }//GEN-LAST:event_jbtnNuevoProductoActionPerformed
+
+    private void jbtnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAplicarActionPerformed
+        JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
+                jtxtEncargado.getText());
+        ventanaConfirmar.setVisible(true);
+
+        if (confirmarPermiso) {
+            //Asignamos los valores del movimiento
+            Movimiento movimientoSalida = new Movimiento();
+            movimientoSalida.setObservacion(jtxtObservacion.getText());
+            movimientoSalida.setTipo("Entrada");
+            //Obtener el proveedor
+            String[] datosProveedor = jcbxProveedor.getSelectedItem().toString().split(" - ");
+            movimientoSalida.setIdProveedor(Integer.parseInt(datosProveedor[0]));
+            movimientoSalida.setNumeroFactura(jtxtFactura.getText());
+            movimientoSalida.setMonto(Double.parseDouble(jtxtMonto.getText()));
+            movimientoSalida.setNumeroCheque("");
+            movimientoSalida.setUsuario(jtxtEncargado.getText());
+
+            //Llamamos al metodo de aplicacion
+            if (movimientoSalida.aplicarMovimientoEntrada(modeloProductos, jtxtFecha.getText())) {
+                jtxtConsecutivo.setText("" + BusquedasBaseDatos.buscarUltimoConsecutivoMovimiento());
+                BusquedasBaseDatos.cerrar();
+                deshabilitarControles();
+                JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito", "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        confirmarPermiso = false;
+    }//GEN-LAST:event_jbtnAplicarActionPerformed
     /**
      * @param args the command line arguments
      */

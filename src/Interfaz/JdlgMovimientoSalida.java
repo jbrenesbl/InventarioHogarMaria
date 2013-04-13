@@ -479,17 +479,17 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
 
         if (confirmarPermiso) {
             //Asignamos los valores del movimiento
-            Movimiento movimientoSalida = new Movimiento();
-            movimientoSalida.setObservacion(jtxtObservacion.getText());
-            movimientoSalida.setTipo("Salida");
-            movimientoSalida.setIdProveedor(1);
-            movimientoSalida.setNumeroFactura("");
-            movimientoSalida.setMonto(0.0);
-            movimientoSalida.setNumeroCheque("");
-            movimientoSalida.setUsuario(jtxtEncargado.getText());
+            Movimiento movimientoEntrada = new Movimiento();
+            movimientoEntrada.setObservacion(jtxtObservacion.getText());
+            movimientoEntrada.setTipo("Salida");
+            movimientoEntrada.setIdProveedor(1);
+            movimientoEntrada.setNumeroFactura("");
+            movimientoEntrada.setMonto(0.0);
+            movimientoEntrada.setNumeroCheque("");
+            movimientoEntrada.setUsuario(jtxtEncargado.getText());
 
             //Llamamos al metodo de aplicacion
-            if (movimientoSalida.aplicarMovimientoSalida(modeloProductos, jtxtFecha.getText())) {
+            if (movimientoEntrada.aplicarMovimientoSalida(modeloProductos, jtxtFecha.getText())) {
                 jtxtConsecutivo.setText("" + BusquedasBaseDatos.buscarUltimoConsecutivoMovimiento());
                 BusquedasBaseDatos.cerrar();
                 deshabilitarControles();

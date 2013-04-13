@@ -175,4 +175,81 @@ public class Movimiento {
             return false;
         }        
     }
+    
+    public boolean aplicarMovimientoEntrada(DefaultTableModel datosMovimiento, String fecha) {
+        ConexionBaseDatos conexion = new ConexionBaseDatos();
+        String sentenciaSQL;
+        //Separamos la fecha para darle formato yyy-mm-dd
+        String[] fechaActualizacion = fecha.split("/");
+        String fechaFormateada = fechaActualizacion[2] + "-"
+                + fechaActualizacion[1] + "-"
+                + fechaActualizacion[0];
+
+        //Buscamos el numero de consecutivo a utilizar
+        int consecutivo = BusquedasBaseDatos.buscarProximoConsecutivoMovimiento();
+        BusquedasBaseDatos.cerrar();
+
+        //Iniciamos con la actualizacion de los datos
+        if (conexion.abrirConexion()) {
+            //Iniciar la transacción
+            if (conexion.executeUpdate("BEGIN")) {
+                //Recorremos los datos en el modelo
+                for (int x = 0; x < datosMovimiento.getRowCount(); x++) {
+                    //Obtener la cantidad actual del producto en la fila "x"
+                    double cantidadActual = BusquedasBaseDatos.buscarCantidadProducto(
+                            Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()));
+                    BusquedasBaseDatos.cerrar();
+                    //Restamos cantidad actual - cantidad a extraer para actualizar la tabla Productos
+                    cantidadActual += Double.parseDouble(datosMovimiento.getValueAt(x, 4).toString());
+                    //Obtenemos la sentencia SQL de actualizacion de la cantidad
+                    sentenciaSQL = Producto.sentenciaActualizarExistencia(
+                            Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()),
+                            cantidadActual, tipo, fechaFormateada);
+                    //Ejecutamos la actualizacion del producto
+                    if (!conexion.executeUpdate(sentenciaSQL)) {
+                        conexion.executeUpdate("ROLLBACK");
+                        conexion.cerrarConexion();
+                        return false;
+                    }
+                    //Creamos la sentencia del movimiento
+                    sentenciaSQL = "INSERT INTO hm_produccion.movimientos("
+                            + "idMovimiento, "
+                            + "Tipo, "
+                            + "idProducto, "
+                            + "Cantidad, "
+                            + "Observacion, "
+                            + "idProveedor, "
+                            + "NumeroFactura, "
+                            + "Monto, "
+                            + "NumeroCheque, "
+                            + "FechaMovimiento, "
+                            + "Usuario) VALUES ("
+                            + consecutivo + ", '"
+                            + tipo + "', "
+                            + datosMovimiento.getValueAt(x, 0).toString() + ", "
+                            + datosMovimiento.getValueAt(x, 4).toString() + ", '"
+                            + this.observacion.replace("'", "''") + "', "
+                            + this.idProveedor + ", '"
+                            + this.numeroFactura.replace("'", "''") + "', "
+                            + this.monto + ", '"
+                            + this.numeroCheque.replace("'", "''") + "', '"
+                            + fechaFormateada + "', '"
+                            + this.usuario + "')";
+                    //Ejecutamos la actualizacion del movimiento
+                    if (!conexion.executeUpdate(sentenciaSQL)) {
+                        conexion.executeUpdate("ROLLBACK");
+                        conexion.cerrarConexion();
+                        return false;
+                    }
+                }
+                conexion.executeUpdate("COMMIT");
+                conexion.cerrarConexion();
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }        
+    }
 }
