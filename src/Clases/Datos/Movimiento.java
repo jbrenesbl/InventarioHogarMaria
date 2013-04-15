@@ -173,9 +173,9 @@ public class Movimiento {
             }
         } else {
             return false;
-        }        
+        }
     }
-    
+
     public boolean aplicarMovimientoEntrada(DefaultTableModel datosMovimiento, String fecha) {
         ConexionBaseDatos conexion = new ConexionBaseDatos();
         String sentenciaSQL;
@@ -195,6 +195,7 @@ public class Movimiento {
             if (conexion.executeUpdate("BEGIN")) {
                 //Recorremos los datos en el modelo
                 for (int x = 0; x < datosMovimiento.getRowCount(); x++) {
+
                     //Obtener la cantidad actual del producto en la fila "x"
                     double cantidadActual = BusquedasBaseDatos.buscarCantidadProducto(
                             Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()));
@@ -205,12 +206,28 @@ public class Movimiento {
                     sentenciaSQL = Producto.sentenciaActualizarExistencia(
                             Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()),
                             cantidadActual, tipo, fechaFormateada);
-                    //Ejecutamos la actualizacion del producto
+                    //Ejecutamos la actualizacion de cantidad del producto
                     if (!conexion.executeUpdate(sentenciaSQL)) {
                         conexion.executeUpdate("ROLLBACK");
                         conexion.cerrarConexion();
                         return false;
                     }
+
+                    //Verificamos el estado del producto
+                    String estadoProducto = BusquedasBaseDatos.buscarEstadoProducto(
+                            Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()));
+                    BusquedasBaseDatos.cerrar();
+                    if (estadoProducto.equals("Inactivo")) {
+                        sentenciaSQL = Producto.sentenciaActualizarEstado(
+                                Integer.parseInt(datosMovimiento.getValueAt(x, 0).toString()), "Activo");
+                        //Ejecutamos la actualizacion de estado del producto
+                        if (!conexion.executeUpdate(sentenciaSQL)) {
+                            conexion.executeUpdate("ROLLBACK");
+                            conexion.cerrarConexion();
+                            return false;
+                        }
+                    }
+
                     //Creamos la sentencia del movimiento
                     sentenciaSQL = "INSERT INTO hm_produccion.movimientos("
                             + "idMovimiento, "
@@ -250,6 +267,6 @@ public class Movimiento {
             }
         } else {
             return false;
-        }        
+        }
     }
 }

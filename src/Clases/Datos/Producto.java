@@ -146,6 +146,12 @@ public class Producto {
                     + "UltimaSalida = '" + fecha + "' WHERE idProducto = " + codigo;
         }
     }
+    
+    public static String sentenciaActualizarEstado(int codigo, String estado)
+    {
+        return "UPDATE Productos SET Estado = '" + estado + "' "
+                    + "WHERE idProducto = " + codigo;
+    }
 
     public boolean insertarProducto() {
         ConexionBaseDatos conexion = new ConexionBaseDatos();

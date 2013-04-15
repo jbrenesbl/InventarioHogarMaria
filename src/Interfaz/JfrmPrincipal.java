@@ -54,15 +54,15 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmbMenuPrincipal = new javax.swing.JMenuBar();
         jmInventario = new javax.swing.JMenu();
         jmMovimientos = new javax.swing.JMenu();
-        jmiEntrada = new javax.swing.JMenuItem();
-        jmiSalida = new javax.swing.JMenuItem();
+        jmiMovimientoEntrada = new javax.swing.JMenuItem();
+        jmiMovimientoSalida = new javax.swing.JMenuItem();
         jmProductos = new javax.swing.JMenu();
-        jmiConsultar = new javax.swing.JMenuItem();
-        jmiMantenimiento = new javax.swing.JMenuItem();
-        jmiBajoStock = new javax.swing.JMenuItem();
+        jmiProductoConsultar = new javax.swing.JMenuItem();
+        jmiProductoMantenimiento = new javax.swing.JMenuItem();
+        jmiproductoBajoStock = new javax.swing.JMenuItem();
         jmProveedores = new javax.swing.JMenu();
-        jmiNuevo = new javax.swing.JMenuItem();
-        jmiModificar = new javax.swing.JMenuItem();
+        jmiProveedorNuevo = new javax.swing.JMenuItem();
+        jmiProveedorModificar = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,78 +117,78 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmMovimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMovimiento32x32.png"))); // NOI18N
         jmMovimientos.setText("Movimientos");
 
-        jmiEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEntrada32x32.png"))); // NOI18N
-        jmiEntrada.setText("Entrada");
-        jmiEntrada.addActionListener(new java.awt.event.ActionListener() {
+        jmiMovimientoEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEntrada32x32.png"))); // NOI18N
+        jmiMovimientoEntrada.setText("Entrada");
+        jmiMovimientoEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiEntradaActionPerformed(evt);
+                jmiMovimientoEntradaActionPerformed(evt);
             }
         });
-        jmMovimientos.add(jmiEntrada);
+        jmMovimientos.add(jmiMovimientoEntrada);
 
-        jmiSalida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnSalida32x32.png"))); // NOI18N
-        jmiSalida.setText("Salida");
-        jmiSalida.addActionListener(new java.awt.event.ActionListener() {
+        jmiMovimientoSalida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnSalida32x32.png"))); // NOI18N
+        jmiMovimientoSalida.setText("Salida");
+        jmiMovimientoSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiSalidaActionPerformed(evt);
+                jmiMovimientoSalidaActionPerformed(evt);
             }
         });
-        jmMovimientos.add(jmiSalida);
+        jmMovimientos.add(jmiMovimientoSalida);
 
         jmInventario.add(jmMovimientos);
 
         jmProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnProductos32x32.png"))); // NOI18N
         jmProductos.setText("Productos");
 
-        jmiConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnConsultarProductos32x32.png"))); // NOI18N
-        jmiConsultar.setText("Consultar");
-        jmiConsultar.addActionListener(new java.awt.event.ActionListener() {
+        jmiProductoConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnConsultarProductos32x32.png"))); // NOI18N
+        jmiProductoConsultar.setText("Consultar");
+        jmiProductoConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiConsultarActionPerformed(evt);
+                jmiProductoConsultarActionPerformed(evt);
             }
         });
-        jmProductos.add(jmiConsultar);
+        jmProductos.add(jmiProductoConsultar);
 
-        jmiMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMantenimientoProductos32x32.png"))); // NOI18N
-        jmiMantenimiento.setText("Mantenimiento");
-        jmiMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+        jmiProductoMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMantenimientoProductos32x32.png"))); // NOI18N
+        jmiProductoMantenimiento.setText("Mantenimiento");
+        jmiProductoMantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiMantenimientoActionPerformed(evt);
+                jmiProductoMantenimientoActionPerformed(evt);
             }
         });
-        jmProductos.add(jmiMantenimiento);
+        jmProductos.add(jmiProductoMantenimiento);
 
-        jmiBajoStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBajoStock32x32.png"))); // NOI18N
-        jmiBajoStock.setText("Bajo Stock");
-        jmiBajoStock.addActionListener(new java.awt.event.ActionListener() {
+        jmiproductoBajoStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBajoStock32x32.png"))); // NOI18N
+        jmiproductoBajoStock.setText("Bajo Stock");
+        jmiproductoBajoStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiBajoStockActionPerformed(evt);
+                jmiproductoBajoStockActionPerformed(evt);
             }
         });
-        jmProductos.add(jmiBajoStock);
+        jmProductos.add(jmiproductoBajoStock);
 
         jmInventario.add(jmProductos);
 
         jmProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Proveedores32x32.png"))); // NOI18N
         jmProveedores.setText("Proveedores");
 
-        jmiNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/NuevoProveedor32x32.png"))); // NOI18N
-        jmiNuevo.setText("Nuevo");
-        jmiNuevo.addActionListener(new java.awt.event.ActionListener() {
+        jmiProveedorNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/NuevoProveedor32x32.png"))); // NOI18N
+        jmiProveedorNuevo.setText("Nuevo");
+        jmiProveedorNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiNuevoActionPerformed(evt);
+                jmiProveedorNuevoActionPerformed(evt);
             }
         });
-        jmProveedores.add(jmiNuevo);
+        jmProveedores.add(jmiProveedorNuevo);
 
-        jmiModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ModificarProveedor32x32.png"))); // NOI18N
-        jmiModificar.setText("Modificar");
-        jmiModificar.addActionListener(new java.awt.event.ActionListener() {
+        jmiProveedorModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ModificarProveedor32x32.png"))); // NOI18N
+        jmiProveedorModificar.setText("Modificar");
+        jmiProveedorModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiModificarActionPerformed(evt);
+                jmiProveedorModificarActionPerformed(evt);
             }
         });
-        jmProveedores.add(jmiModificar);
+        jmProveedores.add(jmiProveedorModificar);
 
         jmInventario.add(jmProveedores);
 
@@ -213,36 +213,37 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEntradaActionPerformed
+    private void jmiMovimientoEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMovimientoEntradaActionPerformed
         JdlgMovimientoEntrada ventanaMovimientoEntrada = new JdlgMovimientoEntrada(this, true);
         ventanaMovimientoEntrada.setVisible(true);
-    }//GEN-LAST:event_jmiEntradaActionPerformed
+    }//GEN-LAST:event_jmiMovimientoEntradaActionPerformed
 
-    private void jmiSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSalidaActionPerformed
+    private void jmiMovimientoSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMovimientoSalidaActionPerformed
         JdlgMovimientoSalida ventanaMovimientoSalida = new JdlgMovimientoSalida(this, true);
         ventanaMovimientoSalida.setVisible(true);
-    }//GEN-LAST:event_jmiSalidaActionPerformed
+    }//GEN-LAST:event_jmiMovimientoSalidaActionPerformed
 
-    private void jmiConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultarActionPerformed
+    private void jmiProductoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoConsultarActionPerformed
         JdlgConsultarProducto ventanaConsultarProducto = new JdlgConsultarProducto(this, true);
         ventanaConsultarProducto.setVisible(true);
-    }//GEN-LAST:event_jmiConsultarActionPerformed
+    }//GEN-LAST:event_jmiProductoConsultarActionPerformed
 
-    private void jmiMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMantenimientoActionPerformed
+    private void jmiProductoMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoMantenimientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jmiMantenimientoActionPerformed
+    }//GEN-LAST:event_jmiProductoMantenimientoActionPerformed
 
-    private void jmiBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiBajoStockActionPerformed
+    private void jmiproductoBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiproductoBajoStockActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jmiBajoStockActionPerformed
+    }//GEN-LAST:event_jmiproductoBajoStockActionPerformed
 
-    private void jmiNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNuevoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiNuevoActionPerformed
+    private void jmiProveedorNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProveedorNuevoActionPerformed
+        JdlgNuevoProveedor ventanaNuevoProveedor = new JdlgNuevoProveedor(this, true);
+        ventanaNuevoProveedor.setVisible(true);
+    }//GEN-LAST:event_jmiProveedorNuevoActionPerformed
 
-    private void jmiModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiModificarActionPerformed
+    private void jmiProveedorModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProveedorModificarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jmiModificarActionPerformed
+    }//GEN-LAST:event_jmiProveedorModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,13 +295,13 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jmProveedores;
     private javax.swing.JMenu jmReportes;
     private javax.swing.JMenuBar jmbMenuPrincipal;
-    private javax.swing.JMenuItem jmiBajoStock;
-    private javax.swing.JMenuItem jmiConsultar;
-    private javax.swing.JMenuItem jmiEntrada;
-    private javax.swing.JMenuItem jmiMantenimiento;
-    private javax.swing.JMenuItem jmiModificar;
-    private javax.swing.JMenuItem jmiNuevo;
-    private javax.swing.JMenuItem jmiSalida;
+    private javax.swing.JMenuItem jmiMovimientoEntrada;
+    private javax.swing.JMenuItem jmiMovimientoSalida;
+    private javax.swing.JMenuItem jmiProductoConsultar;
+    private javax.swing.JMenuItem jmiProductoMantenimiento;
+    private javax.swing.JMenuItem jmiProveedorModificar;
+    private javax.swing.JMenuItem jmiProveedorNuevo;
+    private javax.swing.JMenuItem jmiproductoBajoStock;
     private javax.swing.JPanel jpnlBarraEstado;
     private VistaJPanelConFondo.JPanelConFondo jpnlFondo;
     // End of variables declaration//GEN-END:variables

@@ -202,6 +202,29 @@ public class BusquedasBaseDatos {
             return 0;
         }
     }
+    
+    //BUSCAR ESTADO PRODUCTO
+    public static String buscarEstadoProducto(int codigo)
+    {
+        String sentenciaSQL = "SELECT Estado FROM Productos WHERE idProducto = " + codigo;
+        //Ejecutar la consulta
+        if (conexion.abrirConexion()) {
+            try {
+                ResultSet rs = conexion.obtenerDatos(sentenciaSQL.toString());
+                rs.next();                
+                if (rs.getObject(1) != null) {
+                    return rs.getObject(1).toString();
+                } else {
+                    return null;
+                }
+            } catch (SQLException ex) {
+                return null;
+            }
+        } else {
+            conexion.cerrarConexion();
+            return null;
+        }
+    }
 
     //CERRAR CONEXION BD
     public static void cerrar() {
