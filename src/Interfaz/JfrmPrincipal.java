@@ -242,7 +242,8 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiProveedorNuevoActionPerformed
 
     private void jmiProveedorModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProveedorModificarActionPerformed
-        // TODO add your handling code here:
+        JdlgModificarProveedor ventanaModificarProveedor = new JdlgModificarProveedor(this, true);
+        ventanaModificarProveedor.setVisible(true);
     }//GEN-LAST:event_jmiProveedorModificarActionPerformed
 
     /**

@@ -36,9 +36,8 @@ public class JdlgNuevoProducto extends javax.swing.JDialog {
     }
 
     private void inicializarDatos() {
-        //PROVEEDORES
-        try {
-            //CATEGORIAS
+        //CATEGORIAS
+        try {            
             //Se obtiene el ResultSet con las categorias
             ResultSet rs = BusquedasBaseDatos.buscarCategorias();
 

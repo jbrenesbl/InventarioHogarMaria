@@ -46,7 +46,7 @@ public class BusquedasBaseDatos {
     public static ResultSet buscarProveedores() {
         //Ejecutar la consulta
         if (conexion.abrirConexion()) {
-            ResultSet rs = conexion.obtenerDatos("SELECT idProveedor, NombreProveedor FROM Proveedores "
+            ResultSet rs = conexion.obtenerDatos("SELECT idProveedor, NombreProveedor, Telefono FROM Proveedores "
                     + "WHERE Idproveedor > 1 "
                     + "ORDER BY NombreProveedor ASC");
             return rs;
