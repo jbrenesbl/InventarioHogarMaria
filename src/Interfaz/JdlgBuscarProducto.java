@@ -333,7 +333,7 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
             int fila = jtblResultados.rowAtPoint(evt.getPoint());
             int columna = jtblResultados.columnAtPoint(evt.getPoint());
             if ((fila > -1) && (columna > -1)) {
-                producto.llenarDatos(BusquedasBaseDatos.buscarProductoDetallado(
+                producto.llenarDatos(BusquedasBaseDatos.buscarProductoDetalladoCodigo(
                         Integer.parseInt(jtblResultados.getModel().getValueAt(fila, 0).toString())));
                 BusquedasBaseDatos.cerrar();
                 switch (tipoMovimiento) {

@@ -6,8 +6,9 @@ package Interfaz;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Datos.Proveedor;
 import java.sql.ResultSet;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,15 +17,19 @@ import javax.swing.DefaultComboBoxModel;
 public class JdlgModificarProveedor extends javax.swing.JDialog {
 
     //Variables
-    NoEditableTableModel modeloProveedores = new NoEditableTableModel();
+    NoEditableTableModel modeloProveedores;
 
     public JdlgModificarProveedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         inicializarDatos();
     }
 
     private void inicializarDatos() {
+        //Creamos un nuevo modelo
+        modeloProveedores = new NoEditableTableModel();
+
         //Asignamos el modelo a la tabla
         jtblProveedores.setModel(modeloProveedores);
 
@@ -39,7 +44,7 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
             ResultSet rs = BusquedasBaseDatos.buscarProveedores();
 
             //Llenamos el modelo de la tabla
-            Object[] filaTabla = new Object[3]; 
+            Object[] filaTabla = new Object[3];
             while (rs.next()) {
                 filaTabla[0] = rs.getObject(1);
                 filaTabla[1] = rs.getObject(2);
@@ -76,8 +81,9 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
         jtblProveedores = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Modificar Proveedor");
 
-        jpnlTitulo.setLayout(new java.awt.GridLayout());
+        jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -95,6 +101,11 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
         jlblTituloTelefono.setText("Teléfono:");
 
         jbtnModificar.setText("Modificar");
+        jbtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlContenedorDatosLayout = new javax.swing.GroupLayout(jpnlContenedorDatos);
         jpnlContenedorDatos.setLayout(jpnlContenedorDatosLayout);
@@ -216,13 +227,28 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
 
     private void jtblProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblProveedoresMouseClicked
         int fila = jtblProveedores.rowAtPoint(evt.getPoint());
-            int columna = jtblProveedores.columnAtPoint(evt.getPoint());
-            if ((fila > -1) && (columna > -1)) {
-                jtxtCodigo.setText(jtblProveedores.getModel().getValueAt(fila, 0).toString());
-                jtxtNombreProveedor.setText(jtblProveedores.getModel().getValueAt(fila, 1).toString());
-                jtxtTelefono.setText(jtblProveedores.getModel().getValueAt(fila, 2).toString());
-            }
+        int columna = jtblProveedores.columnAtPoint(evt.getPoint());
+        if ((fila > -1) && (columna > -1)) {
+            jtxtCodigo.setText(jtblProveedores.getModel().getValueAt(fila, 0).toString());
+            jtxtNombreProveedor.setText(jtblProveedores.getModel().getValueAt(fila, 1).toString());
+            jtxtTelefono.setText(jtblProveedores.getModel().getValueAt(fila, 2).toString());
+        }
     }//GEN-LAST:event_jtblProveedoresMouseClicked
+
+    private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarActionPerformed
+        Proveedor proveedor = new Proveedor();
+        proveedor.setIdProveedor(Integer.parseInt(jtxtCodigo.getText()));
+        proveedor.setNombreProveedor(jtxtNombreProveedor.getText());
+        proveedor.setTelefono(jtxtTelefono.getText());
+        if (proveedor.modificarProveedor()) {
+            JOptionPane.showMessageDialog(this, "Proveedor modificado!", "Listo!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha podido modificar el proveedor", "Uuupppsss!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        inicializarDatos();
+    }//GEN-LAST:event_jbtnModificarActionPerformed
 
     /**
      * @param args the command line arguments

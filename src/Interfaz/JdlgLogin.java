@@ -79,9 +79,23 @@ public class JdlgLogin extends javax.swing.JFrame {
         jlblTituloUsuario.setForeground(new java.awt.Color(255, 255, 255));
         jlblTituloUsuario.setText("Usuario:");
 
+        jtxtUsuario.setText("jbrenesbl");
+        jtxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtUsuarioKeyPressed(evt);
+            }
+        });
+
         jlblTituloPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jlblTituloPassword.setForeground(new java.awt.Color(255, 255, 255));
         jlblTituloPassword.setText("Contraseña:");
+
+        jtxtPassword.setText("jbrenesbl");
+        jtxtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPasswordKeyPressed(evt);
+            }
+        });
 
         jbtnEntrar.setText("Entrar");
         jbtnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,11 +174,37 @@ public class JdlgLogin extends javax.swing.JFrame {
         if (usuario != null) {
             JfrmPrincipal ventanaPrincipal = new JfrmPrincipal(usuario);
             this.dispose();
-            ventanaPrincipal.setVisible(true);            
+            ventanaPrincipal.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos","Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtnEntrarActionPerformed
+
+    private void jtxtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPasswordKeyPressed
+        if (evt.getKeyCode() == 10) {
+            Usuario usuario = iniciarSesion(jtxtUsuario.getText(), jtxtPassword.getPassword());
+            if (usuario != null) {
+                JfrmPrincipal ventanaPrincipal = new JfrmPrincipal(usuario);
+                this.dispose();
+                ventanaPrincipal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jtxtPasswordKeyPressed
+
+    private void jtxtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtUsuarioKeyPressed
+        if (evt.getKeyCode() == 10) {
+            Usuario usuario = iniciarSesion(jtxtUsuario.getText(), jtxtPassword.getPassword());
+            if (usuario != null) {
+                JfrmPrincipal ventanaPrincipal = new JfrmPrincipal(usuario);
+                this.dispose();
+                ventanaPrincipal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jtxtUsuarioKeyPressed
 
     /**
      * @param args the command line arguments

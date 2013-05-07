@@ -56,6 +56,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmMovimientos = new javax.swing.JMenu();
         jmiMovimientoEntrada = new javax.swing.JMenuItem();
         jmiMovimientoSalida = new javax.swing.JMenuItem();
+        jmiMovimientoAsignarCheque = new javax.swing.JMenuItem();
         jmProductos = new javax.swing.JMenu();
         jmiProductoConsultar = new javax.swing.JMenuItem();
         jmiProductoMantenimiento = new javax.swing.JMenuItem();
@@ -134,6 +135,15 @@ public class JfrmPrincipal extends javax.swing.JFrame {
             }
         });
         jmMovimientos.add(jmiMovimientoSalida);
+
+        jmiMovimientoAsignarCheque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCheque32x32.png"))); // NOI18N
+        jmiMovimientoAsignarCheque.setText("Asignar Cheque");
+        jmiMovimientoAsignarCheque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiMovimientoAsignarChequeActionPerformed(evt);
+            }
+        });
+        jmMovimientos.add(jmiMovimientoAsignarCheque);
 
         jmInventario.add(jmMovimientos);
 
@@ -233,7 +243,8 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiProductoMantenimientoActionPerformed
 
     private void jmiproductoBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiproductoBajoStockActionPerformed
-        // TODO add your handling code here:
+        JdlgBajoStock ventanaBajoStock = new JdlgBajoStock(this, true);
+        ventanaBajoStock.setVisible(true);
     }//GEN-LAST:event_jmiproductoBajoStockActionPerformed
 
     private void jmiProveedorNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProveedorNuevoActionPerformed
@@ -245,6 +256,10 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         JdlgModificarProveedor ventanaModificarProveedor = new JdlgModificarProveedor(this, true);
         ventanaModificarProveedor.setVisible(true);
     }//GEN-LAST:event_jmiProveedorModificarActionPerformed
+
+    private void jmiMovimientoAsignarChequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMovimientoAsignarChequeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiMovimientoAsignarChequeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,6 +311,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jmProveedores;
     private javax.swing.JMenu jmReportes;
     private javax.swing.JMenuBar jmbMenuPrincipal;
+    private javax.swing.JMenuItem jmiMovimientoAsignarCheque;
     private javax.swing.JMenuItem jmiMovimientoEntrada;
     private javax.swing.JMenuItem jmiMovimientoSalida;
     private javax.swing.JMenuItem jmiProductoConsultar;

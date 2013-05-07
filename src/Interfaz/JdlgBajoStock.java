@@ -4,20 +4,163 @@
  */
 package Interfaz;
 
+import Clases.Auxiliares.BusquedasBaseDatos;
+import Clases.Auxiliares.NoEditableTableModel;
+import java.sql.ResultSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jonathan
  */
 public class JdlgBajoStock extends javax.swing.JDialog {
 
-    /**
-     * Creates new form jdfBajoStock
-     */
+    //Variables
+    NoEditableTableModel modeloProductos;
+    
     public JdlgBajoStock(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        inicializarDatos();
+    }
+    
+    private void inicializarDatos() {
+        //Creamos un nuevo modelo
+        modeloProductos = new NoEditableTableModel();
+
+        //Asignamos el modelo a la tabla
+        jtblResultados.setModel(modeloProductos);
+
+        // Creamos las columnas.
+        modeloProductos.addColumn("Código");
+        modeloProductos.addColumn("Nombre del Producto");
+        modeloProductos.addColumn("Categoría");
+        modeloProductos.addColumn("Unidad Medida");
+        modeloProductos.addColumn("Cantidad");
+        modeloProductos.addColumn("Cantidad Mínima");
+        modeloProductos.addColumn("Última Entrada");
+        modeloProductos.addColumn("Última Salida");
+        modeloProductos.addColumn("Estado");
+
+        //PRODUCTOS
+        try {
+            //Se obtiene el ResultSet con los productos
+            ResultSet rs = BusquedasBaseDatos.buscarBajoStock("", "", "");
+
+            //Llenamos el modelo de la tabla
+            Object[] filaTabla = new Object[9];
+            while (rs.next()) {
+                filaTabla[0] = rs.getObject(1);
+                filaTabla[1] = rs.getObject(2);
+                filaTabla[2] = rs.getObject(3);
+                filaTabla[3] = rs.getObject(4);
+                filaTabla[4] = rs.getObject(5);
+                filaTabla[5] = rs.getObject(6);
+                filaTabla[6] = rs.getObject(7);
+                filaTabla[7] = rs.getObject(8);
+                filaTabla[8] = rs.getObject(9);
+                modeloProductos.addRow(filaTabla);
+            }
+            //Cerramos la conexion
+            BusquedasBaseDatos.cerrar();
+
+            //CATEGORIAS
+            //Se obtiene el ResultSet con las categorias
+            rs = BusquedasBaseDatos.buscarCategorias();
+
+            //Llenamos el modelo del combobox
+            DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+            while (rs.next()) {
+                modeloCombo.addElement(rs.getObject(1));
+            }
+            jcbxCategoria.setModel(modeloCombo);
+            //Cerramos la conexion
+            BusquedasBaseDatos.cerrar();
+
+            //UNIDADES MEDIDA
+            //Se obtiene el ResultSet con las unidades de medida
+            rs = BusquedasBaseDatos.buscarUnidadesMedida();
+            modeloCombo = new DefaultComboBoxModel();
+
+            //Llenamos el modelo del combobox
+            while (rs.next()) {
+                modeloCombo.addElement(rs.getObject(1));
+            }
+            jcbxUnidadMedida.setModel(modeloCombo);
+            //Cerramos la conexion
+            BusquedasBaseDatos.cerrar();
+
+        } catch (Exception ex) {
+        }
     }
 
+    private void buscarProducto() {
+
+        //Parametros a buscar
+        String nombre = "";
+        String categoria = "";
+        String unidadMedida = "";
+
+        //Verificamos cuales estan con check
+        if (jckbNombre.isSelected()) {
+            nombre = jtxtNombre.getText();
+        }
+        if (jckbCategoria.isSelected()) {
+            categoria = jcbxCategoria.getSelectedItem().toString();
+        }
+        if (jckbUnidadMedida.isSelected()) {
+            unidadMedida = jcbxUnidadMedida.getSelectedItem().toString();
+        }        
+
+        boolean vacio = true;
+        try {
+            ResultSet rs = BusquedasBaseDatos.buscarBajoStock(
+                    nombre, categoria, unidadMedida);
+
+            //Creamos un modelo no editable de celdas
+            modeloProductos = new NoEditableTableModel();
+            jtblResultados.setModel(modeloProductos);
+
+            // Creamos las columnas.
+            modeloProductos.addColumn("Código");
+            modeloProductos.addColumn("Nombre del Producto");
+            modeloProductos.addColumn("Categoría");
+            modeloProductos.addColumn("Unidad Medida");
+            modeloProductos.addColumn("Cantidad");
+            modeloProductos.addColumn("Cantidad Mínima");
+            modeloProductos.addColumn("Última Entrada");
+            modeloProductos.addColumn("Última Salida");
+            modeloProductos.addColumn("Estado");
+
+            // Se crea un array que será una de las filas de la tabla. 
+            Object[] fila = new Object[9]; // Hay cuatro columnas en la tabla
+            while (rs.next()) {
+                // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+                for (int i = 0; i < 9; i++) {
+                    fila[i] = rs.getObject(i + 1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
+                }
+                // Se añade al modelo la fila completa.
+                modeloProductos.addRow(fila);
+                //Se indica que el ResultSet no esta vacio
+                vacio = false;
+            }
+            BusquedasBaseDatos.cerrar();
+
+            if (vacio) {
+                JOptionPane.showMessageDialog(this, "No se encontro el producto.", "Uppsss!",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "No se encontro el producto.", "Uppsss!",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error.", "Uppsss!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,18 +179,20 @@ public class JdlgBajoStock extends javax.swing.JDialog {
         jckbCategoria = new javax.swing.JCheckBox();
         jcbxCategoria = new javax.swing.JComboBox();
         jckbUnidadMedida = new javax.swing.JCheckBox();
-        jtxtunidadMedida = new javax.swing.JTextField();
-        jckbEstado = new javax.swing.JCheckBox();
-        jcbxEstado = new javax.swing.JComboBox();
+        jcbxUnidadMedida = new javax.swing.JComboBox();
         jpnlResultados = new javax.swing.JPanel();
         jspnResultados = new javax.swing.JScrollPane();
         jtblResultados = new javax.swing.JTable();
+        jbtnRestaurar = new javax.swing.JButton();
         jbtnBuscar = new javax.swing.JButton();
         jbtnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Bajo Stock");
+        setPreferredSize(new java.awt.Dimension(1066, 650));
+        setResizable(false);
 
-        jpnlBajoStock.setPreferredSize(new java.awt.Dimension(876, 674));
+        jpnlBajoStock.setPreferredSize(new java.awt.Dimension(876, 654));
 
         jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -66,10 +211,6 @@ public class JdlgBajoStock extends javax.swing.JDialog {
 
         jckbUnidadMedida.setText("Unidad Medida");
 
-        jckbEstado.setText("Estado");
-
-        jcbxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
-
         javax.swing.GroupLayout jpnlDatosBuscarLayout = new javax.swing.GroupLayout(jpnlDatosBuscar);
         jpnlDatosBuscar.setLayout(jpnlDatosBuscarLayout);
         jpnlDatosBuscarLayout.setHorizontalGroup(
@@ -79,17 +220,15 @@ public class JdlgBajoStock extends javax.swing.JDialog {
                 .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jckbUnidadMedida)
                     .addComponent(jckbCategoria)
-                    .addComponent(jckbNombre)
-                    .addComponent(jckbEstado))
+                    .addComponent(jckbNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtxtNombre)
                     .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
-                        .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtunidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 538, Short.MAX_VALUE)))
+                        .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcbxUnidadMedida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcbxCategoria, 0, 187, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jpnlDatosBuscarLayout.setVerticalGroup(
@@ -106,12 +245,8 @@ public class JdlgBajoStock extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jckbUnidadMedida)
-                    .addComponent(jtxtunidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jckbEstado)
-                    .addComponent(jcbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jcbxUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpnlResultados.setLayout(new java.awt.GridLayout(1, 0));
@@ -162,7 +297,19 @@ public class JdlgBajoStock extends javax.swing.JDialog {
 
         jpnlResultados.add(jspnResultados);
 
+        jbtnRestaurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnRestaurar32x32.png"))); // NOI18N
+        jbtnRestaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRestaurarActionPerformed(evt);
+            }
+        });
+
         jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
+        jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnBuscarActionPerformed(evt);
+            }
+        });
 
         jbtnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnImprimir32x32.png"))); // NOI18N
 
@@ -171,7 +318,9 @@ public class JdlgBajoStock extends javax.swing.JDialog {
         jpnlBajoStockLayout.setHorizontalGroup(
             jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlBajoStockLayout.createSequentialGroup()
-                .addContainerGap(792, Short.MAX_VALUE)
+                .addContainerGap(750, Short.MAX_VALUE)
+                .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,21 +328,22 @@ public class JdlgBajoStock extends javax.swing.JDialog {
             .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlBajoStockLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jpnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
+                    .addComponent(jpnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlBajoStockLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jpnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
+                        .addComponent(jpnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
                         .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap()))
         );
         jpnlBajoStockLayout.setVerticalGroup(
             jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlBajoStockLayout.createSequentialGroup()
-                .addContainerGap(631, Short.MAX_VALUE)
+                .addContainerGap(567, Short.MAX_VALUE)
                 .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -201,14 +351,14 @@ public class JdlgBajoStock extends javax.swing.JDialog {
                 .addGroup(jpnlBajoStockLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jpnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(595, Short.MAX_VALUE)))
+                    .addContainerGap(556, Short.MAX_VALUE)))
             .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlBajoStockLayout.createSequentialGroup()
                     .addGap(71, 71, 71)
                     .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jpnlResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(74, Short.MAX_VALUE)))
+                    .addComponent(jpnlResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(51, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,6 +374,14 @@ public class JdlgBajoStock extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRestaurarActionPerformed
+        inicializarDatos();
+    }//GEN-LAST:event_jbtnRestaurarActionPerformed
+
+    private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
+        buscarProducto();
+    }//GEN-LAST:event_jbtnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,10 +435,10 @@ public class JdlgBajoStock extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnBuscar;
     private javax.swing.JButton jbtnImprimir;
+    private javax.swing.JButton jbtnRestaurar;
     private javax.swing.JComboBox jcbxCategoria;
-    private javax.swing.JComboBox jcbxEstado;
+    private javax.swing.JComboBox jcbxUnidadMedida;
     private javax.swing.JCheckBox jckbCategoria;
-    private javax.swing.JCheckBox jckbEstado;
     private javax.swing.JCheckBox jckbNombre;
     private javax.swing.JCheckBox jckbUnidadMedida;
     private javax.swing.JLabel jlblTitulo;
@@ -291,6 +449,5 @@ public class JdlgBajoStock extends javax.swing.JDialog {
     private javax.swing.JScrollPane jspnResultados;
     private javax.swing.JTable jtblResultados;
     private javax.swing.JTextField jtxtNombre;
-    private javax.swing.JTextField jtxtunidadMedida;
     // End of variables declaration//GEN-END:variables
 }

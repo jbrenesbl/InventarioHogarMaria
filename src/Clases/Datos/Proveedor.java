@@ -64,4 +64,26 @@ public class Proveedor {
             return false;
         }
     }
+
+    public boolean modificarProveedor() {
+        ConexionBaseDatos conexion = new ConexionBaseDatos();
+        if (conexion.abrirConexion()) {
+            try {
+                String sentenciaSQL = "UPDATE Proveedores "
+                        + "SET NombreProveedor = '" + nombreProveedor.replace("'", "''") + "', "
+                        + "Telefono = '" + telefono.replace("'", "''") + "' "
+                        + "WHERE idProveedor = " + idProveedor;
+                if (conexion.executeUpdate(sentenciaSQL)) {
+                    conexion.cerrarConexion();
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

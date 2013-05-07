@@ -121,6 +121,12 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtxtUsuario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jbrenesbl"/>
+              </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtUsuarioKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jlblTituloPassword">
               <Properties>
@@ -134,6 +140,12 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="jtxtPassword">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jbrenesbl"/>
+              </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtPasswordKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbtnEntrar">
               <Properties>

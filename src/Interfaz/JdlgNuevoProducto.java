@@ -86,7 +86,7 @@ public class JdlgNuevoProducto extends javax.swing.JDialog {
         jbtnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nuevo Proveedor");
+        setTitle("Nuevo Producto");
         setResizable(false);
 
         jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
