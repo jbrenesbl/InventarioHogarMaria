@@ -126,8 +126,7 @@ public class Producto {
                         Integer.parseInt(rs.getObject(8).toString().substring(5, 7)) - 1,
                         Integer.parseInt(rs.getObject(8).toString().substring(8, 10)));
                 setUltimaSalida(fechaFormateada);
-            } else
-            {
+            } else {
                 setUltimaSalida(null);
             }
             setEstado(rs.getObject(9).toString());
@@ -146,11 +145,10 @@ public class Producto {
                     + "UltimaSalida = '" + fecha + "' WHERE idProducto = " + codigo;
         }
     }
-    
-    public static String sentenciaActualizarEstado(int codigo, String estado)
-    {
+
+    public static String sentenciaActualizarEstado(int codigo, String estado) {
         return "UPDATE Productos SET Estado = '" + estado + "' "
-                    + "WHERE idProducto = " + codigo;
+                + "WHERE idProducto = " + codigo;
     }
 
     public boolean insertarProducto() {
@@ -171,6 +169,31 @@ public class Producto {
                         + "0, "
                         + cantidadMinima + ", '"
                         + "Activo')";
+                if (conexion.executeUpdate(sentenciaSQL)) {
+                    conexion.cerrarConexion();
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean modificarProducto() {
+        ConexionBaseDatos conexion = new ConexionBaseDatos();
+        if (conexion.abrirConexion()) {
+            try {
+                String sentenciaSQL = "UPDATE productos "
+                        + "SET Nombre = '" + nombre.replace("'", "''") + "', "
+                        + "Categoria = '" + categoria.replace("'", "''") + "', "
+                        + "UnidadMedida = '" + unidadMedida.replace("'", "''") + "', "
+                        + "CantidadMinima = " + cantidadMinima + ", "
+                        + "Estado = '" + estado + "' "
+                        + "WHERE idProducto = " + idProducto;
                 if (conexion.executeUpdate(sentenciaSQL)) {
                     conexion.cerrarConexion();
                     return true;

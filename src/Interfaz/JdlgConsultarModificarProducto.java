@@ -6,6 +6,7 @@ package Interfaz;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Datos.Producto;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -14,12 +15,12 @@ import javax.swing.JOptionPane;
  *
  * @author JoBren8
  */
-public class JdlgConsultarProducto extends javax.swing.JDialog {
+public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
 
     //Variables
     NoEditableTableModel modeloProductos;
 
-    public JdlgConsultarProducto(java.awt.Frame parent, boolean modal) {
+    public JdlgConsultarModificarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -174,7 +175,7 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpnlConsultarProductos = new VistaJPanelConFondo.JPanelConFondo();
+        jpnlConsultarModificarProductos = new VistaJPanelConFondo.JPanelConFondo();
         jpnlTitulo = new javax.swing.JPanel();
         jlblTitulo = new javax.swing.JLabel();
         jpnlDatosBuscar = new javax.swing.JPanel();
@@ -194,14 +195,14 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
         jbtnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consultar Productos");
+        setTitle("Consultar y Modificar Productos");
         setResizable(false);
 
         jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblTitulo.setText("Consultar Productos");
+        jlblTitulo.setText("Consultar y Modificar Productos");
         jpnlTitulo.add(jlblTitulo);
 
         jpnlDatosBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -306,6 +307,11 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jtblResultados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblResultadosMouseClicked(evt);
+            }
+        });
         jspnResultados.setViewportView(jtblResultados);
 
         jpnlResultados.add(jspnResultados);
@@ -326,16 +332,16 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
 
         jbtnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnImprimir32x32.png"))); // NOI18N
 
-        javax.swing.GroupLayout jpnlConsultarProductosLayout = new javax.swing.GroupLayout(jpnlConsultarProductos);
-        jpnlConsultarProductos.setLayout(jpnlConsultarProductosLayout);
-        jpnlConsultarProductosLayout.setHorizontalGroup(
-            jpnlConsultarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnlConsultarProductosLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpnlConsultarModificarProductosLayout = new javax.swing.GroupLayout(jpnlConsultarModificarProductos);
+        jpnlConsultarModificarProductos.setLayout(jpnlConsultarModificarProductosLayout);
+        jpnlConsultarModificarProductosLayout.setHorizontalGroup(
+            jpnlConsultarModificarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlConsultarModificarProductosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpnlConsultarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpnlConsultarModificarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
                     .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlConsultarProductosLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlConsultarModificarProductosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -345,9 +351,9 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
                     .addComponent(jpnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jpnlConsultarProductosLayout.setVerticalGroup(
-            jpnlConsultarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnlConsultarProductosLayout.createSequentialGroup()
+        jpnlConsultarModificarProductosLayout.setVerticalGroup(
+            jpnlConsultarModificarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlConsultarModificarProductosLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addComponent(jpnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
@@ -355,7 +361,7 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnlResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(jpnlConsultarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpnlConsultarModificarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -366,11 +372,11 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlConsultarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnlConsultarModificarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlConsultarProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnlConsultarModificarProductos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -383,6 +389,31 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
     private void jbtnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRestaurarActionPerformed
         inicializarDatos();
     }//GEN-LAST:event_jbtnRestaurarActionPerformed
+
+    private void jtblResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblResultadosMouseClicked
+        if (evt.getClickCount() > 1) {
+            int fila = jtblResultados.rowAtPoint(evt.getPoint());
+            int columna = jtblResultados.columnAtPoint(evt.getPoint());
+            if ((fila > -1) && (columna > -1)) {
+                //Creamos un objeto producto y asignamos los valores actuales del mismo
+                Producto p = new Producto();
+                p.setIdProducto(Integer.parseInt(jtblResultados.getModel().getValueAt(fila, 0).toString()));
+                p.setNombre(jtblResultados.getModel().getValueAt(fila, 1).toString());
+                p.setCategoria(jtblResultados.getModel().getValueAt(fila, 2).toString());
+                p.setUnidadMedida(jtblResultados.getModel().getValueAt(fila, 3).toString());
+                p.setCantidadMinima(Double.parseDouble(jtblResultados.getModel().getValueAt(fila, 5).toString()));
+                p.setEstado(jtblResultados.getModel().getValueAt(fila, 8).toString());
+
+                //Llamamos la ventana de modificacion y le pasamos el objeto producto
+                JdlgModificarProducto ventanaModificarProducto = new JdlgModificarProducto(this, true, p);
+                ventanaModificarProducto.setVisible(true);
+
+                //Refrescamos el grid
+                inicializarDatos();
+
+            }
+        }
+    }//GEN-LAST:event_jtblResultadosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -405,13 +436,13 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JdlgConsultarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JdlgConsultarModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JdlgConsultarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JdlgConsultarModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JdlgConsultarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JdlgConsultarModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JdlgConsultarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JdlgConsultarModificarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -421,7 +452,7 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                JdlgConsultarProducto dialog = new JdlgConsultarProducto(new javax.swing.JFrame(), true);
+                JdlgConsultarModificarProducto dialog = new JdlgConsultarModificarProducto(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -445,7 +476,7 @@ public class JdlgConsultarProducto extends javax.swing.JDialog {
     private javax.swing.JCheckBox jckbNombre;
     private javax.swing.JCheckBox jckbUnidadMedida;
     private javax.swing.JLabel jlblTitulo;
-    private VistaJPanelConFondo.JPanelConFondo jpnlConsultarProductos;
+    private VistaJPanelConFondo.JPanelConFondo jpnlConsultarModificarProductos;
     private javax.swing.JPanel jpnlDatosBuscar;
     private javax.swing.JPanel jpnlResultados;
     private javax.swing.JPanel jpnlTitulo;

@@ -59,7 +59,6 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmiMovimientoAsignarCheque = new javax.swing.JMenuItem();
         jmProductos = new javax.swing.JMenu();
         jmiProductoConsultar = new javax.swing.JMenuItem();
-        jmiProductoMantenimiento = new javax.swing.JMenuItem();
         jmiproductoBajoStock = new javax.swing.JMenuItem();
         jmProveedores = new javax.swing.JMenu();
         jmiProveedorNuevo = new javax.swing.JMenuItem();
@@ -150,7 +149,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnProductos32x32.png"))); // NOI18N
         jmProductos.setText("Productos");
 
-        jmiProductoConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnConsultarProductos32x32.png"))); // NOI18N
+        jmiProductoConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMantenimientoProductos32x32.png"))); // NOI18N
         jmiProductoConsultar.setText("Consultar");
         jmiProductoConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,15 +157,6 @@ public class JfrmPrincipal extends javax.swing.JFrame {
             }
         });
         jmProductos.add(jmiProductoConsultar);
-
-        jmiProductoMantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnMantenimientoProductos32x32.png"))); // NOI18N
-        jmiProductoMantenimiento.setText("Mantenimiento");
-        jmiProductoMantenimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiProductoMantenimientoActionPerformed(evt);
-            }
-        });
-        jmProductos.add(jmiProductoMantenimiento);
 
         jmiproductoBajoStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBajoStock32x32.png"))); // NOI18N
         jmiproductoBajoStock.setText("Bajo Stock");
@@ -234,13 +224,9 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiMovimientoSalidaActionPerformed
 
     private void jmiProductoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoConsultarActionPerformed
-        JdlgConsultarProducto ventanaConsultarProducto = new JdlgConsultarProducto(this, true);
+        JdlgConsultarModificarProducto ventanaConsultarProducto = new JdlgConsultarModificarProducto(this, true);
         ventanaConsultarProducto.setVisible(true);
     }//GEN-LAST:event_jmiProductoConsultarActionPerformed
-
-    private void jmiProductoMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoMantenimientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiProductoMantenimientoActionPerformed
 
     private void jmiproductoBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiproductoBajoStockActionPerformed
         JdlgBajoStock ventanaBajoStock = new JdlgBajoStock(this, true);
@@ -315,7 +301,6 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiMovimientoEntrada;
     private javax.swing.JMenuItem jmiMovimientoSalida;
     private javax.swing.JMenuItem jmiProductoConsultar;
-    private javax.swing.JMenuItem jmiProductoMantenimiento;
     private javax.swing.JMenuItem jmiProveedorModificar;
     private javax.swing.JMenuItem jmiProveedorNuevo;
     private javax.swing.JMenuItem jmiproductoBajoStock;
