@@ -320,6 +320,26 @@ public class BusquedasBaseDatos {
         }
     }
 
+    //BUSCAR MOVIMIENTOS SIN CHEQUE
+    public static ResultSet buscarMovimientosSinCheque()
+    {
+        //Ejecutar la consulta
+        if (conexion.abrirConexion()) {
+            ResultSet rs = conexion.obtenerDatos("SELECT DISTINCT movimientos.idMovimiento, "
+                    + "movimientos.NumeroFactura, "
+                    + "proveedores.NombreProveedor, "
+                    + "movimientos.Monto "
+                    + "FROM movimientos "
+                    + "INNER JOIN proveedores "
+                    + "ON movimientos.idProveedor = proveedores.idProveedor "
+                    + "WHERE (movimientos.idProveedor <> 1)");
+            return rs;
+        } else {
+            conexion.cerrarConexion();
+            return null;
+        }
+    }
+    
     //CERRAR CONEXION BD
     public static void cerrar() {
         conexion.cerrarConexion();

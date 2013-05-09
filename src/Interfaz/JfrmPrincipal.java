@@ -244,7 +244,8 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiProveedorModificarActionPerformed
 
     private void jmiMovimientoAsignarChequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMovimientoAsignarChequeActionPerformed
-        // TODO add your handling code here:
+        JdlgAsignarCheque ventanaAsignarCheque = new JdlgAsignarCheque(this, true);
+        ventanaAsignarCheque.setVisible(true);
     }//GEN-LAST:event_jmiMovimientoAsignarChequeActionPerformed
 
     /**

@@ -6,6 +6,7 @@ package Interfaz;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Auxiliares.RenderHeader;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -43,6 +44,9 @@ public class JdlgBajoStock extends javax.swing.JDialog {
         modeloProductos.addColumn("Última Entrada");
         modeloProductos.addColumn("Última Salida");
         modeloProductos.addColumn("Estado");
+        
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblResultados.getTableHeader().setDefaultRenderer(new RenderHeader(jtblResultados));
 
         //PRODUCTOS
         try {
@@ -341,7 +345,7 @@ public class JdlgBajoStock extends javax.swing.JDialog {
         jpnlBajoStockLayout.setVerticalGroup(
             jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlBajoStockLayout.createSequentialGroup()
-                .addContainerGap(567, Short.MAX_VALUE)
+                .addContainerGap(611, Short.MAX_VALUE)
                 .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)

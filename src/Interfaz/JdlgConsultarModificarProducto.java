@@ -6,6 +6,7 @@ package Interfaz;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Auxiliares.RenderHeader;
 import Clases.Datos.Producto;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
@@ -44,6 +45,9 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         modeloProductos.addColumn("Última Entrada");
         modeloProductos.addColumn("Última Salida");
         modeloProductos.addColumn("Estado");
+        
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblResultados.getTableHeader().setDefaultRenderer(new RenderHeader(jtblResultados));
 
         //PRODUCTOS
         try {

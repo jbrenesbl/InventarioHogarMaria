@@ -7,6 +7,7 @@ package Interfaz;
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.HelpMethods;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Auxiliares.RenderHeader;
 import Clases.Datos.Movimiento;
 import Clases.Datos.Producto;
 import java.sql.ResultSet;
@@ -70,6 +71,9 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         modeloProductos.addColumn("Categoría");
         modeloProductos.addColumn("Unidad Medida");
         modeloProductos.addColumn("Cantidad");
+        
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblProductos.getTableHeader().setDefaultRenderer(new RenderHeader(jtblProductos));
     }
 
     private void limpiarCampos() {

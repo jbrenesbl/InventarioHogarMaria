@@ -6,6 +6,7 @@ package Interfaz;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Auxiliares.RenderHeader;
 import Clases.Datos.Producto;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
@@ -115,6 +116,9 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
             modelo.addColumn("Unidad Medida");
             modelo.addColumn("Cantidad");
             modelo.addColumn("Estado");
+
+            //Asignamos el nuevo Render del Header para que los titulos estan centrados
+            jtblResultados.getTableHeader().setDefaultRenderer(new RenderHeader(jtblResultados));
 
             // Se crea un array que será una de las filas de la tabla. 
             Object[] fila = new Object[6]; // Hay cuatro columnas en la tabla
