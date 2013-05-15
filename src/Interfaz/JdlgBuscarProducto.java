@@ -34,6 +34,8 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblResultados.getTableHeader().setDefaultRenderer(new RenderHeader(jtblResultados));
         inicializarDatos();
         this.tipoMovimiento = movimiento;
         switch (tipoMovimiento) {
@@ -75,12 +77,6 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
 
         } catch (Exception ex) {
         }
-
-//        //Añadimos el evento de Doble Click al JTable
-//        jtblResultados.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {                
-//            }
-//        });
     }
 
     private void buscarProducto() {
@@ -92,7 +88,7 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
 
         //Verificamos cuales estan con check
         if (jckbNombre.isSelected()) {
-            nombre = jtxtNombre.getText();
+            nombre = jtxtNombre.getText().trim();
         }
         if (jckbCategoria.isSelected()) {
             categoria = jcbxCategoria.getSelectedItem().toString();
@@ -116,9 +112,6 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
             modelo.addColumn("Unidad Medida");
             modelo.addColumn("Cantidad");
             modelo.addColumn("Estado");
-
-            //Asignamos el nuevo Render del Header para que los titulos estan centrados
-            jtblResultados.getTableHeader().setDefaultRenderer(new RenderHeader(jtblResultados));
 
             // Se crea un array que será una de las filas de la tabla. 
             Object[] fila = new Object[6]; // Hay cuatro columnas en la tabla
@@ -186,9 +179,30 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
 
         jckbNombre.setText("Nombre");
 
+        jtxtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtNombreFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNombreFocusLost(evt);
+            }
+        });
+
         jckbCategoria.setText("Categoria");
 
+        jcbxCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbxCategoriaFocusGained(evt);
+            }
+        });
+
         jckbUnidadMedida.setText("Unidad Medida");
+
+        jcbxUnidadMedida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbxUnidadMedidaFocusGained(evt);
+            }
+        });
 
         jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
         jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -351,6 +365,26 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jtblResultadosMouseClicked
+
+    private void jtxtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNombreFocusGained
+        jckbNombre.setSelected(true);
+    }//GEN-LAST:event_jtxtNombreFocusGained
+
+    private void jtxtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNombreFocusLost
+        if ((jtxtNombre.getText().trim()).equals(""))
+        {
+            jtxtNombre.setText("");
+            jckbNombre.setSelected(false);
+        }
+    }//GEN-LAST:event_jtxtNombreFocusLost
+
+    private void jcbxCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbxCategoriaFocusGained
+        jckbCategoria.setSelected(true);
+    }//GEN-LAST:event_jcbxCategoriaFocusGained
+
+    private void jcbxUnidadMedidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbxUnidadMedidaFocusGained
+        jckbUnidadMedida.setSelected(true);
+    }//GEN-LAST:event_jcbxUnidadMedidaFocusGained
 
     /**
      * @param args the command line arguments

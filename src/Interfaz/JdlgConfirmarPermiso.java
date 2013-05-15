@@ -19,13 +19,13 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
     //Variables
     String usuarioActual;
     String tipoPadre;
-    
+
     public JdlgConfirmarPermiso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null); //Centrar la ventana
     }
-    
+
     public JdlgConfirmarPermiso(JdlgMovimientoSalida parent, boolean modal, String usuarioActual) {
         super(parent, modal);
         initComponents();
@@ -33,7 +33,7 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         this.usuarioActual = usuarioActual;
         this.tipoPadre = "Movimiento Salida";
     }
-    
+
     public JdlgConfirmarPermiso(JdlgMovimientoEntrada parent, boolean modal, String usuarioActual) {
         super(parent, modal);
         initComponents();
@@ -41,7 +41,15 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         this.usuarioActual = usuarioActual;
         this.tipoPadre = "Movimiento Entrada";
     }
-    
+
+    public JdlgConfirmarPermiso(JdlgAsignarCheque parent, boolean modal, String usuarioActual) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null); //Centrar la ventana
+        this.usuarioActual = usuarioActual;
+        this.tipoPadre = "Asignar Cheque";
+    }
+
     private boolean iniciarSesion(String nombreUsuario, char[] password) {
         try {
             String clave = new String(password);
@@ -75,7 +83,7 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         jbtnPermitir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Entrar");
+        setTitle("Confirmar Permiso");
         setModal(true);
         setResizable(false);
 
@@ -159,12 +167,16 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
                 ((JdlgMovimientoSalida) this.getOwner()).setConfirmarPermiso(true);
             } else if (tipoPadre.equals("Movimiento Entrada")) {
                 ((JdlgMovimientoEntrada) this.getOwner()).setConfirmarPermiso(true);
-            }                        
+            } else if (tipoPadre.equals("Asignar Cheque")) {
+                ((JdlgAsignarCheque) this.getOwner()).setConfirmarPermiso(true);
+            }
         } else {
             if (tipoPadre.equals("Movimiento Salida")) {
                 ((JdlgMovimientoSalida) this.getOwner()).setConfirmarPermiso(false);
             } else if (tipoPadre.equals("Movimiento Entrada")) {
                 ((JdlgMovimientoEntrada) this.getOwner()).setConfirmarPermiso(false);
+            } else if (tipoPadre.equals("Asignar Cheque")) {
+                ((JdlgAsignarCheque) this.getOwner()).setConfirmarPermiso(false);
             }
             JOptionPane.showMessageDialog(this, "Contraseña Incorrecta", "Error de autenfificación", JOptionPane.ERROR_MESSAGE);
         }
@@ -205,11 +217,11 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
          * Create and display the dialog
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             public void run() {
                 JdlgConfirmarPermiso dialog = new JdlgConfirmarPermiso(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

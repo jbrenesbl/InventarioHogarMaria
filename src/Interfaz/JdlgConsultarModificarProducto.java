@@ -25,6 +25,8 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblResultados.getTableHeader().setDefaultRenderer(new RenderHeader(jtblResultados));
         inicializarDatos();
     }
 
@@ -45,9 +47,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         modeloProductos.addColumn("Última Entrada");
         modeloProductos.addColumn("Última Salida");
         modeloProductos.addColumn("Estado");
-        
-        //Asignamos el nuevo Render del Header para que los titulos estan centrados
-        jtblResultados.getTableHeader().setDefaultRenderer(new RenderHeader(jtblResultados));
+
 
         //PRODUCTOS
         try {
@@ -111,7 +111,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
 
         //Verificamos cuales estan con check
         if (jckbNombre.isSelected()) {
-            nombre = jtxtNombre.getText();
+            nombre = jtxtNombre.getText().trim();
         }
         if (jckbCategoria.isSelected()) {
             categoria = jcbxCategoria.getSelectedItem().toString();
@@ -213,15 +213,40 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
 
         jckbNombre.setText("Nombre");
 
+        jtxtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtNombreFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNombreFocusLost(evt);
+            }
+        });
+
         jckbCategoria.setText("Categoría");
 
         jcbxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbxCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbxCategoriaFocusGained(evt);
+            }
+        });
 
         jckbUnidadMedida.setText("Unidad Medida");
 
         jckbEstado.setText("Estado");
 
         jcbxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
+        jcbxEstado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbxEstadoFocusGained(evt);
+            }
+        });
+
+        jcbxUnidadMedida.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jcbxUnidadMedidaFocusGained(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlDatosBuscarLayout = new javax.swing.GroupLayout(jpnlDatosBuscar);
         jpnlDatosBuscar.setLayout(jpnlDatosBuscarLayout);
@@ -418,6 +443,29 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jtblResultadosMouseClicked
+
+    private void jtxtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNombreFocusGained
+        jckbNombre.setSelected(true);
+    }//GEN-LAST:event_jtxtNombreFocusGained
+
+    private void jtxtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNombreFocusLost
+        if ((jtxtNombre.getText().trim()).equals("")) {
+            jtxtNombre.setText("");
+            jckbNombre.setSelected(false);
+        }
+    }//GEN-LAST:event_jtxtNombreFocusLost
+
+    private void jcbxCategoriaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbxCategoriaFocusGained
+        jckbCategoria.setSelected(true);
+    }//GEN-LAST:event_jcbxCategoriaFocusGained
+
+    private void jcbxUnidadMedidaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbxUnidadMedidaFocusGained
+        jckbUnidadMedida.setSelected(true);
+    }//GEN-LAST:event_jcbxUnidadMedidaFocusGained
+
+    private void jcbxEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbxEstadoFocusGained
+        jckbEstado.setSelected(true);
+    }//GEN-LAST:event_jcbxEstadoFocusGained
 
     /**
      * @param args the command line arguments

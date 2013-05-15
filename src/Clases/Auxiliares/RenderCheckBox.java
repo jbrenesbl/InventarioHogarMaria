@@ -29,6 +29,7 @@ public class RenderCheckBox extends JCheckBox implements TableCellRenderer {
         setHorizontalTextPosition(SwingConstants.CENTER);
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         //Obtenermo el componente y lo centramos
         ((JCheckBox) component).setHorizontalAlignment(SwingConstants.CENTER);

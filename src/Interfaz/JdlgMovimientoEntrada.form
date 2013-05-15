@@ -560,6 +560,9 @@
                       <JTableSelectionModel selectionMode="2"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtblProductosMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -34,6 +34,8 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblProductos.getTableHeader().setDefaultRenderer(new RenderHeader(jtblProductos));
         inicializarDatos();
         crearModeloTablaProductos();
     }
@@ -71,9 +73,6 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         modeloProductos.addColumn("Categoría");
         modeloProductos.addColumn("Unidad Medida");
         modeloProductos.addColumn("Cantidad");
-        
-        //Asignamos el nuevo Render del Header para que los titulos estan centrados
-        jtblProductos.getTableHeader().setDefaultRenderer(new RenderHeader(jtblProductos));
     }
 
     private void limpiarCampos() {
@@ -85,7 +84,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         jtxtUnidadMedida.setText("");
         jtxtCantidad.setText("");
     }
-    
+
     private void deshabilitarControles() {
         jtxtFactura.setEnabled(false);
         jcbxProveedor.setEnabled(false);
@@ -474,6 +473,11 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
             }
         });
         jtblProductos.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jtblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblProductosMouseClicked(evt);
+            }
+        });
         jspnProductos.setViewportView(jtblProductos);
 
         jlblDatosPorAplicar.add(jspnProductos);
@@ -540,31 +544,37 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
     private void jtxtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCantidadKeyPressed
         boolean estaProducto = false;
         if (evt.getKeyCode() == 10) {
-            //Validacion - Cantidad de tipo Doble
-            if (HelpMethods.isDouble(jtxtCantidad.getText())) {
-                //Validacion - Cantidad > 0
-                if (Double.parseDouble(jtxtCantidad.getText()) > 0) {
-                    //Validacion - Producto no esta en el grid.
-                    for (int x = 0; x < modeloProductos.getRowCount(); x++) {
-                        if (jtxtCodigo.getText().equals(modeloProductos.getValueAt(x, 0).toString())) {
-                            estaProducto = true;
-                            limpiarCampos();
-                            break;
+            //Validacion de Producto seleccionado
+            if (!jtxtCodigo.getText().equals("")) {
+                //Validacion - Cantidad de tipo Doble
+                if (HelpMethods.isDouble(jtxtCantidad.getText())) {
+                    //Validacion - Cantidad > 0
+                    if (Double.parseDouble(jtxtCantidad.getText()) > 0) {
+                        //Validacion - Producto no esta en el grid.
+                        for (int x = 0; x < modeloProductos.getRowCount(); x++) {
+                            if (jtxtCodigo.getText().equals(modeloProductos.getValueAt(x, 0).toString())) {
+                                estaProducto = true;
+                                limpiarCampos();
+                                break;
+                            }
                         }
-                    }
-                    if (!estaProducto) {
-                        añadirProductoTabla();
-                        limpiarCampos();
+                        if (!estaProducto) {
+                            añadirProductoTabla();
+                            limpiarCampos();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "El producto ya se encuentra en la lista!",
+                                    "Verifique", JOptionPane.ERROR_MESSAGE);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(this, "El producto ya se encuentra en la lista!",
+                        JOptionPane.showMessageDialog(this, "La cantidad no puede ser cero!",
                                 "Verifique", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "La cantidad no puede ser cero!",
+                    JOptionPane.showMessageDialog(this, "La cantidad debe ser un numero!",
                             "Verifique", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "La cantidad debe ser un numero!",
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun producto!",
                         "Verifique", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -598,11 +608,25 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
                 jtxtConsecutivo.setText("" + BusquedasBaseDatos.buscarUltimoConsecutivoMovimiento());
                 BusquedasBaseDatos.cerrar();
                 deshabilitarControles();
-                JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito", "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito",
+                        "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido aplicar el movimiento.",
+                        "Uppsss!", JOptionPane.ERROR_MESSAGE);
             }
         }
         confirmarPermiso = false;
     }//GEN-LAST:event_jbtnAplicarActionPerformed
+
+    private void jtblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblProductosMouseClicked
+        if (evt.getClickCount() > 1) {
+            int fila = jtblProductos.rowAtPoint(evt.getPoint());
+            int columna = jtblProductos.columnAtPoint(evt.getPoint());
+            if ((fila > -1) && (columna > -1)) {
+                modeloProductos.removeRow(fila);
+            }
+        }
+    }//GEN-LAST:event_jtblProductosMouseClicked
     /**
      * @param args the command line arguments
      */

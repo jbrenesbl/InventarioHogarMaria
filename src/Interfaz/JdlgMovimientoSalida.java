@@ -30,6 +30,8 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblProductos.getTableHeader().setDefaultRenderer(new RenderHeader(jtblProductos));
         setFechaActual();
         crearModeloTablaProductos();
         jtxtEncargado.setText(((JfrmPrincipal) super.getParent()).getUsuarioActual().getUsuario());
@@ -53,9 +55,6 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         modeloProductos.addColumn("Categoría");
         modeloProductos.addColumn("Unidad Medida");
         modeloProductos.addColumn("Cantidad");
-        
-        //Asignamos el nuevo Render del Header para que los titulos estan centrados
-        jtblProductos.getTableHeader().setDefaultRenderer(new RenderHeader(jtblProductos));
     }
 
     private void limpiarCampos() {
@@ -430,37 +429,43 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
     private void jtxtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCantidadKeyPressed
         boolean estaProducto = false;
         if (evt.getKeyCode() == 10) {
-            //Validacion - Cantidad de tipo Doble
-            if (HelpMethods.isDouble(jtxtCantidad.getText())) {
-                //Validacion - Existencia >= Cantidad
-                if (Double.parseDouble(jtxtExistencia.getText()) >= Double.parseDouble(jtxtCantidad.getText())) {
-                    //Validacion - Cantidad > 0
-                    if (Double.parseDouble(jtxtCantidad.getText()) > 0) {
-                        //Validacion - Producto no esta en el grid.
-                        for (int x = 0; x < modeloProductos.getRowCount(); x++) {
-                            if (jtxtCodigo.getText().equals(modeloProductos.getValueAt(x, 0).toString())) {
-                                estaProducto = true;
-                                limpiarCampos();
-                                break;
+            //Validacion de Producto seleccionado
+            if (!jtxtCodigo.getText().equals("")) {
+                //Validacion - Cantidad de tipo Doble
+                if (HelpMethods.isDouble(jtxtCantidad.getText())) {
+                    //Validacion - Existencia >= Cantidad
+                    if (Double.parseDouble(jtxtExistencia.getText()) >= Double.parseDouble(jtxtCantidad.getText())) {
+                        //Validacion - Cantidad > 0
+                        if (Double.parseDouble(jtxtCantidad.getText()) > 0) {
+                            //Validacion - Producto no esta en el grid.
+                            for (int x = 0; x < modeloProductos.getRowCount(); x++) {
+                                if (jtxtCodigo.getText().equals(modeloProductos.getValueAt(x, 0).toString())) {
+                                    estaProducto = true;
+                                    limpiarCampos();
+                                    break;
+                                }
                             }
-                        }
-                        if (!estaProducto) {
-                            añadirProductoTabla();
-                            limpiarCampos();
+                            if (!estaProducto) {
+                                añadirProductoTabla();
+                                limpiarCampos();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "El producto ya se encuentra en la lista!",
+                                        "Verifique", JOptionPane.ERROR_MESSAGE);
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(this, "El producto ya se encuentra en la lista!",
+                            JOptionPane.showMessageDialog(this, "La cantidad no puede ser cero!",
                                     "Verifique", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(this, "La cantidad no puede ser cero!",
+                        JOptionPane.showMessageDialog(this, "La cantidad del producto a retirar, es mayor que la existencia!",
                                 "Verifique", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "La cantidad del producto a retirar, es mayor que la existencia!",
+                    JOptionPane.showMessageDialog(this, "La cantidad debe ser un numero!",
                             "Verifique", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "La cantidad debe ser un numero!",
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun producto!",
                         "Verifique", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -498,6 +503,9 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
                 BusquedasBaseDatos.cerrar();
                 deshabilitarControles();
                 JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito", "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido aplicar el movimiento.",
+                        "Uppsss!", JOptionPane.ERROR_MESSAGE);
             }
         }
         confirmarPermiso = false;

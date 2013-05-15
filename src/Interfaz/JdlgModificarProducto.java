@@ -19,12 +19,12 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
     //Variables
     boolean comboboxEditable = false;
     Producto productoModificar;
-    
+
     public JdlgModificarProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
+
     //Constructor para ser llamado desde un JDialog
     public JdlgModificarProducto(java.awt.Dialog parent, boolean modal, Producto producto) {
         super(parent, modal);
@@ -33,10 +33,10 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
         setLocationRelativeTo(null); //Centrar Ventana
         inicializarDatos();
     }
-    
+
     private void inicializarDatos() {
         //CATEGORIAS
-        try {            
+        try {
             //Se obtiene el ResultSet con las categorias
             ResultSet rs = BusquedasBaseDatos.buscarCategorias();
 
@@ -50,7 +50,7 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
             BusquedasBaseDatos.cerrar();
         } catch (Exception ex) {
         }
-        
+
         //Asignamos los valores actuales
         jtxtCodigo.setText(productoModificar.getIdProducto() + "");
         jtxtNombreProducto.setText(productoModificar.getNombre());
@@ -59,9 +59,8 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
         jtxtCantidadMinima.setText(productoModificar.getCantidadMinima() + "");
         jcbxEstado.setSelectedItem(productoModificar.getEstado());
     }
-    
-    private boolean modificarProducto()
-    {
+
+    private boolean modificarProducto() {
         productoModificar.setIdProducto(Integer.parseInt(jtxtCodigo.getText()));
         productoModificar.setNombre(jtxtNombreProducto.getText());
         productoModificar.setCategoria(jcbxCategoria.getSelectedItem().toString());

@@ -24,6 +24,8 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        //Asignamos el nuevo Render del Header para que los titulos estan centrados
+        jtblProveedores.getTableHeader().setDefaultRenderer(new RenderHeader(jtblProveedores));
         inicializarDatos();
     }
 
@@ -38,9 +40,7 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
         modeloProveedores.addColumn("Código");
         modeloProveedores.addColumn("Nombre del Proveedor");
         modeloProveedores.addColumn("Teléfono");
-        
-        //Asignamos el nuevo Render del Header para que los titulos estan centrados
-        jtblProveedores.getTableHeader().setDefaultRenderer(new RenderHeader(jtblProveedores));
+
 
         //PROVEEDORES
         try {

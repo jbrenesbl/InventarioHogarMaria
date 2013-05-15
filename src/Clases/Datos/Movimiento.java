@@ -2,6 +2,7 @@ package Clases.Datos;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.ConexionBaseDatos;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
 
@@ -252,6 +253,40 @@ public class Movimiento {
                             + this.numeroCheque.replace("'", "''") + "', '"
                             + fechaFormateada + "', '"
                             + this.usuario + "')";
+                    //Ejecutamos la actualizacion del movimiento
+                    if (!conexion.executeUpdate(sentenciaSQL)) {
+                        conexion.executeUpdate("ROLLBACK");
+                        conexion.cerrarConexion();
+                        return false;
+                    }
+                }
+                conexion.executeUpdate("COMMIT");
+                conexion.cerrarConexion();
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean asignarCheque(ArrayList<String> movimientos, String numeroCheque) {
+        ConexionBaseDatos conexion = new ConexionBaseDatos();
+        String sentenciaSQL = "";
+        //Separamos la fecha para darle formato yyy-mm-dd
+        String[] movimientoFactura = new String[2];
+
+        //Iniciamos con la actualizacion de los datos
+        if (conexion.abrirConexion()) {
+            //Iniciar la transacción
+            if (conexion.executeUpdate("BEGIN")) {
+                //Recorremos los movimientos a modificar
+                for (int x = 0; x < movimientos.size(); x++) {
+                    movimientoFactura = movimientos.get(x).split("-");
+                    sentenciaSQL = "UPDATE Movimientos SET NumeroCheque = '" + numeroCheque.replace("'", "''") + "' "
+                            + "WHERE idMovimiento = " + movimientoFactura[0]
+                            + " AND NumeroFactura = '" + movimientoFactura[1].replace("'", "''") + "'";
                     //Ejecutamos la actualizacion del movimiento
                     if (!conexion.executeUpdate(sentenciaSQL)) {
                         conexion.executeUpdate("ROLLBACK");

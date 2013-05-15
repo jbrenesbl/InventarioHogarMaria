@@ -163,6 +163,10 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtxtNombre">
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtNombreFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtxtNombreFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jckbCategoria">
               <Properties>
@@ -175,6 +179,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jcbxCategoriaFocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jckbUnidadMedida">
               <Properties>
@@ -187,6 +194,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jcbxUnidadMedidaFocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbtnBuscar">
               <Properties>

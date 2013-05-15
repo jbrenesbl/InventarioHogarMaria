@@ -332,7 +332,7 @@ public class BusquedasBaseDatos {
                     + "FROM movimientos "
                     + "INNER JOIN proveedores "
                     + "ON movimientos.idProveedor = proveedores.idProveedor "
-                    + "WHERE (movimientos.idProveedor <> 1)");
+                    + "WHERE (movimientos.idProveedor <> 1) AND NumeroCheque = ''");
             return rs;
         } else {
             conexion.cerrarConexion();

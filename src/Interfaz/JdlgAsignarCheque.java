@@ -5,8 +5,12 @@
 package Interfaz;
 
 import Clases.Auxiliares.*;
+import Clases.Datos.Movimiento;
 import java.sql.ResultSet;
-import javax.swing.DefaultComboBoxModel;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,19 +20,23 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
 
     //Variables
     NoEditableTableModel modeloMovimientos;
+    boolean confirmarPermiso = false; //Nos indicara si la accion a ejecutar tiene permiso
 
-    public JdlgAsignarCheque(java.awt.Frame parent, boolean modal) {
+    public JdlgAsignarCheque(java.awt.Frame parent, boolean modal, String encargado) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        //USUARIO
+        jtxtEncargado.setText(encargado);
         inicializarDatos();
     }
 
     private void inicializarDatos() {
+
         //TABLA DE MOVIMIENTOS
         //Creamos la instancia del modelo
         modeloMovimientos = new NoEditableTableModel();
-        jTable1.setModel(modeloMovimientos);
+        jtblMovimientosSinCheque.setModel(modeloMovimientos);
 
         //Creamos las columnas del modelo
         modeloMovimientos.addColumn("Movimiento");
@@ -40,12 +48,15 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         //Numeramos la columna que es editable
         modeloMovimientos.setColumnaEditable(4);
 
+        JCheckBox checkBox = new javax.swing.JCheckBox();
+        jtblMovimientosSinCheque.getColumn("Asignar").setCellEditor(new DefaultCellEditor(checkBox));
+
         //Asignamos el nuevo Render del Header para que los titulos estan centrados
-        jTable1.getTableHeader().setDefaultRenderer(new RenderHeader(jTable1));
+        jtblMovimientosSinCheque.getTableHeader().setDefaultRenderer(new RenderHeader(jtblMovimientosSinCheque));
         //Se crea el JCheckBox en la columna indicada en getColumn, en este caso, la primera columna
-        jTable1.getColumnModel().getColumn(4).setCellEditor(new CeldaCheckBox());
+        jtblMovimientosSinCheque.getColumnModel().getColumn(4).setCellEditor(new CeldaCheckBox());
         //Para pintar la columna con el CheckBox en la tabla, en este caso, la primera columna
-        jTable1.getColumnModel().getColumn(4).setCellRenderer(new RenderCheckBox());
+        jtblMovimientosSinCheque.getColumnModel().getColumn(4).setCellRenderer(new RenderCheckBox());
 
         //MOVIMIENTOS SIN CHEQUE
         try {
@@ -69,6 +80,10 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         }
     }
 
+    public void setConfirmarPermiso(boolean permiso) {
+        this.confirmarPermiso = permiso;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,9 +96,14 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         jpnlAsignarCheque = new VistaJPanelConFondo.JPanelConFondo();
         jpnlTitulo = new javax.swing.JPanel();
         jlblTitulo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jpnlDatosCheque = new javax.swing.JPanel();
+        jlblTituloNumeroCheque = new javax.swing.JLabel();
+        jtxtNumeroCheque = new javax.swing.JTextField();
+        jbtnAsignar = new javax.swing.JButton();
+        jlblTituloEncargado = new javax.swing.JLabel();
+        jtxtEncargado = new javax.swing.JTextField();
+        jscpMovimientosSinCheque = new javax.swing.JScrollPane();
+        jtblMovimientosSinCheque = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,19 +114,56 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         jlblTitulo.setText("Asignar Cheque");
         jpnlTitulo.add(jlblTitulo);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jpnlDatosCheque.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jlblTituloNumeroCheque.setText("Numero de Cheque:");
+
+        jbtnAsignar.setText("Asignar");
+        jbtnAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAsignarActionPerformed(evt);
+            }
+        });
+
+        jlblTituloEncargado.setText("Encargado:");
+
+        jtxtEncargado.setEnabled(false);
+
+        javax.swing.GroupLayout jpnlDatosChequeLayout = new javax.swing.GroupLayout(jpnlDatosCheque);
+        jpnlDatosCheque.setLayout(jpnlDatosChequeLayout);
+        jpnlDatosChequeLayout.setHorizontalGroup(
+            jpnlDatosChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlDatosChequeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlDatosChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlblTituloNumeroCheque)
+                    .addComponent(jlblTituloEncargado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpnlDatosChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtxtEncargado, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(jtxtNumeroCheque))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtnAsignar)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
+        jpnlDatosChequeLayout.setVerticalGroup(
+            jpnlDatosChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnlDatosChequeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnlDatosChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlblTituloNumeroCheque)
+                    .addComponent(jtxtNumeroCheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpnlDatosChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnlDatosChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jlblTituloEncargado)
+                        .addComponent(jtxtEncargado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnAsignar))
+                .addContainerGap())
         );
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblMovimientosSinCheque.setAutoCreateRowSorter(true);
+        jtblMovimientosSinCheque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -129,7 +186,7 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jscpMovimientosSinCheque.setViewportView(jtblMovimientosSinCheque);
 
         javax.swing.GroupLayout jpnlAsignarChequeLayout = new javax.swing.GroupLayout(jpnlAsignarCheque);
         jpnlAsignarCheque.setLayout(jpnlAsignarChequeLayout);
@@ -138,8 +195,8 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
             .addGroup(jpnlAsignarChequeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpnlAsignarChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
+                    .addComponent(jpnlDatosCheque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jscpMovimientosSinCheque, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jpnlAsignarChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlAsignarChequeLayout.createSequentialGroup()
@@ -151,9 +208,9 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
             jpnlAsignarChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlAsignarChequeLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpnlDatosCheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jscpMovimientosSinCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jpnlAsignarChequeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlAsignarChequeLayout.createSequentialGroup()
@@ -175,6 +232,47 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAsignarActionPerformed
+        if (jtxtNumeroCheque.getText().equals("") | jtxtNumeroCheque.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "El numero de cheque no puede estar vacío o ser mayor a 30 caracteres!",
+                            "Verifique", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
+                    jtxtEncargado.getText());
+            ventanaConfirmar.setVisible(true);
+
+            boolean vacio = true;
+            ArrayList<String> movimientos = new ArrayList();
+            if (confirmarPermiso) {
+                //Recorremos el modelo para ver los movimientos seleccionados
+                for (int x = 0; x < modeloMovimientos.getRowCount(); x++) {
+                    if (modeloMovimientos.getValueAt(x, 4).equals(true)) {
+                        movimientos.add(modeloMovimientos.getValueAt(x, 0).toString() + "-"
+                                + modeloMovimientos.getValueAt(x, 1).toString());
+                        vacio = false;
+                    }
+                }
+
+                //Verificamos que existe al menos una linea seleccionada
+                if (!vacio) {
+                    Movimiento mov = new Movimiento();
+                    if (mov.asignarCheque(movimientos, jtxtNumeroCheque.getText())) {
+                        JOptionPane.showMessageDialog(this, "Cheque asignado con éxito!",
+                                "Listo", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido asignar el cheque.",
+                                "Uppsss!", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna linea!",
+                            "Verifique", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            confirmarPermiso = false;
+        }
+    }//GEN-LAST:event_jbtnAsignarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,7 +311,7 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                JdlgAsignarCheque dialog = new JdlgAsignarCheque(new javax.swing.JFrame(), true);
+                JdlgAsignarCheque dialog = new JdlgAsignarCheque(new javax.swing.JFrame(), true, "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -226,11 +324,16 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbtnAsignar;
     private javax.swing.JLabel jlblTitulo;
+    private javax.swing.JLabel jlblTituloEncargado;
+    private javax.swing.JLabel jlblTituloNumeroCheque;
     private VistaJPanelConFondo.JPanelConFondo jpnlAsignarCheque;
+    private javax.swing.JPanel jpnlDatosCheque;
     private javax.swing.JPanel jpnlTitulo;
+    private javax.swing.JScrollPane jscpMovimientosSinCheque;
+    private javax.swing.JTable jtblMovimientosSinCheque;
+    private javax.swing.JTextField jtxtEncargado;
+    private javax.swing.JTextField jtxtNumeroCheque;
     // End of variables declaration//GEN-END:variables
 }
