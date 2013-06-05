@@ -201,6 +201,7 @@ public class JdlgBajoStock extends javax.swing.JDialog {
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBajoStock32x32.png"))); // NOI18N
         jlblTitulo.setText("Bajo Stock");
         jpnlTitulo.add(jlblTitulo);
 
@@ -208,6 +209,7 @@ public class JdlgBajoStock extends javax.swing.JDialog {
 
         jckbNombre.setText("Nombre");
 
+        jtxtNombre.setToolTipText("Parte del nombre de producto a buscar");
         jtxtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtxtNombreFocusGained(evt);
@@ -220,6 +222,7 @@ public class JdlgBajoStock extends javax.swing.JDialog {
         jckbCategoria.setText("Categoría");
 
         jcbxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbxCategoria.setToolTipText("Categoría a buscar");
         jcbxCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jcbxCategoriaFocusGained(evt);
@@ -228,6 +231,7 @@ public class JdlgBajoStock extends javax.swing.JDialog {
 
         jckbUnidadMedida.setText("Unidad Medida");
 
+        jcbxUnidadMedida.setToolTipText("Unidad de medida a buscar");
         jcbxUnidadMedida.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jcbxUnidadMedidaFocusGained(evt);
@@ -274,6 +278,8 @@ public class JdlgBajoStock extends javax.swing.JDialog {
 
         jpnlResultados.setLayout(new java.awt.GridLayout(1, 0));
 
+        jspnResultados.setToolTipText("Productos encontrados");
+
         jtblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -316,11 +322,13 @@ public class JdlgBajoStock extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jtblResultados.setToolTipText("Productos encontrados");
         jspnResultados.setViewportView(jtblResultados);
 
         jpnlResultados.add(jspnResultados);
 
         jbtnRestaurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnRestaurar32x32.png"))); // NOI18N
+        jbtnRestaurar.setToolTipText("Restablecer todos los productos");
         jbtnRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnRestaurarActionPerformed(evt);
@@ -328,6 +336,7 @@ public class JdlgBajoStock extends javax.swing.JDialog {
         });
 
         jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
+        jbtnBuscar.setToolTipText("Buscar productos según filtro");
         jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnBuscarActionPerformed(evt);
@@ -335,6 +344,7 @@ public class JdlgBajoStock extends javax.swing.JDialog {
         });
 
         jbtnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnImprimir32x32.png"))); // NOI18N
+        jbtnImprimir.setToolTipText("Imprimir resultado de pantalla");
 
         javax.swing.GroupLayout jpnlBajoStockLayout = new javax.swing.GroupLayout(jpnlBajoStock);
         jpnlBajoStock.setLayout(jpnlBajoStockLayout);

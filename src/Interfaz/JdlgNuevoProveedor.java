@@ -29,6 +29,29 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
         setLocationRelativeTo(null); //Centrar Ventana
     }
 
+    private boolean validarCampos() {
+        //NOMBRE PROVEEDOR - OBLIGATORIO
+        if (jtxtNombreProveedor.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El nombre del proveedor, no puede estar vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtNombreProveedor.requestFocus();
+            return false;
+        } else if (jtxtNombreProveedor.getText().length() > 500) {
+            JOptionPane.showMessageDialog(this, "El nombre del proveedor, no puede ser mayor a 500 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //TELEFONO
+        if (jtxtTelefono.getText().length() > 15) {
+            JOptionPane.showMessageDialog(this, "El teléfono, no puede ser mayor a 15 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean añadirProveedor() {
         proveedor.setNombreProveedor(jtxtNombreProveedor.getText());
         proveedor.setTelefono(jtxtTelefono.getText());
@@ -62,6 +85,7 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/NuevoProveedor32x32.png"))); // NOI18N
         jlblTitulo.setText("Nuevo Proveedor");
         jpnlTitulo.add(jlblTitulo);
 
@@ -69,9 +93,14 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
 
         jlblTituloNombreProveedor.setText("Nombre del Proveedor:");
 
+        jtxtNombreProveedor.setToolTipText("Nombre del proveedor");
+
         jlblTituloTelefono.setText("Teléfono:");
 
+        jtxtTelefono.setToolTipText("Teléfono de referencia del proveedor");
+
         jbtnAceptar.setText("Aceptar");
+        jbtnAceptar.setToolTipText("Crear el nuevo proveedor");
         jbtnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAceptarActionPerformed(evt);
@@ -151,13 +180,15 @@ public class JdlgNuevoProveedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAceptarActionPerformed
-        if (añadirProveedor()) {
-            JOptionPane.showMessageDialog(this, "Proveedor agregado!", "Listo!",
-                    JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se ha podido agregar el proveedor", "Uuupppsss!",
-                    JOptionPane.ERROR_MESSAGE);
+        if (validarCampos()) {
+            if (añadirProveedor()) {
+                JOptionPane.showMessageDialog(this, "Proveedor agregado!", "Listo!",
+                        JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha podido agregar el proveedor", "Uuupppsss!",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jbtnAceptarActionPerformed
 

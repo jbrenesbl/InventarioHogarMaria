@@ -61,6 +61,29 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
         }
     }
 
+    private boolean validarCampos() {
+        //NOMBRE PROVEEDOR - OBLIGATORIO
+        if (jtxtNombreProveedor.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El nombre del proveedor, no puede estar vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtNombreProveedor.requestFocus();
+            return false;
+        } else if (jtxtNombreProveedor.getText().length() > 500) {
+            JOptionPane.showMessageDialog(this, "El nombre del proveedor, no puede ser mayor a 500 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //TELEFONO
+        if (jtxtTelefono.getText().length() > 15) {
+            JOptionPane.showMessageDialog(this, "El teléfono, no puede ser mayor a 15 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,6 +114,7 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ModificarProveedor32x32.png"))); // NOI18N
         jlblTitulo.setText("Modificar Proveedor");
         jpnlTitulo.add(jlblTitulo);
 
@@ -98,13 +122,20 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
 
         jlblTituloCodigo.setText("Código:");
 
+        jtxtCodigo.setToolTipText("Código del Proveedor");
         jtxtCodigo.setEnabled(false);
 
         jlblTituloNombreProveedor.setText("Nombre del Proveedor:");
 
+        jtxtNombreProveedor.setToolTipText("Nombre del proveedor");
+
         jlblTituloTelefono.setText("Teléfono:");
 
+        jtxtTelefono.setToolTipText("Teléfono de referencia del proveedor");
+
         jbtnModificar.setText("Modificar");
+        jbtnModificar.setToolTipText("Modificar los datos del proveedor");
+        jbtnModificar.setNextFocusableComponent(jtxtNombreProveedor);
         jbtnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnModificarActionPerformed(evt);
@@ -154,6 +185,8 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jspnProveedores.setToolTipText("Proveedores existentes en el sistema");
+
         jtblProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -176,6 +209,7 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
 
             }
         ));
+        jtblProveedores.setToolTipText("Proveedores existentes en el sistema");
         jtblProveedores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtblProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -207,7 +241,7 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
                 .addComponent(jpnlContenedorDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jspnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(jpnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlPrincipalLayout.createSequentialGroup()
                     .addContainerGap()
@@ -240,18 +274,20 @@ public class JdlgModificarProveedor extends javax.swing.JDialog {
     }//GEN-LAST:event_jtblProveedoresMouseClicked
 
     private void jbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarActionPerformed
-        Proveedor proveedor = new Proveedor();
-        proveedor.setIdProveedor(Integer.parseInt(jtxtCodigo.getText()));
-        proveedor.setNombreProveedor(jtxtNombreProveedor.getText());
-        proveedor.setTelefono(jtxtTelefono.getText());
-        if (proveedor.modificarProveedor()) {
-            JOptionPane.showMessageDialog(this, "Proveedor modificado!", "Listo!",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se ha podido modificar el proveedor", "Uuupppsss!",
-                    JOptionPane.ERROR_MESSAGE);
+        if (validarCampos()) {
+            Proveedor proveedor = new Proveedor();
+            proveedor.setIdProveedor(Integer.parseInt(jtxtCodigo.getText()));
+            proveedor.setNombreProveedor(jtxtNombreProveedor.getText());
+            proveedor.setTelefono(jtxtTelefono.getText());
+            if (proveedor.modificarProveedor()) {
+                JOptionPane.showMessageDialog(this, "Proveedor modificado!", "Listo!",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha podido modificar el proveedor", "Uuupppsss!",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            inicializarDatos();
         }
-        inicializarDatos();
     }//GEN-LAST:event_jbtnModificarActionPerformed
 
     /**

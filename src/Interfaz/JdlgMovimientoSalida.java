@@ -87,6 +87,17 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         modeloProductos.addRow(filaProducto);
     }
 
+    private boolean validarCampos() {
+        //OBSERVACION
+        if (jtxtObservacion.getText().length() > 500) {
+            JOptionPane.showMessageDialog(this, "El campo observación, no puede ser mayor a 500 carácteres!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+
     public void setConfirmarPermiso(boolean permiso) {
         this.confirmarPermiso = permiso;
     }
@@ -148,6 +159,7 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
 
         jlblTituloVentana.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jlblTituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTituloVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnSalida32x32.png"))); // NOI18N
         jlblTituloVentana.setText("Salida de Productos");
         jpnlTituloVentana.add(jlblTituloVentana);
 
@@ -160,7 +172,7 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jpnDatosEntrada.add(jlblTituloConsecutivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 16, 73, -1));
 
         jtxtConsecutivo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtxtConsecutivo.setToolTipText("Consecutivo del Movimiento");
+        jtxtConsecutivo.setToolTipText("Consecutivo del movimiento");
         jtxtConsecutivo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtConsecutivo.setEnabled(false);
         jpnDatosEntrada.add(jtxtConsecutivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 13, 77, -1));
@@ -169,7 +181,7 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jpnDatosEntrada.add(jlblTituloFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 16, 43, -1));
 
         jtxtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtxtFecha.setToolTipText("Fecha del Movimiento");
+        jtxtFecha.setToolTipText("Fecha del movimiento");
         jtxtFecha.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtFecha.setEnabled(false);
         jpnDatosEntrada.add(jtxtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 13, 77, -1));
@@ -177,13 +189,13 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jlblTituloObservacion.setText("Observación:");
         jpnDatosEntrada.add(jlblTituloObservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 54, 74, -1));
 
-        jtxtObservacion.setToolTipText("Descripción de la Salida");
+        jtxtObservacion.setToolTipText("Descripción de la salida de producto");
         jpnDatosEntrada.add(jtxtObservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 51, 630, -1));
 
         jlblTituloEncargado.setText("Encargado:");
         jpnDatosEntrada.add(jlblTituloEncargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 92, 65, -1));
 
-        jtxtEncargado.setToolTipText("Encargado de la Salida");
+        jtxtEncargado.setToolTipText("Encargado de la salida");
         jtxtEncargado.setEnabled(false);
         jpnDatosEntrada.add(jtxtEncargado, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 89, 160, -1));
 
@@ -192,6 +204,7 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jpnlDatosProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jbtnBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
+        jbtnBuscarProducto.setToolTipText("Buscar producto");
         jbtnBuscarProducto.setMaximumSize(new java.awt.Dimension(32, 32));
         jbtnBuscarProducto.setMinimumSize(new java.awt.Dimension(32, 32));
         jbtnBuscarProducto.setPreferredSize(new java.awt.Dimension(36, 36));
@@ -204,32 +217,35 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jlblTituloCodigo.setText("Código:");
         jlblTituloCodigo.setPreferredSize(new java.awt.Dimension(47, 14));
 
-        jtxtCodigo.setToolTipText("Código del Producto");
+        jtxtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtCodigo.setToolTipText("Código del producto seleccionado");
         jtxtCodigo.setEnabled(false);
 
         jlblTituloNombre.setText("Nombre:");
         jlblTituloNombre.setPreferredSize(new java.awt.Dimension(51, 14));
 
-        jtxtNombre.setToolTipText("Nombre del Producto");
+        jtxtNombre.setToolTipText("Nombre del producto seleccionado");
         jtxtNombre.setEnabled(false);
 
         jlblTituloUnidadMedida.setText("Unidad Medida:");
         jlblTituloUnidadMedida.setPreferredSize(new java.awt.Dimension(84, 14));
 
-        jtxtUnidadMedida.setToolTipText("Unidad de Medida");
+        jtxtUnidadMedida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtUnidadMedida.setToolTipText("Unidad de medida del producto seleccionado");
         jtxtUnidadMedida.setEnabled(false);
 
         jlblTituloCategoria.setText("Categoría:");
         jlblTituloCategoria.setPreferredSize(new java.awt.Dimension(61, 14));
 
-        jcbxCategoria.setToolTipText("Categoría del Producto");
+        jcbxCategoria.setToolTipText("Categoría del producto seleccionado");
         jcbxCategoria.setEnabled(false);
         jcbxCategoria.setPreferredSize(new java.awt.Dimension(190, 20));
 
         jlblTituloCantidad.setText("Cantidad:");
         jlblTituloCantidad.setPreferredSize(new java.awt.Dimension(57, 14));
 
-        jtxtCantidad.setToolTipText("Cantidad a Retirar");
+        jtxtCantidad.setToolTipText("Cantidad a retirar");
+        jtxtCantidad.setNextFocusableComponent(jbtnAplicar);
         jtxtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtCantidadKeyPressed(evt);
@@ -239,7 +255,8 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jlblTituloExistencia.setText("Existencia:");
         jlblTituloExistencia.setPreferredSize(new java.awt.Dimension(57, 14));
 
-        jtxtExistencia.setToolTipText("Cantidad a Retirar");
+        jtxtExistencia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtExistencia.setToolTipText("Existencia del producto seleccionado");
         jtxtExistencia.setEnabled(false);
 
         javax.swing.GroupLayout jpnlDatosProductoLayout = new javax.swing.GroupLayout(jpnlDatosProducto);
@@ -318,6 +335,8 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jlblDatosPorAplicar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jlblDatosPorAplicar.setLayout(new java.awt.GridLayout(1, 0));
 
+        jspnProductos.setToolTipText("Productos listos para retirar");
+
         jtblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -343,6 +362,7 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        jtblProductos.setToolTipText("Productos listos para retirar");
         jtblProductos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -356,7 +376,7 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jpnPrincipal.add(jlblDatosPorAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 413, 750, 191));
 
         jbtnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAplicar44x44.png"))); // NOI18N
-        jbtnAplicar.setToolTipText("Aplicar Cambios");
+        jbtnAplicar.setToolTipText("Aplicar el movimiento");
         jbtnAplicar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAplicarActionPerformed(evt);
@@ -365,7 +385,7 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
         jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 610, 48, 48));
 
         jbtnDescartar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnDescartar44x44.png"))); // NOI18N
-        jbtnDescartar.setToolTipText("Descartar Cambios");
+        jbtnDescartar.setToolTipText("Descartar el movimiento");
         jbtnDescartar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnDescartarActionPerformed(evt);
@@ -482,33 +502,35 @@ public class JdlgMovimientoSalida extends javax.swing.JDialog {
     }//GEN-LAST:event_jtblProductosMouseClicked
 
     private void jbtnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAplicarActionPerformed
-        JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
-                jtxtEncargado.getText());
-        ventanaConfirmar.setVisible(true);
+        if (validarCampos()) {
+            JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
+                    jtxtEncargado.getText());
+            ventanaConfirmar.setVisible(true);
 
-        if (confirmarPermiso) {
-            //Asignamos los valores del movimiento
-            Movimiento movimientoEntrada = new Movimiento();
-            movimientoEntrada.setObservacion(jtxtObservacion.getText());
-            movimientoEntrada.setTipo("Salida");
-            movimientoEntrada.setIdProveedor(1);
-            movimientoEntrada.setNumeroFactura("");
-            movimientoEntrada.setMonto(0.0);
-            movimientoEntrada.setNumeroCheque("");
-            movimientoEntrada.setUsuario(jtxtEncargado.getText());
+            if (confirmarPermiso) {
+                //Asignamos los valores del movimiento
+                Movimiento movimientoEntrada = new Movimiento();
+                movimientoEntrada.setObservacion(jtxtObservacion.getText());
+                movimientoEntrada.setTipo("Salida");
+                movimientoEntrada.setIdProveedor(1);
+                movimientoEntrada.setNumeroFactura("");
+                movimientoEntrada.setMonto(0.0);
+                movimientoEntrada.setNumeroCheque("");
+                movimientoEntrada.setUsuario(jtxtEncargado.getText());
 
-            //Llamamos al metodo de aplicacion
-            if (movimientoEntrada.aplicarMovimientoSalida(modeloProductos, jtxtFecha.getText())) {
-                jtxtConsecutivo.setText("" + BusquedasBaseDatos.buscarUltimoConsecutivoMovimiento());
-                BusquedasBaseDatos.cerrar();
-                deshabilitarControles();
-                JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito", "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido aplicar el movimiento.",
-                        "Uppsss!", JOptionPane.ERROR_MESSAGE);
+                //Llamamos al metodo de aplicacion
+                if (movimientoEntrada.aplicarMovimientoSalida(modeloProductos, jtxtFecha.getText())) {
+                    jtxtConsecutivo.setText("" + BusquedasBaseDatos.buscarUltimoConsecutivoMovimiento());
+                    BusquedasBaseDatos.cerrar();
+                    deshabilitarControles();
+                    JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito", "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido aplicar el movimiento.",
+                            "Uppsss!", JOptionPane.ERROR_MESSAGE);
+                }
             }
+            confirmarPermiso = false;
         }
-        confirmarPermiso = false;
     }//GEN-LAST:event_jbtnAplicarActionPerformed
     /**
      * @param args the command line arguments

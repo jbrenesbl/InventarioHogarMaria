@@ -5,6 +5,7 @@
 package Interfaz;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
+import Clases.Auxiliares.HelpMethods;
 import Clases.Datos.Producto;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
@@ -60,6 +61,63 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
         jcbxEstado.setSelectedItem(productoModificar.getEstado());
     }
 
+    private boolean validarCampos() {
+        //NOMBRE PRODUCTO - OBLIGATORIO
+        if (jtxtNombreProducto.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El nombre del producto, no puede estar vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtNombreProducto.requestFocus();
+            return false;
+        } else if (jtxtNombreProducto.getText().length() > 500) {
+            JOptionPane.showMessageDialog(this, "El nombre del producto, no puede ser mayor a 500 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //CATEGORIA - OBLIGATORIO
+        if (jcbxCategoria.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "La categoría, no puede estar vacía!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jcbxCategoria.requestFocus();
+            return false;
+        } else if (jcbxCategoria.getSelectedItem().toString().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "La categoría, no puede estar vacía!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jcbxCategoria.requestFocus();
+            return false;
+        } else if (jcbxCategoria.getSelectedItem().toString().length() > 500) {
+            JOptionPane.showMessageDialog(this, "La categoría, no puede ser mayor a 500 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //UNIDAD MEDIDA - OBLIGATORIO
+        if (jtxtUnidadMedida.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "La unidad de medida, no puede estar vacía!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtUnidadMedida.requestFocus();
+            return false;
+        } else if (jtxtUnidadMedida.getText().length() > 100) {
+            JOptionPane.showMessageDialog(this, "La unidad de medida, no puede ser mayor a 100 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //CANTIDAD MINIMA - OBLIGATORIO
+        if (jtxtCantidadMinima.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "La cantidad mínima, no puede estar vacía!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtCantidadMinima.requestFocus();
+            return false;
+        } else if (!HelpMethods.isDouble(jtxtCantidadMinima.getText())) {
+            JOptionPane.showMessageDialog(this, "La cantidad mínima debe ser un valor numérico!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+
     private boolean modificarProducto() {
         productoModificar.setIdProducto(Integer.parseInt(jtxtCodigo.getText()));
         productoModificar.setNombre(jtxtNombreProducto.getText());
@@ -113,14 +171,19 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
 
         jlblTituloCodigo.setText("Código:");
 
+        jtxtCodigo.setToolTipText("Código del producto");
         jtxtCodigo.setEnabled(false);
 
         jlblTituloNombreProducto.setText("Nombre del Producto:");
 
+        jtxtNombreProducto.setToolTipText("Nombre del Producto");
+
         jlblTituloCategoria.setText("Categoría:");
 
+        jcbxCategoria.setToolTipText("Categoría del producto");
+
         jbtnNuevaCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnNuevo16x16.png"))); // NOI18N
-        jbtnNuevaCategoria.setToolTipText("Crear Nuevo Producto");
+        jbtnNuevaCategoria.setToolTipText("Crear nueva categoría");
         jbtnNuevaCategoria.setMaximumSize(new java.awt.Dimension(32, 32));
         jbtnNuevaCategoria.setMinimumSize(new java.awt.Dimension(32, 32));
         jbtnNuevaCategoria.setPreferredSize(new java.awt.Dimension(18, 18));
@@ -132,13 +195,19 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
 
         jlblTituloUnidadMedida.setText("Unidad de Medida:");
 
+        jtxtUnidadMedida.setToolTipText("Unidad de medida del producto");
+
         jlblTituloCantidadMinima.setText("Cantidad Mínima:");
+
+        jtxtCantidadMinima.setToolTipText("Cantidad mínima que se debe tener en existencia");
 
         lblTituloEstado.setText("Estado:");
 
         jcbxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
+        jcbxEstado.setToolTipText("Estado del producto");
 
         jbtnAceptar.setText("Aceptar");
+        jbtnAceptar.setToolTipText("Aplicar los cambios");
         jbtnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAceptarActionPerformed(evt);
@@ -269,12 +338,14 @@ public class JdlgModificarProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnNuevaCategoriaActionPerformed
 
     private void jbtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAceptarActionPerformed
-        if (modificarProducto()) {
-            JOptionPane.showMessageDialog(this, "Producto modificado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se ha podido modificar el producto", "Uuupppsss!",
-                    JOptionPane.ERROR_MESSAGE);
+        if (validarCampos()) {
+            if (modificarProducto()) {
+                JOptionPane.showMessageDialog(this, "Producto modificado!", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha podido modificar el producto", "Uuupppsss!",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jbtnAceptarActionPerformed
 

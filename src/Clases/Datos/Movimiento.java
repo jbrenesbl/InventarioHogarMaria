@@ -158,7 +158,7 @@ public class Movimiento {
                             + this.monto + ", '"
                             + this.numeroCheque.replace("'", "''") + "', '"
                             + fechaFormateada + "', '"
-                            + this.usuario + "')";
+                            + this.usuario.replace("'", "''") + "')";
                     //Ejecutamos la actualizacion del movimiento
                     if (!conexion.executeUpdate(sentenciaSQL)) {
                         conexion.executeUpdate("ROLLBACK");
@@ -252,7 +252,7 @@ public class Movimiento {
                             + this.monto + ", '"
                             + this.numeroCheque.replace("'", "''") + "', '"
                             + fechaFormateada + "', '"
-                            + this.usuario + "')";
+                            + this.usuario.replace("'", "''") + "')";
                     //Ejecutamos la actualizacion del movimiento
                     if (!conexion.executeUpdate(sentenciaSQL)) {
                         conexion.executeUpdate("ROLLBACK");

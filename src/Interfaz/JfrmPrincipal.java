@@ -64,6 +64,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmiProveedorNuevo = new javax.swing.JMenuItem();
         jmiProveedorModificar = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
+        jmAdministracion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Inventario - Fundación María");
@@ -197,6 +198,9 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmReportes.setText("Reportes");
         jmbMenuPrincipal.add(jmReportes);
 
+        jmAdministracion.setText("Administración");
+        jmbMenuPrincipal.add(jmAdministracion);
+
         setJMenuBar(jmbMenuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -292,6 +296,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlblTituloUsuario;
     private javax.swing.JLabel jlblUsuario;
+    private javax.swing.JMenu jmAdministracion;
     private javax.swing.JMenu jmInventario;
     private javax.swing.JMenu jmMovimientos;
     private javax.swing.JMenu jmProductos;

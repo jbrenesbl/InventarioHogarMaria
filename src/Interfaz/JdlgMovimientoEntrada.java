@@ -113,6 +113,41 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         this.producto = producto;
     }
 
+    private boolean validarCampos() {
+        //NUMERO FACTURA - OBLIGATORIO
+        if (jtxtFactura.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El número de factura, no puede estar vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtFactura.requestFocus();
+            return false;
+        } else if (jtxtFactura.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "El número de factura, no puede ser mayor a 30 carácteres!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //MONTO - OBLIGATORIO
+        if (jtxtMonto.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El monto, no puede estar vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtMonto.requestFocus();
+            return false;
+        } else if (!HelpMethods.isDouble(jtxtMonto.getText())) {
+            JOptionPane.showMessageDialog(this, "El monto debe ser un valor numérico!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //OBSERVACION
+        if (jtxtObservacion.getText().length() > 500) {
+            JOptionPane.showMessageDialog(this, "El campo observación, no puede ser mayor a 500 carácteres!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
     public void setConfirmarPermiso(boolean permiso) {
         this.confirmarPermiso = permiso;
     }
@@ -181,6 +216,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
 
         jlblTituloVentana.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jlblTituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTituloVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEntrada32x32.png"))); // NOI18N
         jlblTituloVentana.setText("Entrada de Productos");
         jpnlTituloVentana.add(jlblTituloVentana);
 
@@ -190,37 +226,41 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
 
         jlblTituloConsecutivo.setText("Consecutivo:");
 
-        jtxtConsecutivo.setToolTipText("Consecutivo del Movimiento");
+        jtxtConsecutivo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtConsecutivo.setToolTipText("Consecutivo del movimiento");
         jtxtConsecutivo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtConsecutivo.setEnabled(false);
 
         jlblTituloFecha.setText("Fecha:");
 
-        jtxtFecha.setToolTipText("Fecha del Movimiento");
+        jtxtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtFecha.setToolTipText("Fecha del movimiento");
         jtxtFecha.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtxtFecha.setEnabled(false);
 
         jlblTituloFactura.setText("Factura:");
 
-        jtxtFactura.setToolTipText("Factura Correspondinte");
+        jtxtFactura.setToolTipText("Factura correspondiente");
 
         jlblTituloObservacion.setText("Observación:");
 
-        jtxtObservacion.setToolTipText("Descripción de la Entrada");
+        jtxtObservacion.setToolTipText("Descripción de la entrada de producto");
 
         jlblTituloEncargado.setText("Encargado:");
 
-        jtxtEncargado.setToolTipText("Encargado del Ingreso");
+        jtxtEncargado.setToolTipText("Encargado del ingreso");
         jtxtEncargado.setEnabled(false);
 
         jlblTituloProveedor.setText("Proveedor:");
 
+        jcbxProveedor.setToolTipText("Proveedor del que se obtienen los productos");
+
         jlblTituloMonto.setText("Monto:");
 
-        jtxtMonto.setToolTipText("Factura Correspondinte");
+        jtxtMonto.setToolTipText("Monto de la factura");
 
         jbtnNuevoProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnNuevo16x16.png"))); // NOI18N
-        jbtnNuevoProveedor.setToolTipText("Crear Nuevo Producto");
+        jbtnNuevoProveedor.setToolTipText("Crear nuevo proveedor");
         jbtnNuevoProveedor.setMaximumSize(new java.awt.Dimension(32, 32));
         jbtnNuevoProveedor.setMinimumSize(new java.awt.Dimension(32, 32));
         jbtnNuevoProveedor.setPreferredSize(new java.awt.Dimension(18, 18));
@@ -319,7 +359,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         jpnlDatosProducto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jbtnBuscarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
-        jbtnBuscarProducto.setToolTipText("Buscar Producto Existente");
+        jbtnBuscarProducto.setToolTipText("Buscar un producto existente");
         jbtnBuscarProducto.setMaximumSize(new java.awt.Dimension(32, 32));
         jbtnBuscarProducto.setMinimumSize(new java.awt.Dimension(32, 32));
         jbtnBuscarProducto.setPreferredSize(new java.awt.Dimension(36, 36));
@@ -330,7 +370,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         });
 
         jbtnNuevoProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnNuevo32x32.png"))); // NOI18N
-        jbtnNuevoProducto.setToolTipText("Crear Nuevo Producto");
+        jbtnNuevoProducto.setToolTipText("Crear nuevo producto");
         jbtnNuevoProducto.setMaximumSize(new java.awt.Dimension(32, 32));
         jbtnNuevoProducto.setMinimumSize(new java.awt.Dimension(32, 32));
         jbtnNuevoProducto.setPreferredSize(new java.awt.Dimension(36, 36));
@@ -343,32 +383,35 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         jlblTituloCodigo.setText("Código:");
         jlblTituloCodigo.setPreferredSize(new java.awt.Dimension(47, 14));
 
-        jtxtCodigo.setToolTipText("Código del Producto");
+        jtxtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtCodigo.setToolTipText("Código del producto seleccionado");
         jtxtCodigo.setEnabled(false);
 
         jlblTituloNombre.setText("Nombre:");
         jlblTituloNombre.setPreferredSize(new java.awt.Dimension(51, 14));
 
-        jtxtNombre.setToolTipText("Nombre del Producto");
+        jtxtNombre.setToolTipText("Nombre del producto seleccionado");
         jtxtNombre.setEnabled(false);
 
         jlblTituloUnidadMedida.setText("Unidad Medida:");
         jlblTituloUnidadMedida.setPreferredSize(new java.awt.Dimension(84, 14));
 
-        jtxtUnidadMedida.setToolTipText("Unidad de Medida");
+        jtxtUnidadMedida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtUnidadMedida.setToolTipText("Unidad de medida del producto seleccionado");
         jtxtUnidadMedida.setEnabled(false);
 
         jlblTituloCategoria.setText("Categoría:");
         jlblTituloCategoria.setPreferredSize(new java.awt.Dimension(61, 14));
 
-        jcbxCategoria.setToolTipText("Categoría del Producto");
+        jcbxCategoria.setToolTipText("Categoría del producto seleccionado");
         jcbxCategoria.setEnabled(false);
         jcbxCategoria.setPreferredSize(new java.awt.Dimension(190, 20));
 
         jlblTituloCantidad.setText("Cantidad:");
         jlblTituloCantidad.setPreferredSize(new java.awt.Dimension(57, 14));
 
-        jtxtCantidad.setToolTipText("Cantidad a Ingresar");
+        jtxtCantidad.setToolTipText("Cantidad a ingresar");
+        jtxtCantidad.setNextFocusableComponent(jbtnAplicar);
         jtxtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtCantidadKeyPressed(evt);
@@ -447,6 +490,8 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         jlblDatosPorAplicar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jlblDatosPorAplicar.setLayout(new java.awt.GridLayout(1, 0));
 
+        jspnProductos.setToolTipText("Productos listos para ingresar");
+
         jtblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -472,6 +517,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
+        jtblProductos.setToolTipText("Productos listos para ingresar");
         jtblProductos.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jtblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -485,7 +531,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         jpnPrincipal.add(jlblDatosPorAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 750, 191));
 
         jbtnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAplicar44x44.png"))); // NOI18N
-        jbtnAplicar.setToolTipText("Aplicar Cambios");
+        jbtnAplicar.setToolTipText("Aplicar el movimiento");
         jbtnAplicar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAplicarActionPerformed(evt);
@@ -494,7 +540,7 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
         jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 620, 48, 48));
 
         jbtnDescartar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnDescartar44x44.png"))); // NOI18N
-        jbtnDescartar.setToolTipText("Descartar Cambios");
+        jbtnDescartar.setToolTipText("Descartar el movimiento");
         jbtnDescartar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnDescartarActionPerformed(evt);
@@ -586,36 +632,38 @@ public class JdlgMovimientoEntrada extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnNuevoProductoActionPerformed
 
     private void jbtnAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAplicarActionPerformed
-        JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
-                jtxtEncargado.getText());
-        ventanaConfirmar.setVisible(true);
+        if (validarCampos()) {
+            JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
+                    jtxtEncargado.getText());
+            ventanaConfirmar.setVisible(true);
 
-        if (confirmarPermiso) {
-            //Asignamos los valores del movimiento
-            Movimiento movimientoSalida = new Movimiento();
-            movimientoSalida.setObservacion(jtxtObservacion.getText());
-            movimientoSalida.setTipo("Entrada");
-            //Obtener el proveedor
-            String[] datosProveedor = jcbxProveedor.getSelectedItem().toString().split(" - ");
-            movimientoSalida.setIdProveedor(Integer.parseInt(datosProveedor[0]));
-            movimientoSalida.setNumeroFactura(jtxtFactura.getText());
-            movimientoSalida.setMonto(Double.parseDouble(jtxtMonto.getText()));
-            movimientoSalida.setNumeroCheque("");
-            movimientoSalida.setUsuario(jtxtEncargado.getText());
+            if (confirmarPermiso) {
+                //Asignamos los valores del movimiento
+                Movimiento movimientoSalida = new Movimiento();
+                movimientoSalida.setObservacion(jtxtObservacion.getText());
+                movimientoSalida.setTipo("Entrada");
+                //Obtener el proveedor
+                String[] datosProveedor = jcbxProveedor.getSelectedItem().toString().split(" - ");
+                movimientoSalida.setIdProveedor(Integer.parseInt(datosProveedor[0]));
+                movimientoSalida.setNumeroFactura(jtxtFactura.getText());
+                movimientoSalida.setMonto(Double.parseDouble(jtxtMonto.getText()));
+                movimientoSalida.setNumeroCheque("");
+                movimientoSalida.setUsuario(jtxtEncargado.getText());
 
-            //Llamamos al metodo de aplicacion
-            if (movimientoSalida.aplicarMovimientoEntrada(modeloProductos, jtxtFecha.getText())) {
-                jtxtConsecutivo.setText("" + BusquedasBaseDatos.buscarUltimoConsecutivoMovimiento());
-                BusquedasBaseDatos.cerrar();
-                deshabilitarControles();
-                JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito",
-                        "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido aplicar el movimiento.",
-                        "Uppsss!", JOptionPane.ERROR_MESSAGE);
+                //Llamamos al metodo de aplicacion
+                if (movimientoSalida.aplicarMovimientoEntrada(modeloProductos, jtxtFecha.getText())) {
+                    jtxtConsecutivo.setText("" + BusquedasBaseDatos.buscarUltimoConsecutivoMovimiento());
+                    BusquedasBaseDatos.cerrar();
+                    deshabilitarControles();
+                    JOptionPane.showMessageDialog(this, "Movimiento aplicado con éxito",
+                            "Movimiento aplicado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido aplicar el movimiento.",
+                            "Uppsss!", JOptionPane.ERROR_MESSAGE);
+                }
             }
+            confirmarPermiso = false;
         }
-        confirmarPermiso = false;
     }//GEN-LAST:event_jbtnAplicarActionPerformed
 
     private void jtblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblProductosMouseClicked

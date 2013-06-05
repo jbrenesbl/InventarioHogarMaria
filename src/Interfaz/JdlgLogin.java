@@ -80,6 +80,7 @@ public class JdlgLogin extends javax.swing.JFrame {
         jlblTituloUsuario.setText("Usuario:");
 
         jtxtUsuario.setText("jbrenesbl");
+        jtxtUsuario.setToolTipText("Nombre de usuario a ingresar al sistema");
         jtxtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtUsuarioKeyPressed(evt);
@@ -91,6 +92,7 @@ public class JdlgLogin extends javax.swing.JFrame {
         jlblTituloPassword.setText("Contraseña:");
 
         jtxtPassword.setText("jbrenesbl");
+        jtxtPassword.setToolTipText("Contraseña del usuario");
         jtxtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtPasswordKeyPressed(evt);
@@ -98,6 +100,7 @@ public class JdlgLogin extends javax.swing.JFrame {
         });
 
         jbtnEntrar.setText("Entrar");
+        jbtnEntrar.setToolTipText("Entrar al sistema");
         jbtnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnEntrarActionPerformed(evt);

@@ -80,6 +80,22 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         }
     }
 
+    private boolean validarCampos() {
+        //NUMERO CHEQUE - OBLIGATORIO
+        if (jtxtNumeroCheque.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "El numero de cheque, no puede estar vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            jtxtNumeroCheque.requestFocus();
+            return false;
+        } else if (jtxtNumeroCheque.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "El numero de cheque, no puede ser mayor a 30 carácteres!",
+                    "Verifique", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
+
     public void setConfirmarPermiso(boolean permiso) {
         this.confirmarPermiso = permiso;
     }
@@ -106,11 +122,13 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
         jtblMovimientosSinCheque = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Asignar Cheque");
 
         jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnCheque32x32.png"))); // NOI18N
         jlblTitulo.setText("Asignar Cheque");
         jpnlTitulo.add(jlblTitulo);
 
@@ -118,7 +136,11 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
 
         jlblTituloNumeroCheque.setText("Numero de Cheque:");
 
+        jtxtNumeroCheque.setToolTipText("Número de cheque con que se realiza el pago de las facturas");
+
         jbtnAsignar.setText("Asignar");
+        jbtnAsignar.setToolTipText("Aplica la asignación del numero de cheque");
+        jbtnAsignar.setNextFocusableComponent(jtxtNumeroCheque);
         jbtnAsignar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAsignarActionPerformed(evt);
@@ -127,6 +149,7 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
 
         jlblTituloEncargado.setText("Encargado:");
 
+        jtxtEncargado.setToolTipText("");
         jtxtEncargado.setEnabled(false);
 
         javax.swing.GroupLayout jpnlDatosChequeLayout = new javax.swing.GroupLayout(jpnlDatosCheque);
@@ -162,6 +185,8 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jscpMovimientosSinCheque.setToolTipText("Facturas sin numero de cheque");
+
         jtblMovimientosSinCheque.setAutoCreateRowSorter(true);
         jtblMovimientosSinCheque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -186,6 +211,7 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jtblMovimientosSinCheque.setToolTipText("Facturas sin numero de cheque");
         jscpMovimientosSinCheque.setViewportView(jtblMovimientosSinCheque);
 
         javax.swing.GroupLayout jpnlAsignarChequeLayout = new javax.swing.GroupLayout(jpnlAsignarCheque);
@@ -234,10 +260,7 @@ public class JdlgAsignarCheque extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAsignarActionPerformed
-        if (jtxtNumeroCheque.getText().equals("") | jtxtNumeroCheque.getText().length() > 30) {
-            JOptionPane.showMessageDialog(this, "El numero de cheque no puede estar vacío o ser mayor a 30 caracteres!",
-                            "Verifique", JOptionPane.ERROR_MESSAGE);
-        } else {
+        if (validarCampos()) {
             JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
                     jtxtEncargado.getText());
             ventanaConfirmar.setVisible(true);

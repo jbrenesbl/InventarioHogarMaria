@@ -179,6 +179,7 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
 
         jckbNombre.setText("Nombre");
 
+        jtxtNombre.setToolTipText("Parte del nombre de producto a buscar");
         jtxtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtxtNombreFocusGained(evt);
@@ -190,6 +191,7 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
 
         jckbCategoria.setText("Categoria");
 
+        jcbxCategoria.setToolTipText("Categoría a buscar");
         jcbxCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jcbxCategoriaFocusGained(evt);
@@ -198,6 +200,7 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
 
         jckbUnidadMedida.setText("Unidad Medida");
 
+        jcbxUnidadMedida.setToolTipText("Unidad de medida a buscar");
         jcbxUnidadMedida.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jcbxUnidadMedidaFocusGained(evt);
@@ -205,6 +208,7 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
         });
 
         jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
+        jbtnBuscar.setToolTipText("Buscar productos según filtro");
         jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnBuscarActionPerformed(evt);
@@ -260,6 +264,8 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
 
         jpnlResultados.setLayout(new java.awt.GridLayout(1, 0));
 
+        jspnResultados.setToolTipText("Productos encontrados");
+
         jtblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -290,6 +296,7 @@ public class JdlgBuscarProducto extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jtblResultados.setToolTipText("Productos encontrados");
         jtblResultados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jtblResultados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtblResultados.addMouseListener(new java.awt.event.MouseAdapter() {

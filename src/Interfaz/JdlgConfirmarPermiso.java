@@ -95,7 +95,10 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         jlblTituloPassword.setForeground(new java.awt.Color(255, 255, 255));
         jlblTituloPassword.setText("Contraseña:");
 
+        jtxtPassword.setToolTipText("Contraseña del usuario que permitirá la acción");
+
         jbtnPermitir.setText("Permitir");
+        jbtnPermitir.setToolTipText("Permitir acción");
         jbtnPermitir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnPermitirActionPerformed(evt);

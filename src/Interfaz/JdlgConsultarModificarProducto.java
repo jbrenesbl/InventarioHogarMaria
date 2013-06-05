@@ -206,6 +206,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnConsultarProductos32x32.png"))); // NOI18N
         jlblTitulo.setText("Consultar y Modificar Productos");
         jpnlTitulo.add(jlblTitulo);
 
@@ -213,6 +214,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
 
         jckbNombre.setText("Nombre");
 
+        jtxtNombre.setToolTipText("Parte del nombre de producto a buscar");
         jtxtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtxtNombreFocusGained(evt);
@@ -225,6 +227,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         jckbCategoria.setText("Categoría");
 
         jcbxCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbxCategoria.setToolTipText("Categoría a buscar");
         jcbxCategoria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jcbxCategoriaFocusGained(evt);
@@ -236,12 +239,15 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         jckbEstado.setText("Estado");
 
         jcbxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
+        jcbxEstado.setToolTipText("Estado del producto a buscar");
+        jcbxEstado.setNextFocusableComponent(jbtnRestaurar);
         jcbxEstado.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jcbxEstadoFocusGained(evt);
             }
         });
 
+        jcbxUnidadMedida.setToolTipText("Unidad de medida a buscar");
         jcbxUnidadMedida.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jcbxUnidadMedidaFocusGained(evt);
@@ -294,6 +300,8 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
 
         jpnlResultados.setLayout(new java.awt.GridLayout(1, 0));
 
+        jspnResultados.setToolTipText("Productos encontrados");
+
         jtblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -336,6 +344,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jtblResultados.setToolTipText("Productos encontrados");
         jtblResultados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtblResultadosMouseClicked(evt);
@@ -346,6 +355,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         jpnlResultados.add(jspnResultados);
 
         jbtnRestaurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnRestaurar32x32.png"))); // NOI18N
+        jbtnRestaurar.setToolTipText("Restablecer todos los productos");
         jbtnRestaurar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnRestaurarActionPerformed(evt);
@@ -353,6 +363,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         });
 
         jbtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscarProducto32x32.png"))); // NOI18N
+        jbtnBuscar.setToolTipText("Buscar productos según filtro");
         jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnBuscarActionPerformed(evt);
@@ -360,6 +371,7 @@ public class JdlgConsultarModificarProducto extends javax.swing.JDialog {
         });
 
         jbtnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnImprimir32x32.png"))); // NOI18N
+        jbtnImprimir.setToolTipText("Imprimir resultado de pantalla");
 
         javax.swing.GroupLayout jpnlConsultarModificarProductosLayout = new javax.swing.GroupLayout(jpnlConsultarModificarProductos);
         jpnlConsultarModificarProductos.setLayout(jpnlConsultarModificarProductosLayout);
