@@ -113,7 +113,7 @@ public class BusquedasBaseDatos {
             return null;
         }
     }
-    
+
     //BUSCAR PRODUCTO DETALLADO
     public static ResultSet buscarProductoDetallado(String nombre,
             String categoria, String unidadMedida, String estado) {
@@ -149,7 +149,7 @@ public class BusquedasBaseDatos {
                 sentenciaSQL.append("AND UnidadMedida LIKE '%" + unidadMedida.replace("'", "''") + "%'");
             }
         }
-        
+
         //Validamos si nos dan el estado
         if (!estado.equals("*")) {
             if (primerCriterio) {
@@ -217,8 +217,7 @@ public class BusquedasBaseDatos {
 
     //BUSCAR BAJO STOCK
     public static ResultSet buscarBajoStock(String nombre,
-            String categoria, String unidadMedida)
-    {
+            String categoria, String unidadMedida) {
         StringBuilder sentenciaSQL = new StringBuilder();
 
         sentenciaSQL.append("SELECT * "
@@ -249,7 +248,7 @@ public class BusquedasBaseDatos {
             return null;
         }
     }
-    
+
     //BUSCAR ULTIMO CONSECUTIVO MOVIMIENTO
     public static int buscarUltimoConsecutivoMovimiento() {
         String sentenciaSQL = "SELECT MAX(idMovimiento) FROM Movimientos";
@@ -321,8 +320,7 @@ public class BusquedasBaseDatos {
     }
 
     //BUSCAR MOVIMIENTOS SIN CHEQUE
-    public static ResultSet buscarMovimientosSinCheque()
-    {
+    public static ResultSet buscarMovimientosSinCheque() {
         //Ejecutar la consulta
         if (conexion.abrirConexion()) {
             ResultSet rs = conexion.obtenerDatos("SELECT DISTINCT movimientos.idMovimiento, "
@@ -339,7 +337,75 @@ public class BusquedasBaseDatos {
             return null;
         }
     }
-    
+
+    //BUSCAR MOVIMIENTOS - REPORTE DETALLADO
+    public static ResultSet buscarMovimientos(String tipoMovimiento, String numeroFactura, int idProveedor,
+            String numeroCheque, String fechaInicio, String fechaFin, double montoInicio, double montoFin,
+            String Usuario) {
+        String sentenciaSQL = "SELECT "
+                + "m.idMovimiento AS Consecutivo, "
+                + "m.Tipo AS TipoMovimiento, "
+                + "m.NumeroFactura AS NumeroFactura, "
+                + "pv.NombreProveedor AS NombreProveedor, "
+                + "m.NumeroCheque AS NumeroCheque, "
+                + "DATE_FORMAT (m.FechaMovimiento, '%d/%m/%Y') AS FechaMovimiento, "
+                + "m.Monto AS Monto, "
+                + "m.Usuario AS Usuario "
+                + "FROM movimientos m "
+                + "INNER JOIN proveedores pv "
+                + "ON m.idProveedor = pv.idProveedor "
+                + "WHERE ";
+
+        //CONDICION TIPO MOVIMIENTO
+        if (!tipoMovimiento.equals("")) {
+            sentenciaSQL += "m.Tipo = '" + tipoMovimiento + "' AND ";
+        }
+
+        //CONDICION NUMERO FACTURA
+        if (!numeroFactura.equals("")) {
+            sentenciaSQL += "m.NumeroFactura = '" + numeroFactura + "' AND ";
+        }
+
+        //CONDICION PROVEEDOR
+        if (idProveedor > 0) {
+            sentenciaSQL += "m.idProveedor = " + numeroFactura + " AND ";
+        }
+
+        //CONDICION NUMERO CHEQUE
+        if (!numeroCheque.equals("")) {
+            sentenciaSQL += "m.NumeroCheque = '" + numeroCheque + "' AND ";
+        }
+        
+        //CONDICION RANGO FECHAS
+        if (!fechaInicio.equals("")) {
+            sentenciaSQL += "(m.FechaMovimiento >= '" + fechaInicio + "' AND "
+                    + "m.FechaMovimiento <= '" + fechaFin + "') AND ";
+        }
+        
+        //CONDICION RANGO MONTO
+        if (montoFin > 0) {
+            sentenciaSQL += "(m.Monto >= " + montoInicio + " AND "
+                    + "m.Monto <= " + montoFin + ") AND ";
+        }
+        
+        //CONDICION USUARIO
+        if (!Usuario.equals("")) {
+            sentenciaSQL += "m.Usuario = '" + Usuario + "' AND ";
+        }
+        
+        //Quitamos el "AND " del final de la sentencia
+        sentenciaSQL = sentenciaSQL.substring(0, sentenciaSQL.length() - 4);
+        
+        //Ejecutar la consulta
+        if (conexion.abrirConexion()) {
+            ResultSet rs = conexion.obtenerDatos(sentenciaSQL);
+            return rs;
+        } else {
+            conexion.cerrarConexion();
+            return null;
+        }
+    }
+
     //CERRAR CONEXION BD
     public static void cerrar() {
         conexion.cerrarConexion();

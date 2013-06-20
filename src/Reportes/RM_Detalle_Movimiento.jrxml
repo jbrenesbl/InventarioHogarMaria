@@ -4,103 +4,260 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="BannerHeader" class="java.lang.String"/>
-	<field name="Consecutivo" class="java.lang.String"/>
-	<field name="Tipo" class="java.lang.String"/>
-	<field name="Observ" class="java.lang.String"/>
-	<field name="Factura" class="java.lang.String"/>
-	<field name="Prov" class="java.lang.String"/>
-	<field name="Monto" class="java.lang.String"/>
-	<field name="Cheque" class="java.lang.String"/>
-	<field name="Fecha" class="java.lang.String"/>
+	<parameter name="Consecutivo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     movimientos.`idMovimiento` AS Consecutivo,
+     movimientos.`Tipo` AS TipoMovimiento,
+     movimientos.`Cantidad` AS Cantidad,
+     movimientos.`Observacion` AS Observacion,
+     movimientos.`NumeroFactura` AS NumeroFactura,
+     movimientos.`Monto` AS Monto,
+     movimientos.`NumeroCheque` AS NumeroCheque,
+     DATE_FORMAT (movimientos.`FechaMovimiento`, '%d/%m/%Y') AS FechaMovimiento,
+     movimientos.`Usuario` AS Usuario,
+     productos.`Nombre` AS NombreProducto,
+     proveedores.`NombreProveedor` AS NombreProveedor
+FROM
+     `movimientos` movimientos INNER JOIN `productos` productos ON movimientos.`idProducto` = productos.`idProducto`
+     INNER JOIN `proveedores` proveedores ON movimientos.`idProveedor` = proveedores.`idProveedor`
+ WHERE
+     movimientos.idMovimiento = $P{Consecutivo}]]>
+	</queryString>
+	<field name="Consecutivo" class="java.lang.Integer"/>
+	<field name="TipoMovimiento" class="java.lang.String"/>
+	<field name="Cantidad" class="java.math.BigDecimal"/>
+	<field name="Observacion" class="java.lang.String"/>
+	<field name="NumeroFactura" class="java.lang.String"/>
+	<field name="Monto" class="java.lang.Double"/>
+	<field name="NumeroCheque" class="java.lang.String"/>
+	<field name="FechaMovimiento" class="java.lang.String"/>
 	<field name="Usuario" class="java.lang.String"/>
+	<field name="NombreProducto" class="java.lang.String"/>
+	<field name="NombreProveedor" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="60" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="77" y="2" width="400" height="56"/>
+				<imageExpression><![CDATA[$P{BannerHeader}]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="33" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="1" width="555" height="2" forecolor="#30B042"/>
+				<reportElement x="0" y="1" width="555" height="2" forecolor="#8DBBCA"/>
 			</line>
 			<staticText>
 				<reportElement x="0" y="10" width="555" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Reporte Detallado de Movimiento]]></text>
+				<text><![CDATA[Reporte Detallado de Movimiento
+                ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="31" width="555" height="2" forecolor="#30B042"/>
+				<reportElement x="0" y="31" width="555" height="2" forecolor="#8DBBCA"/>
 			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="83" splitType="Stretch">
+		<band height="103" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="2" width="64" height="14"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+				<reportElement x="0" y="2" width="60" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Consecutivo:]]></text>
+				<text><![CDATA[Consecutivo:
+                ]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="66" y="2" width="74" height="14"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{Consecutivo}]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement x="0" y="81" width="555" height="2" forecolor="#30B042"/>
+				<reportElement x="0" y="73" width="555" height="2" forecolor="#8DBBCA"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="16" width="100" height="14"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+				<reportElement x="0" y="16" width="94" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tipo de Movimiento:]]></text>
+				<text><![CDATA[Tipo de Movimiento:
+                ]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="102" y="16" width="74" height="14"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{Tipo}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="0" y="30" width="106" height="14"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+				<reportElement x="0" y="30" width="100" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Fecha de Movimiento:]]></text>
+				<text><![CDATA[Fecha de Movimiento:
+                ]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="108" y="30" width="74" height="14"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="0" y="44" width="42" height="14"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
+				<reportElement x="0" y="44" width="39" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Usuario:]]></text>
+				<text><![CDATA[Usuario:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="60" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observación:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="2" width="38" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="30" width="34" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="44" width="38" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cheque:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="16" width="50" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor:
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="82" width="96" height="20" forecolor="#4497AE"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto
+                ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="451" y="82" width="100" height="20" forecolor="#4497AE"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad
+                ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="44" y="44" width="74" height="14"/>
-				<textElement/>
+				<reportElement x="62" y="2" width="100" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Consecutivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="96" y="16" width="100" height="14"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TipoMovimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="102" y="30" width="111" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FechaMovimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="44" width="100" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="58" width="489" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Observacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="2" width="100" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NumeroFactura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="16" width="239" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{NombreProveedor}.equals("Salida") ? "" : $F{NombreProveedor} )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="30" width="100" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( ($F{Monto} > 0.0) ? "¢" + $F{Monto} : "" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="44" width="100" height="14"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NumeroCheque}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="4" y="2" width="400" height="14"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NombreProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="2" width="100" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="1" width="555" height="2" forecolor="#8DBBCA"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="3" width="551" height="51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Santo Domingo de Heredia
+100 Metros Norte de la Clínica Dr. Hugo Fonseca
+Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

@@ -26,7 +26,7 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         this.setLocationRelativeTo(null); //Centrar la ventana
     }
 
-    public JdlgConfirmarPermiso(JdlgMovimientoSalida parent, boolean modal, String usuarioActual) {
+    public JdlgConfirmarPermiso(JdlgMovimientosSalida parent, boolean modal, String usuarioActual) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null); //Centrar la ventana
@@ -34,7 +34,7 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         this.tipoPadre = "Movimiento Salida";
     }
 
-    public JdlgConfirmarPermiso(JdlgMovimientoEntrada parent, boolean modal, String usuarioActual) {
+    public JdlgConfirmarPermiso(JdlgMovimientosEntrada parent, boolean modal, String usuarioActual) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null); //Centrar la ventana
@@ -42,7 +42,7 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         this.tipoPadre = "Movimiento Entrada";
     }
 
-    public JdlgConfirmarPermiso(JdlgAsignarCheque parent, boolean modal, String usuarioActual) {
+    public JdlgConfirmarPermiso(JdlgMovimientosAsignarCheque parent, boolean modal, String usuarioActual) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null); //Centrar la ventana
@@ -167,19 +167,19 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         if (permiso) {
             this.dispose();
             if (tipoPadre.equals("Movimiento Salida")) {
-                ((JdlgMovimientoSalida) this.getOwner()).setConfirmarPermiso(true);
+                ((JdlgMovimientosSalida) this.getOwner()).setConfirmarPermiso(true);
             } else if (tipoPadre.equals("Movimiento Entrada")) {
-                ((JdlgMovimientoEntrada) this.getOwner()).setConfirmarPermiso(true);
+                ((JdlgMovimientosEntrada) this.getOwner()).setConfirmarPermiso(true);
             } else if (tipoPadre.equals("Asignar Cheque")) {
-                ((JdlgAsignarCheque) this.getOwner()).setConfirmarPermiso(true);
+                ((JdlgMovimientosAsignarCheque) this.getOwner()).setConfirmarPermiso(true);
             }
         } else {
             if (tipoPadre.equals("Movimiento Salida")) {
-                ((JdlgMovimientoSalida) this.getOwner()).setConfirmarPermiso(false);
+                ((JdlgMovimientosSalida) this.getOwner()).setConfirmarPermiso(false);
             } else if (tipoPadre.equals("Movimiento Entrada")) {
-                ((JdlgMovimientoEntrada) this.getOwner()).setConfirmarPermiso(false);
+                ((JdlgMovimientosEntrada) this.getOwner()).setConfirmarPermiso(false);
             } else if (tipoPadre.equals("Asignar Cheque")) {
-                ((JdlgAsignarCheque) this.getOwner()).setConfirmarPermiso(false);
+                ((JdlgMovimientosAsignarCheque) this.getOwner()).setConfirmarPermiso(false);
             }
             JOptionPane.showMessageDialog(this, "Contraseña Incorrecta", "Error de autenfificación", JOptionPane.ERROR_MESSAGE);
         }

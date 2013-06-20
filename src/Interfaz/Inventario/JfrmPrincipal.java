@@ -5,6 +5,7 @@
 package Interfaz.Inventario;
 
 import Clases.Datos.Usuario;
+import Interfaz.Reportes.JdlgReporteMovimientoDetallado;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -203,6 +204,11 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmReportesMovimientos.setText("Movimientos");
 
         jmiReporteDetalleMovimiento.setText("Detalle de movimiento");
+        jmiReporteDetalleMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiReporteDetalleMovimientoActionPerformed(evt);
+            }
+        });
         jmReportesMovimientos.add(jmiReporteDetalleMovimiento);
 
         jmiReporteHistoricoMovimientos.setText("Histórico de movimientos");
@@ -232,39 +238,45 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiMovimientoEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMovimientoEntradaActionPerformed
-        JdlgMovimientoEntrada ventanaMovimientoEntrada = new JdlgMovimientoEntrada(this, true);
+        JdlgMovimientosEntrada ventanaMovimientoEntrada = new JdlgMovimientosEntrada(this, true);
         ventanaMovimientoEntrada.setVisible(true);
     }//GEN-LAST:event_jmiMovimientoEntradaActionPerformed
 
     private void jmiMovimientoSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMovimientoSalidaActionPerformed
-        JdlgMovimientoSalida ventanaMovimientoSalida = new JdlgMovimientoSalida(this, true);
+        JdlgMovimientosSalida ventanaMovimientoSalida = new JdlgMovimientosSalida(this, true);
         ventanaMovimientoSalida.setVisible(true);
     }//GEN-LAST:event_jmiMovimientoSalidaActionPerformed
 
     private void jmiProductoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoConsultarActionPerformed
-        JdlgConsultarModificarProducto ventanaConsultarProducto = new JdlgConsultarModificarProducto(this, true);
+        JdlgProductosConsultarModificar ventanaConsultarProducto = new JdlgProductosConsultarModificar(this, true);
         ventanaConsultarProducto.setVisible(true);
     }//GEN-LAST:event_jmiProductoConsultarActionPerformed
 
     private void jmiproductoBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiproductoBajoStockActionPerformed
-        JdlgBajoStock ventanaBajoStock = new JdlgBajoStock(this, true);
+        JdlgProductosBajoStock ventanaBajoStock = new JdlgProductosBajoStock(this, true);
         ventanaBajoStock.setVisible(true);
     }//GEN-LAST:event_jmiproductoBajoStockActionPerformed
 
     private void jmiProveedorNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProveedorNuevoActionPerformed
-        JdlgNuevoProveedor ventanaNuevoProveedor = new JdlgNuevoProveedor(this, true);
+        JdlgProveedorNuevo ventanaNuevoProveedor = new JdlgProveedorNuevo(this, true);
         ventanaNuevoProveedor.setVisible(true);
     }//GEN-LAST:event_jmiProveedorNuevoActionPerformed
 
     private void jmiProveedorModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProveedorModificarActionPerformed
-        JdlgModificarProveedor ventanaModificarProveedor = new JdlgModificarProveedor(this, true);
+        JdlgProveedorModificar ventanaModificarProveedor = new JdlgProveedorModificar(this, true);
         ventanaModificarProveedor.setVisible(true);
     }//GEN-LAST:event_jmiProveedorModificarActionPerformed
 
     private void jmiMovimientoAsignarChequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMovimientoAsignarChequeActionPerformed
-        JdlgAsignarCheque ventanaAsignarCheque = new JdlgAsignarCheque(this, true, usuarioActual.getUsuario());
+        JdlgMovimientosAsignarCheque ventanaAsignarCheque = new JdlgMovimientosAsignarCheque(this, true, usuarioActual.getUsuario());
         ventanaAsignarCheque.setVisible(true);
     }//GEN-LAST:event_jmiMovimientoAsignarChequeActionPerformed
+
+    private void jmiReporteDetalleMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteDetalleMovimientoActionPerformed
+        JdlgReporteMovimientoDetallado ventanaeporteMovimientoDetallado = new JdlgReporteMovimientoDetallado(
+                this, true);
+        ventanaeporteMovimientoDetallado.setVisible(true);        
+    }//GEN-LAST:event_jmiReporteDetalleMovimientoActionPerformed
 
     /**
      * @param args the command line arguments
