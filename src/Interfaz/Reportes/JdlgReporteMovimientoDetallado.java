@@ -1,6 +1,7 @@
 package Interfaz.Reportes;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
+import Clases.Auxiliares.HelpMethods;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -49,7 +50,7 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
 
             //NUMERO FACTURA
             //No vacío
-            if (jckbNumeroFactura.isSelected() & jtxtNumeroFactura.getText().trim().equals("")) {
+            if (jckbNumeroFactura.isSelected() & jtxtNumeroFactura.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Especifique el numero de factura!", "Verifique",
                         JOptionPane.INFORMATION_MESSAGE);
                 jtxtNumeroFactura.requestFocus();
@@ -58,7 +59,7 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
 
             //NUMERO CHEQUE
             //No vacío
-            if (jckbNumeroCheque.isSelected() & jtxtNumeroCheque.getText().trim().equals("")) {
+            if (jckbNumeroCheque.isSelected() & jtxtNumeroCheque.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Especifique el numero de cheque!", "Verifique",
                         JOptionPane.INFORMATION_MESSAGE);
                 jtxtNumeroCheque.requestFocus();
@@ -67,19 +68,62 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
 
             //RANGO DE FECHAS            
             //No Vacías
-            if (jckbFechaMovimiento.isSelected() & jdchFechaMovimientoInicial.getDate() != null
-                    & jdchFechaMovimientoFinal.getDate() != null) {
-                //Fecha Inicio menor que Fecha Final
-                if (jdchFechaMovimientoInicial.getDate().after(jdchFechaMovimientoFinal.getDate())) {
-                    JOptionPane.showMessageDialog(this, "La fecha inicio no puede ser mayor a la fecha final!",
-                            "Verifique", JOptionPane.INFORMATION_MESSAGE);
-                    jtxtNumeroCheque.requestFocus();
+            if (jckbFechaMovimiento.isSelected()) {
+                if (jdchFechaMovimientoInicial.getDate() != null & jdchFechaMovimientoFinal.getDate() != null) {
+                    //Fecha Inicio menor que Fecha Final
+                    if (jdchFechaMovimientoInicial.getDate().after(jdchFechaMovimientoFinal.getDate())) {
+                        JOptionPane.showMessageDialog(this, "La fecha inicio no puede ser mayor a la fecha final!",
+                                "Verifique", JOptionPane.INFORMATION_MESSAGE);
+                        jtxtNumeroCheque.requestFocus();
+                        return false;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ha seleccionado ambas fechas!", "Verifique",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    jdchFechaMovimientoInicial.requestFocus();
                     return false;
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "No se ha seleccionado ambas fechas!", "Verifique", 
+            }
+
+            //RANGO MONTOS
+            if (jckbMonto.isSelected()) {
+                //No Vacíos
+                if ((!jtxtMontoInicial.getText().trim().isEmpty())
+                        & (!jtxtMontoFinal.getText().trim().isEmpty())) {
+                    //Datos de tipo double
+                    if (!HelpMethods.isDouble(jtxtMontoInicial.getText())) {
+                        JOptionPane.showMessageDialog(this, "El monto inicial no es un valor numerico!", "Verifique",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        jtxtMontoInicial.requestFocus();
+                        return false;
+                    }
+
+                    if (!HelpMethods.isDouble(jtxtMontoFinal.getText())) {
+                        JOptionPane.showMessageDialog(this, "El monto final no es un valor numerico!", "Verifique",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        jtxtMontoInicial.requestFocus();
+                        return false;
+                    }
+
+                    if (Double.parseDouble(jtxtMontoInicial.getText()) > Double.parseDouble(jtxtMontoFinal.getText())) {
+                        JOptionPane.showMessageDialog(this, "El monto inicial no puede ser mayor al monto final!",
+                                "Verifique", JOptionPane.INFORMATION_MESSAGE);
+                        jtxtMontoInicial.requestFocus();
+                        return false;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ha indicado el rango de montos!", "Verifique",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    jtxtMontoInicial.requestFocus();
+                    return false;
+                }
+            }
+
+            //USUARIO
+            if (jckbUsuario.isSelected() & jtxtUsuario.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Especifique el usuario!", "Verifique",
                         JOptionPane.INFORMATION_MESSAGE);
-                jtxtNumeroCheque.requestFocus();
+                jtxtUsuario.requestFocus();
                 return false;
             }
 

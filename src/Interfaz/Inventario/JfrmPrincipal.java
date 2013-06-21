@@ -113,7 +113,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jpnlFondoLayout.setVerticalGroup(
             jpnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlFondoLayout.createSequentialGroup()
-                .addGap(0, 508, Short.MAX_VALUE)
+                .addContainerGap(508, Short.MAX_VALUE)
                 .addComponent(jpnlBarraEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
