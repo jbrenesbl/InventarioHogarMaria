@@ -274,7 +274,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
 
     private void jmiReporteDetalleMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteDetalleMovimientoActionPerformed
         JdlgReporteMovimientoDetallado ventanaeporteMovimientoDetallado = new JdlgReporteMovimientoDetallado(
-                this, true);
+                this, false);
         ventanaeporteMovimientoDetallado.setVisible(true);        
     }//GEN-LAST:event_jmiReporteDetalleMovimientoActionPerformed
 

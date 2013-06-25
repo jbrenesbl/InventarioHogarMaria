@@ -92,4 +92,8 @@ public class ConexionBaseDatos {
         } catch (Exception ex) {
         }
     }
+
+    public Connection getConexion() {
+        return conexion;
+    }   
 }

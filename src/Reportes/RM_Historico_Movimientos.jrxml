@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RM_Historico_Movimientos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="1.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="1.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<subDataset name="dstMovimientos">
+		<queryString>
+			<![CDATA[SELECT DISTINCT
+     movimientos.`idMovimiento` AS Consecutivo,
+     movimientos.`Tipo` AS Tipo,
+     movimientos.`NumeroFactura` AS Factura,
+     proveedores.`NombreProveedor` AS Proveedor,
+     movimientos.`Monto` AS Monto,
+     movimientos.`NumeroCheque` AS Cheque,
+     DATE_FORMAT(movimientos.`FechaMovimiento`,'%d/%m/%Y') AS Fecha,
+     movimientos.`Usuario` AS Usuario
+FROM
+     `proveedores` proveedores INNER JOIN `movimientos` movimientos ON proveedores.`idProveedor` = movimientos.`idProveedor`
+ORDER BY
+     movimientos.`idMovimiento` ASC]]>
+		</queryString>
+		<field name="Consecutivo" class="java.lang.Integer"/>
+		<field name="Tipo" class="java.lang.String"/>
+		<field name="Factura" class="java.lang.String"/>
+		<field name="Proveedor" class="java.lang.String"/>
+		<field name="Monto" class="java.lang.Double"/>
+		<field name="Cheque" class="java.lang.String"/>
+		<field name="Fecha" class="java.lang.String"/>
+		<field name="Usuario" class="java.lang.String"/>
+		<variable name="SumaMonto" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{Monto}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="BannerHeader" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Background" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Condicion" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+     movimientos.`idMovimiento` AS Consecutivo,
+     movimientos.`Tipo` AS Tipo,
+     movimientos.`NumeroFactura` AS Factura,
+     proveedores.`NombreProveedor` AS Proveedor,
+     movimientos.`Monto` AS Monto,
+     movimientos.`NumeroCheque` AS Cheque,
+     DATE_FORMAT(movimientos.`FechaMovimiento`,'%d/%m/%Y') AS Fecha,
+     movimientos.`Usuario` AS Usuario
+FROM
+     `proveedores` proveedores INNER JOIN `movimientos` movimientos ON proveedores.`idProveedor` = movimientos.`idProveedor`
+ORDER BY
+     movimientos.`idMovimiento` ASC]]>
+	</queryString>
+	<field name="Consecutivo" class="java.lang.Integer"/>
+	<field name="Tipo" class="java.lang.String"/>
+	<field name="Factura" class="java.lang.String"/>
+	<field name="Proveedor" class="java.lang.String"/>
+	<field name="Monto" class="java.lang.Double"/>
+	<field name="Cheque" class="java.lang.String"/>
+	<field name="Fecha" class="java.lang.String"/>
+	<field name="Usuario" class="java.lang.String"/>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="RealSize" hAlign="Center" vAlign="Middle">
+				<reportElement x="1" y="168" width="550" height="512"/>
+				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<image hAlign="Center">
+				<reportElement x="77" y="2" width="400" height="56"/>
+				<imageExpression><![CDATA[$P{BannerHeader}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="1" width="555" height="2" forecolor="#8DBBCA"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Histórico de Movimientos
+                
+                
+                ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="31" width="555" height="2" forecolor="#8DBBCA"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="49" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" isPrintRepeatedValues="false" x="0" y="4" width="555" height="42" isPrintInFirstWholeBand="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dstMovimientos">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="68">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="68" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Consecutivo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="68" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Consecutivo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="61">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="61" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Tipo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="61" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Tipo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="58">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="58" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Factura]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="58" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Factura}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Proveedor]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Proveedor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="59">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="59" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Monto]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="59" height="30" forecolor="#FF0033"/>
+								<textElement textAlignment="Right">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{SumaMonto}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="59" height="20"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Monto}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="71">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="71" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Cheque]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="71" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Cheque}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="74">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="74" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Fecha]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="74" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="72">
+						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="72" height="22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Usuario]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="72" height="20"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="1" width="555" height="2" forecolor="#8DBBCA"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="3" width="551" height="51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Santo Domingo de Heredia
+100 Metros Norte de la Clínica Dr. Hugo Fonseca
+Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com
+                
+                
+                
+                ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

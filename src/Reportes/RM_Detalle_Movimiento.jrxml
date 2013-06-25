@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RM_Detalle_Movimiento" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="BannerHeader" class="java.lang.String"/>
+	<property name="ireport.y" value="501"/>
+	<parameter name="BannerHeader" class="java.io.InputStream"/>
+	<parameter name="Background" class="java.io.InputStream"/>
 	<parameter name="Consecutivo" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -38,7 +39,12 @@ FROM
 	<field name="NombreProducto" class="java.lang.String"/>
 	<field name="NombreProveedor" class="java.lang.String"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="RealSize" hAlign="Center" vAlign="Middle">
+				<reportElement x="1" y="168" width="550" height="512"/>
+				<imageExpression><![CDATA[$P{Background}]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="60" splitType="Stretch">
@@ -59,6 +65,7 @@ FROM
 					<font fontName="Arial" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporte Detallado de Movimiento
+                
                 ]]></text>
 			</staticText>
 			<line>
@@ -74,6 +81,7 @@ FROM
 					<font fontName="Times New Roman" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Consecutivo:
+                
                 ]]></text>
 			</staticText>
 			<line>
@@ -85,6 +93,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo de Movimiento:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -93,6 +102,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha de Movimiento:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -101,6 +111,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Usuario:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -109,6 +120,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Observación:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -117,6 +129,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Factura:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -125,6 +138,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Monto:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -133,6 +147,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cheque:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -141,6 +156,7 @@ FROM
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Proveedor:
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -149,6 +165,7 @@ FROM
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Producto
+                
                 ]]></text>
 			</staticText>
 			<staticText>
@@ -157,6 +174,7 @@ FROM
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad
+                
                 ]]></text>
 			</staticText>
 			<textField>
@@ -228,7 +246,9 @@ FROM
 		<band height="18" splitType="Stretch">
 			<textField>
 				<reportElement x="4" y="2" width="400" height="14"/>
-				<textElement/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NombreProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -253,7 +273,8 @@ FROM
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Santo Domingo de Heredia
 100 Metros Norte de la Clínica Dr. Hugo Fonseca
-Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com]]></text>
+Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com
+                ]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

@@ -341,9 +341,9 @@ public class BusquedasBaseDatos {
     //BUSCAR MOVIMIENTOS - REPORTE DETALLADO
     public static ResultSet buscarMovimientos(String tipoMovimiento, String numeroFactura, int idProveedor,
             String numeroCheque, String fechaInicio, String fechaFin, double montoInicio, double montoFin,
-            String Usuario) {
+            String usuario) {
         String sentenciaSQL = "SELECT "
-                + "m.idMovimiento AS Consecutivo, "
+                + "DISTINCT m.idMovimiento AS Consecutivo, "
                 + "m.Tipo AS TipoMovimiento, "
                 + "m.NumeroFactura AS NumeroFactura, "
                 + "pv.NombreProveedor AS NombreProveedor, "
@@ -368,7 +368,7 @@ public class BusquedasBaseDatos {
 
         //CONDICION PROVEEDOR
         if (idProveedor > 0) {
-            sentenciaSQL += "m.idProveedor = " + numeroFactura + " AND ";
+            sentenciaSQL += "m.idProveedor = " + idProveedor + " AND ";
         }
 
         //CONDICION NUMERO CHEQUE
@@ -389,8 +389,8 @@ public class BusquedasBaseDatos {
         }
         
         //CONDICION USUARIO
-        if (!Usuario.equals("")) {
-            sentenciaSQL += "m.Usuario = '" + Usuario + "' AND ";
+        if (!usuario.equals("")) {
+            sentenciaSQL += "m.Usuario = '" + usuario + "' AND ";
         }
         
         //Quitamos el "AND " del final de la sentencia

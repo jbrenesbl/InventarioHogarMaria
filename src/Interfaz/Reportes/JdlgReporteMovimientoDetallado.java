@@ -2,7 +2,10 @@ package Interfaz.Reportes;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.HelpMethods;
+import Clases.Auxiliares.NoEditableTableModel;
+import Clases.Auxiliares.Reportes;
 import java.sql.ResultSet;
+import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -12,9 +15,18 @@ import javax.swing.JOptionPane;
  */
 public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JdlgReporteMovimientoDetallado
-     */
+    //Variables
+    String tipoMovimiento;
+    String numeroFactura;
+    int idProveedor;
+    String numeroCheque;
+    String fechaInicio;
+    String fechaFin;
+    double montoInicio;
+    double montoFin;
+    String usuario;
+    NoEditableTableModel modeloMovimientos;
+
     public JdlgReporteMovimientoDetallado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -40,6 +52,28 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
             BusquedasBaseDatos.cerrar();
         } catch (Exception ex) {
         }
+
+        //TABLA RESULTADOS
+        inicializarTabla();
+    }
+
+    private void inicializarTabla() {
+        //MODELO TABLA RESULTADOS
+        //Creamos un nuevo modelo
+        modeloMovimientos = new NoEditableTableModel();
+
+        //Asignamos el modelo a la tabla
+        jtblResultados.setModel(modeloMovimientos);
+
+        // Creamos las columnas.
+        modeloMovimientos.addColumn("Consecutivo");
+        modeloMovimientos.addColumn("Tipo");
+        modeloMovimientos.addColumn("Factura");
+        modeloMovimientos.addColumn("Proveedor");
+        modeloMovimientos.addColumn("Cheque");
+        modeloMovimientos.addColumn("Fecha");
+        modeloMovimientos.addColumn("Monto");
+        modeloMovimientos.addColumn("Usuario");
     }
 
     private boolean validarCampos() {
@@ -133,6 +167,70 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
             return false;
         }
         return true;
+    }
+
+    private void formatearCampos() {
+        //TIPO MOVIMIENTO
+        if (jckbTipoMovimiento.isSelected()) {
+            if (jrbtEntrada.isSelected()) {
+                tipoMovimiento = "Entrada";
+            } else {
+                tipoMovimiento = "Salida";
+            }
+        } else {
+            tipoMovimiento = "";
+        }
+
+        //NUMERO FACTURA
+        if (jckbNumeroFactura.isSelected()) {
+            numeroFactura = jtxtNumeroFactura.getText();
+        } else {
+            numeroFactura = "";
+        }
+
+        //PROVEEDOR
+        if (jckbProveedor.isSelected()) {
+            String[] proveedor = jcbxProveedor.getSelectedItem().toString().split(" - ");
+            idProveedor = Integer.parseInt(proveedor[0]);
+        } else {
+            idProveedor = 0;
+        }
+
+        //NUMERO CHEQUE
+        if (jckbNumeroCheque.isSelected()) {
+            numeroCheque = jtxtNumeroCheque.getText();
+        } else {
+            numeroCheque = "";
+        }
+
+        //RANGO FECHAS
+        if (jckbFechaMovimiento.isSelected()) {
+            fechaInicio = jdchFechaMovimientoInicial.getCalendar().get(Calendar.YEAR) + "-"
+                    + (jdchFechaMovimientoInicial.getCalendar().get(Calendar.MONTH) + 1) + "-"
+                    + jdchFechaMovimientoInicial.getCalendar().get(Calendar.DATE);
+            fechaFin = jdchFechaMovimientoFinal.getCalendar().get(Calendar.YEAR) + "-"
+                    + (jdchFechaMovimientoFinal.getCalendar().get(Calendar.MONTH) + 1) + "-"
+                    + jdchFechaMovimientoFinal.getCalendar().get(Calendar.DATE);
+        } else {
+            fechaInicio = "";
+            fechaFin = "";
+        }
+
+        //MONTO
+        if (jckbMonto.isSelected()) {
+            montoInicio = Double.parseDouble(jtxtMontoInicial.getText());
+            montoFin = Double.parseDouble(jtxtMontoFinal.getText());
+        } else {
+            montoInicio = 0.0;
+            montoFin = 0.0;
+        }
+
+        //USUARIO
+        if (jckbUsuario.isSelected()) {
+            usuario = jtxtUsuario.getText();
+        } else {
+            usuario = "";
+        }
     }
 
     /**
@@ -384,6 +482,11 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
                 "Consecutivo", "Tipo", "Factura", "Proveedor", "Cheque", "Fecha", "Monto", "Usuario"
             }
         ));
+        jtblResultados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblResultadosMouseClicked(evt);
+            }
+        });
         jspnResultados.setViewportView(jtblResultados);
 
         javax.swing.GroupLayout jpnlResultadosLayout = new javax.swing.GroupLayout(jpnlResultados);
@@ -513,13 +616,47 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
 
     private void jbtnBuscarMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarMovimientosActionPerformed
         if (validarCampos()) {
+            formatearCampos();
+            inicializarTabla();
+
+            //Añadimos los resultados del ResulSet a la tabla
+            String[] fila = new String[8];
+            ResultSet rs = BusquedasBaseDatos.buscarMovimientos(tipoMovimiento, numeroFactura,
+                    idProveedor, numeroCheque, fechaInicio, fechaFin, montoInicio, montoFin, usuario);
+            //Recorrer el ResultSet y llenar al fila del Modelo
+            try {
+                while (rs.next()) {
+                    fila[0] = rs.getObject(1).toString();
+                    fila[1] = rs.getObject(2).toString();
+                    fila[2] = rs.getObject(3).toString();
+                    fila[3] = rs.getObject(4).toString();
+                    fila[4] = rs.getObject(5).toString();
+                    fila[5] = rs.getObject(6).toString();
+                    fila[6] = "¢" + rs.getObject(7).toString();
+                    fila[7] = rs.getObject(8).toString();
+                    //Agregamos la fila
+                    modeloMovimientos.addRow(fila);
+                }
+                BusquedasBaseDatos.cerrar();
+            } catch (Exception ex) {
+            }
         }
     }//GEN-LAST:event_jbtnBuscarMovimientosActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void jtblResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblResultadosMouseClicked
+        if (evt.getClickCount() > 1) {
+            Reportes reporte = new Reportes();
+            if (!reporte.reporteMovimientoDetallado(Integer.parseInt(modeloMovimientos.getValueAt(
+                    jtblResultados.rowAtPoint(evt.getPoint()), 0).toString()))) {
+                JOptionPane.showMessageDialog(this, "No seha podido mostrar el reporte!", 
+                        "Uuupppsss!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jtblResultadosMouseClicked
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -534,16 +671,32 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -557,7 +710,7 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
+        public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
