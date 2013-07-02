@@ -6,6 +6,7 @@ package Interfaz.Inventario;
 
 import Clases.Datos.Usuario;
 import Interfaz.Reportes.JdlgReporteMovimientoDetallado;
+import Interfaz.Reportes.JdlgReporteMovimientoHistorico;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -212,6 +213,11 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmReportesMovimientos.add(jmiReporteDetalleMovimiento);
 
         jmiReporteHistoricoMovimientos.setText("Histórico de movimientos");
+        jmiReporteHistoricoMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiReporteHistoricoMovimientosActionPerformed(evt);
+            }
+        });
         jmReportesMovimientos.add(jmiReporteHistoricoMovimientos);
 
         jmReportes.add(jmReportesMovimientos);
@@ -277,6 +283,12 @@ public class JfrmPrincipal extends javax.swing.JFrame {
                 this, false);
         ventanaeporteMovimientoDetallado.setVisible(true);        
     }//GEN-LAST:event_jmiReporteDetalleMovimientoActionPerformed
+
+    private void jmiReporteHistoricoMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteHistoricoMovimientosActionPerformed
+        JdlgReporteMovimientoHistorico ventanaeporteMovimientoHistorico = new JdlgReporteMovimientoHistorico(
+                this, false);
+        ventanaeporteMovimientoHistorico.setVisible(true);
+    }//GEN-LAST:event_jmiReporteHistoricoMovimientosActionPerformed
 
     /**
      * @param args the command line arguments

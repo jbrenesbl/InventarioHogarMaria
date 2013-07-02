@@ -2,8 +2,6 @@ package Interfaz.Reportes;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.HelpMethods;
-import Clases.Auxiliares.NoEditableTableModel;
-import Clases.Auxiliares.Reportes;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
@@ -13,21 +11,12 @@ import javax.swing.JOptionPane;
  *
  * @author jobren8
  */
-public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
+public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
 
     //Variables
-    String tipoMovimiento;
-    String numeroFactura;
-    int idProveedor;
-    String numeroCheque;
-    String fechaInicio;
-    String fechaFin;
-    double montoInicio;
-    double montoFin;
-    String usuario;
-    NoEditableTableModel modeloMovimientos;
+    String condicionSQL = "WHERE ";
 
-    public JdlgReporteMovimientoDetallado(java.awt.Frame parent, boolean modal) {
+    public JdlgReporteMovimientoHistorico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null); //Centrar la ventana
@@ -52,28 +41,6 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
             BusquedasBaseDatos.cerrar();
         } catch (Exception ex) {
         }
-
-        //TABLA RESULTADOS
-        inicializarTabla();
-    }
-
-    private void inicializarTabla() {
-        //MODELO TABLA RESULTADOS
-        //Creamos un nuevo modelo
-        modeloMovimientos = new NoEditableTableModel();
-
-        //Asignamos el modelo a la tabla
-        jtblResultados.setModel(modeloMovimientos);
-
-        // Creamos las columnas.
-        modeloMovimientos.addColumn("Consecutivo");
-        modeloMovimientos.addColumn("Tipo");
-        modeloMovimientos.addColumn("Factura");
-        modeloMovimientos.addColumn("Proveedor");
-        modeloMovimientos.addColumn("Cheque");
-        modeloMovimientos.addColumn("Fecha");
-        modeloMovimientos.addColumn("Monto");
-        modeloMovimientos.addColumn("Usuario");
     }
 
     private boolean validarCampos() {
@@ -169,68 +136,57 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
         return true;
     }
 
-    private void formatearCampos() {
+    private void creaCondicion() {
         //TIPO MOVIMIENTO
         if (jckbTipoMovimiento.isSelected()) {
             if (jrbtEntrada.isSelected()) {
-                tipoMovimiento = "Entrada";
+                condicionSQL += "movimientos.Tipo = 'Entrada' AND ";
             } else {
-                tipoMovimiento = "Salida";
+                condicionSQL += "movimientos.Tipo = 'Salida' AND ";
             }
-        } else {
-            tipoMovimiento = "";
         }
 
         //NUMERO FACTURA
         if (jckbNumeroFactura.isSelected()) {
-            numeroFactura = jtxtNumeroFactura.getText();
-        } else {
-            numeroFactura = "";
+            condicionSQL += "movimientos.NumeroFactura = '" + jtxtNumeroFactura.getText() + "' AND ";
         }
 
         //PROVEEDOR
         if (jckbProveedor.isSelected()) {
             String[] proveedor = jcbxProveedor.getSelectedItem().toString().split(" - ");
-            idProveedor = Integer.parseInt(proveedor[0]);
-        } else {
-            idProveedor = 0;
+            condicionSQL += "movimientos.idProveedor = " + Integer.parseInt(proveedor[0]) + " AND ";
         }
 
         //NUMERO CHEQUE
         if (jckbNumeroCheque.isSelected()) {
-            numeroCheque = jtxtNumeroCheque.getText();
-        } else {
-            numeroCheque = "";
+            condicionSQL += "movimientos.NumeroCheque = '" + jtxtNumeroCheque.getText() + "' AND ";
         }
 
         //RANGO FECHAS
         if (jckbFechaMovimiento.isSelected()) {
-            fechaInicio = jdchFechaMovimientoInicial.getCalendar().get(Calendar.YEAR) + "-"
+            String fechaInicio = jdchFechaMovimientoInicial.getCalendar().get(Calendar.YEAR) + "-"
                     + (jdchFechaMovimientoInicial.getCalendar().get(Calendar.MONTH) + 1) + "-"
                     + jdchFechaMovimientoInicial.getCalendar().get(Calendar.DATE);
-            fechaFin = jdchFechaMovimientoFinal.getCalendar().get(Calendar.YEAR) + "-"
+            String fechaFin = jdchFechaMovimientoFinal.getCalendar().get(Calendar.YEAR) + "-"
                     + (jdchFechaMovimientoFinal.getCalendar().get(Calendar.MONTH) + 1) + "-"
                     + jdchFechaMovimientoFinal.getCalendar().get(Calendar.DATE);
-        } else {
-            fechaInicio = "";
-            fechaFin = "";
+            condicionSQL += "(movimientos.FechaMovimiento >= '" + fechaInicio + "' AND "
+                    + "movimientos.FechaMovimiento <= '" + fechaFin + "') AND ";
         }
 
         //MONTO
         if (jckbMonto.isSelected()) {
-            montoInicio = Double.parseDouble(jtxtMontoInicial.getText());
-            montoFin = Double.parseDouble(jtxtMontoFinal.getText());
-        } else {
-            montoInicio = 0.0;
-            montoFin = 0.0;
+            condicionSQL += "(m.Monto >= " + jtxtMontoInicial.getText() + " AND "
+                    + "m.Monto <= " + jtxtMontoFinal.getText() + ") AND ";
         }
 
         //USUARIO
         if (jckbUsuario.isSelected()) {
-            usuario = jtxtUsuario.getText();
-        } else {
-            usuario = "";
+            condicionSQL += "movimientos.Usuario = '" + jtxtUsuario.getText() + "' AND ";
         }
+        
+        //Quitamos el "AND " del final de la sentencia
+        condicionSQL = condicionSQL.substring(0, condicionSQL.length() - 4);
     }
 
     /**
@@ -266,8 +222,6 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
         jtxtUsuario = new javax.swing.JTextField();
         jbtnBuscarMovimientos = new javax.swing.JButton();
         jpnlResultados = new javax.swing.JPanel();
-        jspnResultados = new javax.swing.JScrollPane();
-        jtblResultados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte Detallado de Movimiento");
@@ -474,30 +428,15 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
                 .addComponent(jbtnBuscarMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jtblResultados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Consecutivo", "Tipo", "Factura", "Proveedor", "Cheque", "Fecha", "Monto", "Usuario"
-            }
-        ));
-        jtblResultados.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtblResultadosMouseClicked(evt);
-            }
-        });
-        jspnResultados.setViewportView(jtblResultados);
-
         javax.swing.GroupLayout jpnlResultadosLayout = new javax.swing.GroupLayout(jpnlResultados);
         jpnlResultados.setLayout(jpnlResultadosLayout);
         jpnlResultadosLayout.setHorizontalGroup(
             jpnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspnResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+            .addGap(0, 714, Short.MAX_VALUE)
         );
         jpnlResultadosLayout.setVerticalGroup(
             jpnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jspnResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpnlContenedorTotalLayout = new javax.swing.GroupLayout(jpnlContenedorTotal);
@@ -616,47 +555,13 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
 
     private void jbtnBuscarMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarMovimientosActionPerformed
         if (validarCampos()) {
-            formatearCampos();
-            inicializarTabla();
-
-            //Añadimos los resultados del ResulSet a la tabla
-            String[] fila = new String[8];
-            ResultSet rs = BusquedasBaseDatos.buscarMovimientos(tipoMovimiento, numeroFactura,
-                    idProveedor, numeroCheque, fechaInicio, fechaFin, montoInicio, montoFin, usuario);
-            //Recorrer el ResultSet y llenar al fila del Modelo
-            try {
-                while (rs.next()) {
-                    fila[0] = rs.getObject(1).toString();
-                    fila[1] = rs.getObject(2).toString();
-                    fila[2] = rs.getObject(3).toString();
-                    fila[3] = rs.getObject(4).toString();
-                    fila[4] = rs.getObject(5).toString();
-                    fila[5] = rs.getObject(6).toString();
-                    fila[6] = "¢" + rs.getObject(7).toString();
-                    fila[7] = rs.getObject(8).toString();
-                    //Agregamos la fila
-                    modeloMovimientos.addRow(fila);
-                }
-                BusquedasBaseDatos.cerrar();
-            } catch (Exception ex) {
-            }
+            creaCondicion();
         }
     }//GEN-LAST:event_jbtnBuscarMovimientosActionPerformed
-
-    private void jtblResultadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblResultadosMouseClicked
-        if (evt.getClickCount() > 1) {
-            Reportes reporte = new Reportes();
-            if (!reporte.reporteMovimientoDetallado(Integer.parseInt(modeloMovimientos.getValueAt(
-                    jtblResultados.rowAtPoint(evt.getPoint()), 0).toString()))) {
-                JOptionPane.showMessageDialog(this, "No seha podido mostrar el reporte!", 
-                        "Uuupppsss!", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_jtblResultadosMouseClicked
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -671,32 +576,18 @@ public static void main(String args[]) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JdlgReporteMovimientoDetallado.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JdlgReporteMovimientoHistorico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -706,11 +597,11 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                JdlgReporteMovimientoDetallado dialog = new JdlgReporteMovimientoDetallado(new javax.swing.JFrame(), true);
+                JdlgReporteMovimientoHistorico dialog = new JdlgReporteMovimientoHistorico(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
-        public void windowClosing(java.awt.event.WindowEvent e) {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
@@ -738,8 +629,6 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.JPanel jpnlResultados;
     private javax.swing.JRadioButton jrbtEntrada;
     private javax.swing.JRadioButton jrbtSalida;
-    private javax.swing.JScrollPane jspnResultados;
-    private javax.swing.JTable jtblResultados;
     private javax.swing.JTextField jtxtMontoFinal;
     private javax.swing.JTextField jtxtMontoInicial;
     private javax.swing.JTextField jtxtNumeroCheque;
