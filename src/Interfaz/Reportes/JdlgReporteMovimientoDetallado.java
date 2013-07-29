@@ -270,7 +270,7 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
         jtblResultados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Reporte Detallado de Movimiento");
+        setTitle("Reporte Detallado de Movimientos");
 
         jpnlDatosBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Parametros"));
 

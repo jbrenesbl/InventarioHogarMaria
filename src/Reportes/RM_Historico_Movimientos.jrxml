@@ -365,7 +365,7 @@ ORDER BY
 			<textField>
 				<reportElement x="120" y="4" width="100" height="14"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Cambria Math"/>
+					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{CantMovimientos}]]></textFieldExpression>
 			</textField>

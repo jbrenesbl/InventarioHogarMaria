@@ -238,6 +238,9 @@ public class BusquedasBaseDatos {
         if (!unidadMedida.equals("")) {
             sentenciaSQL.append("AND UnidadMedida LIKE '%" + unidadMedida.replace("'", "''") + "%'");
         }
+        
+        //Estado -> Activo, solo productos activos
+        sentenciaSQL.append("AND Estado = 'Activo'");
 
         //Ejecutar la consulta
         if (conexion.abrirConexion()) {

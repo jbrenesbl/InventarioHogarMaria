@@ -196,7 +196,6 @@ public class JdlgProductosConsultarModificar extends javax.swing.JDialog {
         jtblResultados = new javax.swing.JTable();
         jbtnRestaurar = new javax.swing.JButton();
         jbtnBuscar = new javax.swing.JButton();
-        jbtnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar y Modificar Productos");
@@ -370,9 +369,6 @@ public class JdlgProductosConsultarModificar extends javax.swing.JDialog {
             }
         });
 
-        jbtnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnImprimir32x32.png"))); // NOI18N
-        jbtnImprimir.setToolTipText("Imprimir resultado de pantalla");
-
         javax.swing.GroupLayout jpnlConsultarModificarProductosLayout = new javax.swing.GroupLayout(jpnlConsultarModificarProductos);
         jpnlConsultarModificarProductos.setLayout(jpnlConsultarModificarProductosLayout);
         jpnlConsultarModificarProductosLayout.setHorizontalGroup(
@@ -382,14 +378,12 @@ public class JdlgProductosConsultarModificar extends javax.swing.JDialog {
                 .addGroup(jpnlConsultarModificarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE)
                     .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlConsultarModificarProductosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jpnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jpnlConsultarModificarProductosLayout.setVerticalGroup(
@@ -403,7 +397,6 @@ public class JdlgProductosConsultarModificar extends javax.swing.JDialog {
                 .addComponent(jpnlResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jpnlConsultarModificarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -530,7 +523,6 @@ public class JdlgProductosConsultarModificar extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnBuscar;
-    private javax.swing.JButton jbtnImprimir;
     private javax.swing.JButton jbtnRestaurar;
     private javax.swing.JComboBox jcbxCategoria;
     private javax.swing.JComboBox jcbxEstado;

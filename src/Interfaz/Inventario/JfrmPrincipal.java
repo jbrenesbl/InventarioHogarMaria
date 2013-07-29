@@ -7,6 +7,9 @@ package Interfaz.Inventario;
 import Clases.Datos.Usuario;
 import Interfaz.Reportes.JdlgReporteMovimientoDetallado;
 import Interfaz.Reportes.JdlgReporteMovimientoHistorico;
+import Interfaz.Reportes.JdlgReporteProductoBajoStock;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -26,6 +29,14 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); //Centrar la ventana
         this.usuarioActual = usuario;
         jlblUsuario.setText(usuario.getUsuario());
+    }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("imagenes/icohm.png"));
+
+        return retValue.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
     }
 
     private void aplicaAspecto() {
@@ -67,13 +78,17 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmiProveedorModificar = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
         jmReportesMovimientos = new javax.swing.JMenu();
-        jmiReporteDetalleMovimiento = new javax.swing.JMenuItem();
+        jmiReporteDetalleMovimientos = new javax.swing.JMenuItem();
         jmiReporteHistoricoMovimientos = new javax.swing.JMenuItem();
+        jmReportesProductos = new javax.swing.JMenu();
+        jmiReporteBajoStock = new javax.swing.JMenuItem();
+        jmiReporteInventarioProductos = new javax.swing.JMenuItem();
         jmAdministracion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Inventario - Fundación María");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setIconImage(getIconImage());
 
         jpnlFondo.setAlignmentX(0.0F);
         jpnlFondo.setAlignmentY(0.0F);
@@ -204,15 +219,15 @@ public class JfrmPrincipal extends javax.swing.JFrame {
 
         jmReportesMovimientos.setText("Movimientos");
 
-        jmiReporteDetalleMovimiento.setText("Detalle de movimiento");
-        jmiReporteDetalleMovimiento.addActionListener(new java.awt.event.ActionListener() {
+        jmiReporteDetalleMovimientos.setText("Detalle de Movimientos");
+        jmiReporteDetalleMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiReporteDetalleMovimientoActionPerformed(evt);
+                jmiReporteDetalleMovimientosActionPerformed(evt);
             }
         });
-        jmReportesMovimientos.add(jmiReporteDetalleMovimiento);
+        jmReportesMovimientos.add(jmiReporteDetalleMovimientos);
 
-        jmiReporteHistoricoMovimientos.setText("Histórico de movimientos");
+        jmiReporteHistoricoMovimientos.setText("Histórico de Movimientos");
         jmiReporteHistoricoMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiReporteHistoricoMovimientosActionPerformed(evt);
@@ -221,6 +236,26 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmReportesMovimientos.add(jmiReporteHistoricoMovimientos);
 
         jmReportes.add(jmReportesMovimientos);
+
+        jmReportesProductos.setText("Productos");
+
+        jmiReporteBajoStock.setText("Bajo Stock");
+        jmiReporteBajoStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiReporteBajoStockActionPerformed(evt);
+            }
+        });
+        jmReportesProductos.add(jmiReporteBajoStock);
+
+        jmiReporteInventarioProductos.setText("Inventario Productos");
+        jmiReporteInventarioProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiReporteInventarioProductosActionPerformed(evt);
+            }
+        });
+        jmReportesProductos.add(jmiReporteInventarioProductos);
+
+        jmReportes.add(jmReportesProductos);
 
         jmbMenuPrincipal.add(jmReportes);
 
@@ -278,17 +313,27 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         ventanaAsignarCheque.setVisible(true);
     }//GEN-LAST:event_jmiMovimientoAsignarChequeActionPerformed
 
-    private void jmiReporteDetalleMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteDetalleMovimientoActionPerformed
-        JdlgReporteMovimientoDetallado ventanaeporteMovimientoDetallado = new JdlgReporteMovimientoDetallado(
+    private void jmiReporteDetalleMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteDetalleMovimientosActionPerformed
+        JdlgReporteMovimientoDetallado ventanaReporteMovimientoDetallado = new JdlgReporteMovimientoDetallado(
                 this, false);
-        ventanaeporteMovimientoDetallado.setVisible(true);        
-    }//GEN-LAST:event_jmiReporteDetalleMovimientoActionPerformed
+        ventanaReporteMovimientoDetallado.setVisible(true);        
+    }//GEN-LAST:event_jmiReporteDetalleMovimientosActionPerformed
 
     private void jmiReporteHistoricoMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteHistoricoMovimientosActionPerformed
-        JdlgReporteMovimientoHistorico ventanaeporteMovimientoHistorico = new JdlgReporteMovimientoHistorico(
+        JdlgReporteMovimientoHistorico ventanaReporteMovimientoHistorico = new JdlgReporteMovimientoHistorico(
                 this, false);
-        ventanaeporteMovimientoHistorico.setVisible(true);
+        ventanaReporteMovimientoHistorico.setVisible(true);
     }//GEN-LAST:event_jmiReporteHistoricoMovimientosActionPerformed
+
+    private void jmiReporteBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteBajoStockActionPerformed
+        JdlgReporteProductoBajoStock ventanaReporteProductoBajoStock = new JdlgReporteProductoBajoStock(
+                this, false);
+        ventanaReporteProductoBajoStock.setVisible(true);
+    }//GEN-LAST:event_jmiReporteBajoStockActionPerformed
+
+    private void jmiReporteInventarioProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteInventarioProductosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiReporteInventarioProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,6 +386,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jmProveedores;
     private javax.swing.JMenu jmReportes;
     private javax.swing.JMenu jmReportesMovimientos;
+    private javax.swing.JMenu jmReportesProductos;
     private javax.swing.JMenuBar jmbMenuPrincipal;
     private javax.swing.JMenuItem jmiMovimientoAsignarCheque;
     private javax.swing.JMenuItem jmiMovimientoEntrada;
@@ -348,8 +394,10 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiProductoConsultar;
     private javax.swing.JMenuItem jmiProveedorModificar;
     private javax.swing.JMenuItem jmiProveedorNuevo;
-    private javax.swing.JMenuItem jmiReporteDetalleMovimiento;
+    private javax.swing.JMenuItem jmiReporteBajoStock;
+    private javax.swing.JMenuItem jmiReporteDetalleMovimientos;
     private javax.swing.JMenuItem jmiReporteHistoricoMovimientos;
+    private javax.swing.JMenuItem jmiReporteInventarioProductos;
     private javax.swing.JMenuItem jmiproductoBajoStock;
     private javax.swing.JPanel jpnlBarraEstado;
     private VistaJPanelConFondo.JPanelConFondo jpnlFondo;

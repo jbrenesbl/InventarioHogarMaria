@@ -6,6 +6,8 @@ package Interfaz.Inventario;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Datos.Usuario;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;

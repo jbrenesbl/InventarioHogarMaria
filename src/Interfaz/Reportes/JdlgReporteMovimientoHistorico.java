@@ -2,6 +2,7 @@ package Interfaz.Reportes;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Auxiliares.HelpMethods;
+import Clases.Auxiliares.Reportes;
 import java.sql.ResultSet;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
@@ -137,6 +138,9 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
     }
 
     private void creaCondicion() {
+        //Borramos los datos anteriores
+        condicionSQL = "WHERE ";
+        
         //TIPO MOVIMIENTO
         if (jckbTipoMovimiento.isSelected()) {
             if (jrbtEntrada.isSelected()) {
@@ -221,10 +225,9 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
         jckbUsuario = new javax.swing.JCheckBox();
         jtxtUsuario = new javax.swing.JTextField();
         jbtnBuscarMovimientos = new javax.swing.JButton();
-        jpnlResultados = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Reporte Detallado de Movimiento");
+        setTitle("Reporte Histórico de Movimientos");
 
         jpnlDatosBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Parametros"));
 
@@ -366,6 +369,16 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
                 .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
                         .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxtNumeroCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
+                                .addComponent(jdchFechaMovimientoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlblHastaFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jdchFechaMovimientoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(321, Short.MAX_VALUE))
+                    .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
+                        .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
                                 .addComponent(jtxtMontoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,18 +387,7 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
                                 .addComponent(jtxtMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtnBuscarMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
-                        .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtxtNumeroCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
-                                .addComponent(jdchFechaMovimientoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlblHastaFecha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jdchFechaMovimientoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jbtnBuscarMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jpnlDatosBuscarLayout.setVerticalGroup(
             jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,35 +430,20 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
                 .addComponent(jbtnBuscarMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout jpnlResultadosLayout = new javax.swing.GroupLayout(jpnlResultados);
-        jpnlResultados.setLayout(jpnlResultadosLayout);
-        jpnlResultadosLayout.setHorizontalGroup(
-            jpnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 714, Short.MAX_VALUE)
-        );
-        jpnlResultadosLayout.setVerticalGroup(
-            jpnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout jpnlContenedorTotalLayout = new javax.swing.GroupLayout(jpnlContenedorTotal);
         jpnlContenedorTotal.setLayout(jpnlContenedorTotalLayout);
         jpnlContenedorTotalLayout.setHorizontalGroup(
             jpnlContenedorTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlContenedorTotalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpnlContenedorTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jpnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpnlContenedorTotalLayout.setVerticalGroup(
             jpnlContenedorTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnlContenedorTotalLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlContenedorTotalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -556,6 +543,11 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
     private void jbtnBuscarMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarMovimientosActionPerformed
         if (validarCampos()) {
             creaCondicion();
+            Reportes reporte = new Reportes();
+            if (!reporte.reporteMovimientoHistorico(condicionSQL)) {
+                JOptionPane.showMessageDialog(this, "No seha podido mostrar el reporte!", 
+                        "Uuupppsss!", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jbtnBuscarMovimientosActionPerformed
     /**
@@ -626,7 +618,6 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
     private javax.swing.JLabel jlblHastaMonto;
     private VistaJPanelConFondo.JPanelConFondo jpnlContenedorTotal;
     private javax.swing.JPanel jpnlDatosBuscar;
-    private javax.swing.JPanel jpnlResultados;
     private javax.swing.JRadioButton jrbtEntrada;
     private javax.swing.JRadioButton jrbtSalida;
     private javax.swing.JTextField jtxtMontoFinal;

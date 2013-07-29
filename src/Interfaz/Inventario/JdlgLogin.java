@@ -6,6 +6,8 @@ package Interfaz.Inventario;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Datos.Usuario;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -26,6 +28,14 @@ public class JdlgLogin extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); //Centrar la ventana
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("imagenes/icohm.png"));
+
+        return retValue.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+    }
+
     private void aplicaAspecto() {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -36,16 +46,16 @@ public class JdlgLogin extends javax.swing.JFrame {
     private Usuario iniciarSesion(String nombreUsuario, char[] password) {
         try {
             String clave = new String(password);
+            Usuario usuario = new Usuario();
             ResultSet rs = BusquedasBaseDatos.buscarUsuario(nombreUsuario, clave);
             while (rs.next()) {
-                Usuario usuario = new Usuario();
                 usuario.setUsuario(nombreUsuario);
                 usuario.setRol(rs.getObject(2).toString());
                 BusquedasBaseDatos.cerrar();
                 return usuario;
             }
-            return null;
-        } catch (SQLException ex) {
+            return usuario;
+        } catch (Exception ex) {
             return null;
         }
     }
@@ -69,6 +79,7 @@ public class JdlgLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Inventario - Entrar");
+        setIconImage(getIconImage());
         setResizable(false);
 
         jpnlPrincipal.setImagen("/Imagenes/Background.jpg");
@@ -175,11 +186,15 @@ public class JdlgLogin extends javax.swing.JFrame {
     private void jbtnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEntrarActionPerformed
         Usuario usuario = iniciarSesion(jtxtUsuario.getText(), jtxtPassword.getPassword());
         if (usuario != null) {
-            JfrmPrincipal ventanaPrincipal = new JfrmPrincipal(usuario);
-            this.dispose();
-            ventanaPrincipal.setVisible(true);
+            if (!usuario.getUsuario().equals("")) {
+                JfrmPrincipal ventanaPrincipal = new JfrmPrincipal(usuario);
+                this.dispose();
+                ventanaPrincipal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al intentar conectar al motor de base de datos. \nPóngase en contacto con su administrador de sistema.", "Error al conectar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtnEntrarActionPerformed
 
@@ -200,11 +215,15 @@ public class JdlgLogin extends javax.swing.JFrame {
         if (evt.getKeyCode() == 10) {
             Usuario usuario = iniciarSesion(jtxtUsuario.getText(), jtxtPassword.getPassword());
             if (usuario != null) {
-                JfrmPrincipal ventanaPrincipal = new JfrmPrincipal(usuario);
-                this.dispose();
-                ventanaPrincipal.setVisible(true);
+                if (!usuario.getUsuario().equals("")) {
+                    JfrmPrincipal ventanaPrincipal = new JfrmPrincipal(usuario);
+                    this.dispose();
+                    ventanaPrincipal.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al intentar conectar al motor de base de datos. \nPongase en contacto con su administrador de sistema.", "Error al conectar", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jtxtUsuarioKeyPressed

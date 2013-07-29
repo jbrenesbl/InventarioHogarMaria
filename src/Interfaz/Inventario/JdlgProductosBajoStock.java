@@ -45,7 +45,6 @@ public class JdlgProductosBajoStock extends javax.swing.JDialog {
         modeloProductos.addColumn("Cantidad Mínima");
         modeloProductos.addColumn("Última Entrada");
         modeloProductos.addColumn("Última Salida");
-        modeloProductos.addColumn("Estado");
 
         //PRODUCTOS
         try {
@@ -63,7 +62,6 @@ public class JdlgProductosBajoStock extends javax.swing.JDialog {
                 filaTabla[5] = rs.getObject(6);
                 filaTabla[6] = rs.getObject(7);
                 filaTabla[7] = rs.getObject(8);
-                filaTabla[8] = rs.getObject(9);
                 modeloProductos.addRow(filaTabla);
             }
             //Cerramos la conexion
@@ -188,7 +186,6 @@ public class JdlgProductosBajoStock extends javax.swing.JDialog {
         jtblResultados = new javax.swing.JTable();
         jbtnRestaurar = new javax.swing.JButton();
         jbtnBuscar = new javax.swing.JButton();
-        jbtnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Bajo Stock");
@@ -281,36 +278,36 @@ public class JdlgProductosBajoStock extends javax.swing.JDialog {
 
         jtblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Nombre", "Categoría", "Unidad Medida", "Cantidad", "Cantidad Mínima", "Última Entrada", "Última Salida", "Estado"
+                "Código", "Nombre", "Categoría", "Unidad Medida", "Cantidad", "Cantidad Mínima", "Última Entrada", "Última Salida"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -342,20 +339,15 @@ public class JdlgProductosBajoStock extends javax.swing.JDialog {
             }
         });
 
-        jbtnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnImprimir32x32.png"))); // NOI18N
-        jbtnImprimir.setToolTipText("Imprimir resultado de pantalla");
-
         javax.swing.GroupLayout jpnlBajoStockLayout = new javax.swing.GroupLayout(jpnlBajoStock);
         jpnlBajoStock.setLayout(jpnlBajoStockLayout);
         jpnlBajoStockLayout.setHorizontalGroup(
             jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlBajoStockLayout.createSequentialGroup()
-                .addContainerGap(750, Short.MAX_VALUE)
+                .addContainerGap(792, Short.MAX_VALUE)
                 .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlBajoStockLayout.createSequentialGroup()
@@ -376,21 +368,20 @@ public class JdlgProductosBajoStock extends javax.swing.JDialog {
                 .addContainerGap(611, Short.MAX_VALUE)
                 .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnRestaurar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlBajoStockLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jpnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(556, Short.MAX_VALUE)))
+                    .addContainerGap(600, Short.MAX_VALUE)))
             .addGroup(jpnlBajoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlBajoStockLayout.createSequentialGroup()
                     .addGap(71, 71, 71)
                     .addComponent(jpnlDatosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jpnlResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(51, Short.MAX_VALUE)))
+                    .addContainerGap(95, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -486,7 +477,6 @@ public class JdlgProductosBajoStock extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnBuscar;
-    private javax.swing.JButton jbtnImprimir;
     private javax.swing.JButton jbtnRestaurar;
     private javax.swing.JComboBox jcbxCategoria;
     private javax.swing.JComboBox jcbxUnidadMedida;
