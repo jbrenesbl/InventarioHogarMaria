@@ -271,8 +271,9 @@ public class JdlgReporteMovimientoDetallado extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte Detallado de Movimientos");
+        setResizable(false);
 
-        jpnlDatosBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Parametros"));
+        jpnlDatosBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Párametros"));
 
         jckbTipoMovimiento.setText("Tipo de Movimiento:");
 

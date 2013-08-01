@@ -228,8 +228,9 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reporte Histórico de Movimientos");
+        setResizable(false);
 
-        jpnlDatosBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Parametros"));
+        jpnlDatosBuscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Parámetros"));
 
         jckbTipoMovimiento.setText("Tipo de Movimiento:");
 

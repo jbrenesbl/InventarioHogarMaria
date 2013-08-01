@@ -8,6 +8,7 @@ import Clases.Datos.Usuario;
 import Interfaz.Reportes.JdlgReporteMovimientoDetallado;
 import Interfaz.Reportes.JdlgReporteMovimientoHistorico;
 import Interfaz.Reportes.JdlgReporteProductoBajoStock;
+import Interfaz.Reportes.JdlgReporteProductoInventarioActual;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -82,7 +83,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmiReporteHistoricoMovimientos = new javax.swing.JMenuItem();
         jmReportesProductos = new javax.swing.JMenu();
         jmiReporteBajoStock = new javax.swing.JMenuItem();
-        jmiReporteInventarioProductos = new javax.swing.JMenuItem();
+        jmiReporteInventarioActual = new javax.swing.JMenuItem();
         jmAdministracion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -247,13 +248,13 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         });
         jmReportesProductos.add(jmiReporteBajoStock);
 
-        jmiReporteInventarioProductos.setText("Inventario Productos");
-        jmiReporteInventarioProductos.addActionListener(new java.awt.event.ActionListener() {
+        jmiReporteInventarioActual.setText("Inventario Actual");
+        jmiReporteInventarioActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiReporteInventarioProductosActionPerformed(evt);
+                jmiReporteInventarioActualActionPerformed(evt);
             }
         });
-        jmReportesProductos.add(jmiReporteInventarioProductos);
+        jmReportesProductos.add(jmiReporteInventarioActual);
 
         jmReportes.add(jmReportesProductos);
 
@@ -331,9 +332,11 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         ventanaReporteProductoBajoStock.setVisible(true);
     }//GEN-LAST:event_jmiReporteBajoStockActionPerformed
 
-    private void jmiReporteInventarioProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteInventarioProductosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiReporteInventarioProductosActionPerformed
+    private void jmiReporteInventarioActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteInventarioActualActionPerformed
+        JdlgReporteProductoInventarioActual ventanaReporteProductoInventarioActual = new JdlgReporteProductoInventarioActual(
+                this, false);
+        ventanaReporteProductoInventarioActual.setVisible(true);
+    }//GEN-LAST:event_jmiReporteInventarioActualActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,7 +400,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiReporteBajoStock;
     private javax.swing.JMenuItem jmiReporteDetalleMovimientos;
     private javax.swing.JMenuItem jmiReporteHistoricoMovimientos;
-    private javax.swing.JMenuItem jmiReporteInventarioProductos;
+    private javax.swing.JMenuItem jmiReporteInventarioActual;
     private javax.swing.JMenuItem jmiproductoBajoStock;
     private javax.swing.JPanel jpnlBarraEstado;
     private VistaJPanelConFondo.JPanelConFondo jpnlFondo;
