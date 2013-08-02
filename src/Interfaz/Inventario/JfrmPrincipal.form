@@ -128,20 +128,20 @@
                 <Property name="text" type="java.lang.String" value="Movimientos"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jmiReporteDetalleMovimientos">
+                <MenuItem class="javax.swing.JMenuItem" name="jmiReporteMovimientosDetalleMovimientos">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Detalle de Movimientos"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiReporteDetalleMovimientosActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiReporteMovimientosDetalleMovimientosActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jmiReporteHistoricoMovimientos">
+                <MenuItem class="javax.swing.JMenuItem" name="jmiReporteMovimientosHistoricoMovimientos">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Hist&#xf3;rico de Movimientos"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiReporteHistoricoMovimientosActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiReporteMovimientosHistoricoMovimientosActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -175,6 +175,24 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Administraci&#xf3;n"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiAdministracionCrearUsuario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Crear Usuario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAdministracionCrearUsuarioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiAdministracionRestablecerPassword">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Restablecer Contrase&#xf1;a"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiAdministracionRestablecerPasswordActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
