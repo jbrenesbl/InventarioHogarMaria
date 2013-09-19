@@ -106,7 +106,7 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Productos con Bajo Stock         ]]></text>
+				<text><![CDATA[Productos con Bajo Stock]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="31" width="555" height="2" forecolor="#8DBBCA"/>
@@ -278,9 +278,7 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Santo Domingo de Heredia
 100 Metros Norte de la Clínica Dr. Hugo Fonseca
-Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com
-                
-                ]]></text>
+Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

@@ -413,4 +413,16 @@ public class BusquedasBaseDatos {
     public static void cerrar() {
         conexion.cerrarConexion();
     }
+    
+    public static ResultSet buscarUsuarios() {
+        //Ejecutar la consulta
+        if (conexion.abrirConexion()) {
+            ResultSet rs = conexion.obtenerDatos("SELECT DISTINCT usuarios.Usuario "
+                    + "FROM usuarios");
+            return rs;
+        } else {
+            conexion.cerrarConexion();
+            return null;
+        }
+    }
 }

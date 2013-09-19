@@ -4,19 +4,108 @@
  */
 package Interfaz.Administracion;
 
+import Clases.Auxiliares.BusquedasBaseDatos;
+import Clases.Auxiliares.HelpMethods;
+import Clases.Datos.Usuario;
+import Interfaz.Inventario.JdlgConfirmarPermiso;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jbrenesbl
  */
 public class JdlgCrearUsuario extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JdlgCrearUsuario
-     */
-    public JdlgCrearUsuario(java.awt.Frame parent, boolean modal) {
+    //Variables
+    Usuario usuarioActual = new Usuario();
+    ArrayList<String> usuarios = new ArrayList();
+    boolean confirmarPermiso = false;
+
+   public JdlgCrearUsuario(java.awt.Frame parent, boolean modal, Usuario user) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        this.usuarioActual = user;
+        inicializarDatos();
+    }
+
+    private void inicializarDatos() {
+        ResultSet rs = BusquedasBaseDatos.buscarUsuarios();
+        try {
+            while (rs.next()) {
+                usuarios.add(rs.getObject(1).toString());
+            }
+            BusquedasBaseDatos.cerrar();
+        } catch (Exception ex) {
+            BusquedasBaseDatos.cerrar();
+        }
+    }
+
+    private boolean validarCampos() {
+        //NOMBRE USUARIO
+        //No Vacio
+        if (!jtxtNombreUsuario.getText().trim().equals("")) {
+            //Largo del Campo
+            if (jtxtNombreUsuario.getText().trim().length() <= 50) {
+                //Caracteres Alfanumericos
+                if (HelpMethods.isAlfanumerico(jtxtNombreUsuario.getText().trim())) {
+                    //Disponible
+                    for (int x = 0; x < usuarios.size(); x++) {
+                        if (jtxtNombreUsuario.getText().trim().equals(usuarios.get(x))) {
+                            JOptionPane.showMessageDialog(this, "El Nombre de Usuario, no está disponible!",
+                                    "Verifique", JOptionPane.ERROR_MESSAGE);
+                            return false;
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "El campo Nombre de Usuario, debe contener solamente letras o números!",
+                            "Verifique", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El campo Nombre de Usuario, no puede ser mayor a 50 carácteres!",
+                        "Verifique", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El campo Nombre de Usuario, no puede esta vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //PASSWORD
+        //No Vacio
+        if (jtxtPassword.getPassword().length > 0) {
+            //Largo del Campo
+            if (jtxtPassword.getPassword().length > 50) {
+                JOptionPane.showMessageDialog(this, "El campo Contraseña, no puede ser mayor a 50 carácteres!",
+                        "Verifique", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El campo Contraseña, no puede esta vacío!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //CONFIRMAR PASSWORD
+        //Password igual
+        if (!Arrays.equals(jtxtPassword.getPassword(), jtxtConfirmacionPassword.getPassword())) {
+            JOptionPane.showMessageDialog(this, "El campo Confirmación Contraseña, "
+                    + "no coincide con la contraseña digitada anteriormente!", "Verifique",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        //Si todo esta bien
+        return true;
+    }
+
+    public void setConfirmarPermiso(boolean permiso) {
+        this.confirmarPermiso = permiso;
     }
 
     /**
@@ -38,7 +127,6 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
         jtxtPassword = new javax.swing.JPasswordField();
         jlblTituloConfirmacionPassword = new javax.swing.JLabel();
         jtxtConfirmacionPassword = new javax.swing.JPasswordField();
-        jlblPasswordCorrecto = new javax.swing.JLabel();
         jlblTituloRol = new javax.swing.JLabel();
         jcbxRol = new javax.swing.JComboBox();
         jbtnCrear = new javax.swing.JButton();
@@ -46,7 +134,7 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jpnlTitulo.setLayout(new java.awt.GridLayout());
+        jpnlTitulo.setLayout(new java.awt.GridLayout(1, 0));
 
         jlblTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -66,9 +154,6 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
         jlblTituloConfirmacionPassword.setText("Confirmación Contraseña:");
 
         jtxtConfirmacionPassword.setToolTipText("Contraseña del Usuario");
-
-        jlblPasswordCorrecto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblPasswordCorrecto.setText("T");
 
         jlblTituloRol.setText("Rol:");
 
@@ -91,12 +176,10 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
                             .addComponent(jtxtConfirmacionPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                             .addComponent(jtxtPassword, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtxtNombreUsuario))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jlblPasswordCorrecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(4, 4, 4))
+                        .addContainerGap())
                     .addGroup(jpnlDatosUsuarioLayout.createSequentialGroup()
                         .addComponent(jcbxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(162, Short.MAX_VALUE))))
+                        .addContainerGap(145, Short.MAX_VALUE))))
         );
         jpnlDatosUsuarioLayout.setVerticalGroup(
             jpnlDatosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,8 +195,7 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpnlDatosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlblTituloConfirmacionPassword)
-                    .addComponent(jtxtConfirmacionPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlblPasswordCorrecto))
+                    .addComponent(jtxtConfirmacionPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpnlDatosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlblTituloRol)
@@ -130,6 +212,11 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
         });
 
         jbtnCancelar.setText("Cancelar");
+        jbtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpnlCrearUsuarioLayout = new javax.swing.GroupLayout(jpnlCrearUsuario);
         jpnlCrearUsuario.setLayout(jpnlCrearUsuarioLayout);
@@ -139,13 +226,13 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jpnlCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnlCrearUsuarioLayout.createSequentialGroup()
-                        .addComponent(jpnlDatosUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnlCrearUsuarioLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbtnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnCancelar)))
+                        .addComponent(jbtnCancelar))
+                    .addGroup(jpnlCrearUsuarioLayout.createSequentialGroup()
+                        .addComponent(jpnlDatosUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jpnlCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jpnlCrearUsuarioLayout.createSequentialGroup()
@@ -185,8 +272,39 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearActionPerformed
-        // TODO add your handling code here:
+        if (validarCampos()) {
+            if (usuarioActual.getRol().equals("Admin")) {
+                JdlgConfirmarPermiso ventanaConfirmar = new JdlgConfirmarPermiso(this, true,
+                        usuarioActual.getUsuario());
+                ventanaConfirmar.setVisible(true);
+
+                if (confirmarPermiso) {
+                    //Creamos el objeto y seteamos los valores
+                    Usuario user = new Usuario();
+                    user.setUsuario(jtxtNombreUsuario.getText());
+                    user.setRol(jcbxRol.getSelectedItem().toString());
+                    //Invocamos el metodo de agregar pasandole el parametro de la contraseña
+                    if (user.insertarUsuario(jtxtPassword.getPassword())) {
+                        JOptionPane.showMessageDialog(this, "Usuario " + user.getUsuario() + ", creado con éxito!",
+                                "Usuario creado", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Ha ocurrido un error. \nNo se ha podido crear el usuario.",
+                                "Uppsss!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No tiene privilegios para esta acción!",
+                        "Acceso Denegado", JOptionPane.WARNING_MESSAGE);
+                this.dispose();
+            }
+            confirmarPermiso = false;
+        }
     }//GEN-LAST:event_jbtnCrearActionPerformed
+
+    private void jbtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,7 +343,7 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                JdlgCrearUsuario dialog = new JdlgCrearUsuario(new javax.swing.JFrame(), true);
+                JdlgCrearUsuario dialog = new JdlgCrearUsuario(new javax.swing.JFrame(), true, new Usuario());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -241,7 +359,6 @@ public class JdlgCrearUsuario extends javax.swing.JDialog {
     private javax.swing.JButton jbtnCancelar;
     private javax.swing.JButton jbtnCrear;
     private javax.swing.JComboBox jcbxRol;
-    private javax.swing.JLabel jlblPasswordCorrecto;
     private javax.swing.JLabel jlblTitulo;
     private javax.swing.JLabel jlblTituloConfirmacionPassword;
     private javax.swing.JLabel jlblTituloNombreUsuario;

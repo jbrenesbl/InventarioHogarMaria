@@ -139,10 +139,7 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Histórico de Movimientos
-                
-                
-                ]]></text>
+				<text><![CDATA[Histórico de Movimientos]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="31" width="555" height="2" forecolor="#8DBBCA"/>
@@ -167,10 +164,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Consecutivo
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Consecutivo]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -190,10 +184,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Tipo
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Tipo]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -213,10 +204,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Factura
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Factura]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -236,10 +224,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Proveedor
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Proveedor]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -259,10 +244,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Monto
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Monto]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -282,10 +264,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Cheque
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Cheque]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -305,10 +284,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Fecha
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Fecha]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -328,10 +304,7 @@ ORDER BY
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Times New Roman" size="10" isBold="true"/>
 								</textElement>
-								<text><![CDATA[Usuario
-                                
-                                
-                                ]]></text>
+								<text><![CDATA[Usuario]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
@@ -349,37 +322,33 @@ ORDER BY
 		</band>
 	</columnHeader>
 	<columnFooter>
-		<band height="36" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="1" width="555" height="2" forecolor="#8DBBCA"/>
 			</line>
 			<staticText>
-				<reportElement x="0" y="4" width="118" height="14"/>
+				<reportElement x="0" y="4" width="123" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cantidad de Movimientos:
-                
-                ]]></text>
+				<text><![CDATA[Cantidad de Movimientos:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="120" y="4" width="100" height="14"/>
+				<reportElement x="123" y="4" width="100" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{CantMovimientos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="20" width="58" height="14"/>
+				<reportElement x="0" y="19" width="65" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Monto Total:
-                
-                ]]></text>
+				<text><![CDATA[Monto Total:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="60" y="20" width="100" height="14"/>
+				<reportElement x="65" y="19" width="100" height="14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
@@ -397,9 +366,7 @@ ORDER BY
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Santo Domingo de Heredia
 100 Metros Norte de la Clínica Dr. Hugo Fonseca
-Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com
-                
-                ]]></text>
+Teléfono: 2244-4260     Fax: 2244-5296     fundacionmaria@gmail.com]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

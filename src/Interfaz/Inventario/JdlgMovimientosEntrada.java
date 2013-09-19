@@ -82,6 +82,8 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
         modelo.addElement("");
         jcbxCategoria.setModel(modelo);
         jtxtUnidadMedida.setText("");
+        jtxtExistencia.setText("");
+        jtxtCantidadMinima.setText("");
         jtxtCantidad.setText("");
     }
 
@@ -191,6 +193,10 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
         jtxtUnidadMedida = new javax.swing.JTextField();
         jlblTituloCategoria = new javax.swing.JLabel();
         jcbxCategoria = new javax.swing.JComboBox();
+        jlblTituloExistencia = new javax.swing.JLabel();
+        jtxtExistencia = new javax.swing.JTextField();
+        jlblTituloCantidadMinima = new javax.swing.JLabel();
+        jtxtCantidadMinima = new javax.swing.JTextField();
         jlblTituloCantidad = new javax.swing.JLabel();
         jtxtCantidad = new javax.swing.JTextField();
         jlblDatosPorAplicar = new javax.swing.JPanel();
@@ -407,6 +413,20 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
         jcbxCategoria.setEnabled(false);
         jcbxCategoria.setPreferredSize(new java.awt.Dimension(190, 20));
 
+        jlblTituloExistencia.setText("Existencia:");
+        jlblTituloExistencia.setPreferredSize(new java.awt.Dimension(57, 14));
+
+        jtxtExistencia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtExistencia.setToolTipText("Unidad de medida del producto seleccionado");
+        jtxtExistencia.setEnabled(false);
+
+        jlblTituloCantidadMinima.setText("Cantidad Mínima:");
+        jlblTituloCantidadMinima.setPreferredSize(new java.awt.Dimension(57, 14));
+
+        jtxtCantidadMinima.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtxtCantidadMinima.setToolTipText("Unidad de medida del producto seleccionado");
+        jtxtCantidadMinima.setEnabled(false);
+
         jlblTituloCantidad.setText("Cantidad:");
         jlblTituloCantidad.setPreferredSize(new java.awt.Dimension(57, 14));
 
@@ -427,9 +447,9 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
                 .addGroup(jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
                         .addGroup(jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlblTituloNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlblTituloCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                            .addComponent(jlblTituloCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlblTituloCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
                                 .addComponent(jcbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -438,22 +458,29 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtxtUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jlblTituloCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jtxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jtxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12))
+                                .addComponent(jlblTituloExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtxtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jlblTituloCantidadMinima, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtxtCantidadMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
+                                .addGroup(jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(564, 593, Short.MAX_VALUE))
+                            .addComponent(jtxtNombre)))
                     .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
                         .addGroup(jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlblTituloNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlblTituloCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
                                 .addComponent(jbtnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtnNuevoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpnlDatosProductoLayout.createSequentialGroup()
-                                .addComponent(jlblTituloCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(jtxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jbtnNuevoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jpnlDatosProductoLayout.setVerticalGroup(
             jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,12 +507,18 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
                     .addComponent(jcbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlblTituloUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlblTituloExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlblTituloCantidadMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtxtCantidadMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpnlDatosProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlblTituloCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jpnPrincipal.add(jpnlDatosProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 750, 160));
+        jpnPrincipal.add(jpnlDatosProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 750, 190));
 
         jlblDatosPorAplicar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jlblDatosPorAplicar.setLayout(new java.awt.GridLayout(1, 0));
@@ -528,7 +561,7 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
 
         jlblDatosPorAplicar.add(jspnProductos);
 
-        jpnPrincipal.add(jlblDatosPorAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 750, 191));
+        jpnPrincipal.add(jlblDatosPorAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 750, 191));
 
         jbtnAplicar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnAplicar44x44.png"))); // NOI18N
         jbtnAplicar.setToolTipText("Aplicar el movimiento");
@@ -537,7 +570,7 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
                 jbtnAplicarActionPerformed(evt);
             }
         });
-        jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 620, 48, 48));
+        jpnPrincipal.add(jbtnAplicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 650, 48, 48));
 
         jbtnDescartar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnDescartar44x44.png"))); // NOI18N
         jbtnDescartar.setToolTipText("Descartar el movimiento");
@@ -546,9 +579,9 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
                 jbtnDescartarActionPerformed(evt);
             }
         });
-        jpnPrincipal.add(jbtnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 620, 48, 48));
+        jpnPrincipal.add(jbtnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 650, 48, 48));
 
-        getContentPane().add(jpnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 680));
+        getContentPane().add(jpnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -577,6 +610,8 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
             modelo.addElement(producto.getCategoria());
             jcbxCategoria.setModel(modelo);
             jtxtUnidadMedida.setText(producto.getUnidadMedida());
+            jtxtExistencia.setText("" + producto.getCantidad());
+            jtxtCantidadMinima.setText("" + producto.getCantidadMinima());
             jtxtCantidad.requestFocus();
         }
     }//GEN-LAST:event_jbtnBuscarProductoActionPerformed
@@ -736,10 +771,12 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
     private javax.swing.JComboBox jcbxProveedor;
     private javax.swing.JPanel jlblDatosPorAplicar;
     private javax.swing.JLabel jlblTituloCantidad;
+    private javax.swing.JLabel jlblTituloCantidadMinima;
     private javax.swing.JLabel jlblTituloCategoria;
     private javax.swing.JLabel jlblTituloCodigo;
     private javax.swing.JLabel jlblTituloConsecutivo;
     private javax.swing.JLabel jlblTituloEncargado;
+    private javax.swing.JLabel jlblTituloExistencia;
     private javax.swing.JLabel jlblTituloFactura;
     private javax.swing.JLabel jlblTituloFecha;
     private javax.swing.JLabel jlblTituloMonto;
@@ -755,9 +792,11 @@ public class JdlgMovimientosEntrada extends javax.swing.JDialog {
     private javax.swing.JScrollPane jspnProductos;
     private javax.swing.JTable jtblProductos;
     private javax.swing.JTextField jtxtCantidad;
+    private javax.swing.JTextField jtxtCantidadMinima;
     private javax.swing.JTextField jtxtCodigo;
     private javax.swing.JTextField jtxtConsecutivo;
     private javax.swing.JTextField jtxtEncargado;
+    private javax.swing.JTextField jtxtExistencia;
     private javax.swing.JTextField jtxtFactura;
     private javax.swing.JTextField jtxtFecha;
     private javax.swing.JTextField jtxtMonto;

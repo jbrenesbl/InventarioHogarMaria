@@ -40,15 +40,15 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jpnlDatosUsuario" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="jbtnCrear" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jbtnCancelar" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jpnlDatosUsuario" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -130,13 +130,11 @@
                                   <Component id="jtxtPassword" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jtxtNombreUsuario" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jlblPasswordCorrecto" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jcbxRol" min="-2" pref="104" max="-2" attributes="0"/>
-                              <EmptySpace pref="162" max="32767" attributes="0"/>
+                              <EmptySpace pref="145" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -159,7 +157,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlblTituloConfirmacionPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jtxtConfirmacionPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlblPasswordCorrecto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -202,12 +199,6 @@
                 <Property name="toolTipText" type="java.lang.String" value="Contrase&#xf1;a del Usuario"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jlblPasswordCorrecto">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="T"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="jlblTituloRol">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Rol:"/>
@@ -240,6 +231,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnCancelarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

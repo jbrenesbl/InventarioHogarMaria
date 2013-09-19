@@ -9,7 +9,6 @@ import Clases.Datos.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -31,7 +30,7 @@ public class JdlgLogin extends javax.swing.JFrame {
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("imagenes/icohm.png"));
+                getImage(ClassLoader.getSystemResource("Imagenes/icohm.png"));
 
         return retValue.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
     }

@@ -6,6 +6,7 @@ package Interfaz.Inventario;
 
 import Clases.Auxiliares.BusquedasBaseDatos;
 import Clases.Datos.Usuario;
+import Interfaz.Administracion.JdlgCrearUsuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
@@ -50,6 +51,14 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
         this.setLocationRelativeTo(null); //Centrar la ventana
         this.usuarioActual = usuarioActual;
         this.tipoPadre = "Asignar Cheque";
+    }
+    
+    public JdlgConfirmarPermiso(JdlgCrearUsuario parent, boolean modal, String usuarioActual) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null); //Centrar la ventana
+        this.usuarioActual = usuarioActual;
+        this.tipoPadre = "Crear Usuario";
     }
 
     private boolean iniciarSesion(String nombreUsuario, char[] password) {
@@ -174,6 +183,8 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
                 ((JdlgMovimientosEntrada) this.getOwner()).setConfirmarPermiso(true);
             } else if (tipoPadre.equals("Asignar Cheque")) {
                 ((JdlgMovimientosAsignarCheque) this.getOwner()).setConfirmarPermiso(true);
+            } else if (tipoPadre.equals("Crear Usuario")) {
+                ((JdlgCrearUsuario) this.getOwner()).setConfirmarPermiso(true);
             }
         } else {
             if (tipoPadre.equals("Movimiento Salida")) {
@@ -182,8 +193,10 @@ public class JdlgConfirmarPermiso extends javax.swing.JDialog {
                 ((JdlgMovimientosEntrada) this.getOwner()).setConfirmarPermiso(false);
             } else if (tipoPadre.equals("Asignar Cheque")) {
                 ((JdlgMovimientosAsignarCheque) this.getOwner()).setConfirmarPermiso(false);
+            } else if (tipoPadre.equals("Crear Usuario")) {
+                ((JdlgCrearUsuario) this.getOwner()).setConfirmarPermiso(false);
             }
-            JOptionPane.showMessageDialog(this, "Contraseña Incorrecta", "Error de autenfificación", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Contraseña Incorrecta", "Error de autentificación", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtnPermitirActionPerformed
 

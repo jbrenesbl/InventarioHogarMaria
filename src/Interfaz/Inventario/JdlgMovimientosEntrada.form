@@ -22,7 +22,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-88,0,0,3,2"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-47,0,0,3,2"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -32,7 +32,7 @@
     <Container class="VistaJPanelConFondo.JPanelConFondo" name="jpnPrincipal">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="770" height="680"/>
+          <AbsoluteConstraints x="0" y="0" width="770" height="720"/>
         </Constraint>
       </Constraints>
 
@@ -315,7 +315,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="260" width="750" height="160"/>
+              <AbsoluteConstraints x="10" y="260" width="750" height="190"/>
             </Constraint>
           </Constraints>
 
@@ -327,42 +327,50 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlblTituloNombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlblTituloCategoria" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlblTituloCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlblTituloCantidad" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="jcbxCategoria" min="-2" pref="156" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Component id="jlblTituloUnidadMedida" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Component id="jtxtUnidadMedida" min="-2" pref="85" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlblTituloCantidad" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                      <Component id="jtxtCantidad" min="-2" pref="55" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jlblTituloExistencia" min="-2" pref="57" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jtxtExistencia" min="-2" pref="63" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jlblTituloCantidadMinima" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jtxtCantidadMinima" min="-2" pref="75" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jtxtNombre" min="-2" pref="630" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jtxtCantidad" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                                          <Component id="jtxtCodigo" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="564" pref="593" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jtxtNombre" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jlblTituloNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlblTituloCategoria" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="jbtnBuscarProducto" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jbtnNuevoProducto" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jlblTituloCodigo" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="47" pref="47" max="-2" attributes="0"/>
-                                      <Component id="jtxtCodigo" min="-2" pref="66" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -396,10 +404,17 @@
                           <Component id="jcbxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlblTituloUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jtxtUnidadMedida" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlblTituloExistencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtExistencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlblTituloCantidadMinima" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtxtCantidadMinima" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlblTituloCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jtxtCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -509,6 +524,36 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="jlblTituloExistencia">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Existencia:"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[57, 14]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jtxtExistencia">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="toolTipText" type="java.lang.String" value="Unidad de medida del producto seleccionado"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jlblTituloCantidadMinima">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cantidad M&#xed;nima:"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[57, 14]"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jtxtCantidadMinima">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="toolTipText" type="java.lang.String" value="Unidad de medida del producto seleccionado"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="jlblTituloCantidad">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cantidad:"/>
@@ -540,7 +585,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="430" width="750" height="191"/>
+              <AbsoluteConstraints x="10" y="460" width="750" height="191"/>
             </Constraint>
           </Constraints>
 
@@ -595,7 +640,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="650" y="620" width="48" height="48"/>
+              <AbsoluteConstraints x="650" y="650" width="48" height="48"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -611,7 +656,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="710" y="620" width="48" height="48"/>
+              <AbsoluteConstraints x="710" y="650" width="48" height="48"/>
             </Constraint>
           </Constraints>
         </Component>

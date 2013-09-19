@@ -36,7 +36,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("imagenes/icohm.png"));
+                getImage(ClassLoader.getSystemResource("Imagenes/icohm.png"));
 
         return retValue.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
     }
@@ -359,7 +359,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiReporteInventarioActualActionPerformed
 
     private void jmiAdministracionCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAdministracionCrearUsuarioActionPerformed
-        JdlgCrearUsuario ventanaCrearUsuario = new JdlgCrearUsuario(this, false);
+        JdlgCrearUsuario ventanaCrearUsuario = new JdlgCrearUsuario(this, false, this.usuarioActual);
         ventanaCrearUsuario.setVisible(true);
     }//GEN-LAST:event_jmiAdministracionCrearUsuarioActionPerformed
 
