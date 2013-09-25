@@ -6,10 +6,8 @@ package Interfaz.Inventario;
 
 import Clases.Datos.Usuario;
 import Interfaz.Administracion.JdlgCrearUsuario;
-import Interfaz.Reportes.JdlgReporteMovimientoDetallado;
-import Interfaz.Reportes.JdlgReporteMovimientoHistorico;
-import Interfaz.Reportes.JdlgReporteProductoBajoStock;
-import Interfaz.Reportes.JdlgReporteProductoInventarioActual;
+import Interfaz.Administracion.JdlgModificarUsuario;
+import Interfaz.Reportes.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -83,11 +81,12 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         jmiReporteMovimientosDetalleMovimientos = new javax.swing.JMenuItem();
         jmiReporteMovimientosHistoricoMovimientos = new javax.swing.JMenuItem();
         jmReportesProductos = new javax.swing.JMenu();
-        jmiReporteBajoStock = new javax.swing.JMenuItem();
-        jmiReporteInventarioActual = new javax.swing.JMenuItem();
+        jmiReporteProductosBajoStock = new javax.swing.JMenuItem();
+        jmiReporteProductosInventarioActual = new javax.swing.JMenuItem();
+        jmiReporteProductosHistoricoProductos = new javax.swing.JMenuItem();
         jmAdministracion = new javax.swing.JMenu();
         jmiAdministracionCrearUsuario = new javax.swing.JMenuItem();
-        jmiAdministracionRestablecerPassword = new javax.swing.JMenuItem();
+        jmiAdministracionModificarUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Inventario - Fundación María");
@@ -96,7 +95,7 @@ public class JfrmPrincipal extends javax.swing.JFrame {
 
         jpnlFondo.setAlignmentX(0.0F);
         jpnlFondo.setAlignmentY(0.0F);
-        jpnlFondo.setImagen("/Imagenes/Background.jpg");
+        jpnlFondo.setImagen("/Imagenes/Background_Principal.jpg");
 
         jpnlBarraEstado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpnlBarraEstado.setAlignmentX(0.0F);
@@ -243,21 +242,29 @@ public class JfrmPrincipal extends javax.swing.JFrame {
 
         jmReportesProductos.setText("Productos");
 
-        jmiReporteBajoStock.setText("Bajo Stock");
-        jmiReporteBajoStock.addActionListener(new java.awt.event.ActionListener() {
+        jmiReporteProductosBajoStock.setText("Bajo Stock");
+        jmiReporteProductosBajoStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiReporteBajoStockActionPerformed(evt);
+                jmiReporteProductosBajoStockActionPerformed(evt);
             }
         });
-        jmReportesProductos.add(jmiReporteBajoStock);
+        jmReportesProductos.add(jmiReporteProductosBajoStock);
 
-        jmiReporteInventarioActual.setText("Inventario Actual");
-        jmiReporteInventarioActual.addActionListener(new java.awt.event.ActionListener() {
+        jmiReporteProductosInventarioActual.setText("Inventario Actual");
+        jmiReporteProductosInventarioActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiReporteInventarioActualActionPerformed(evt);
+                jmiReporteProductosInventarioActualActionPerformed(evt);
             }
         });
-        jmReportesProductos.add(jmiReporteInventarioActual);
+        jmReportesProductos.add(jmiReporteProductosInventarioActual);
+
+        jmiReporteProductosHistoricoProductos.setText("Histórico de Productos");
+        jmiReporteProductosHistoricoProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiReporteProductosHistoricoProductosActionPerformed(evt);
+            }
+        });
+        jmReportesProductos.add(jmiReporteProductosHistoricoProductos);
 
         jmReportes.add(jmReportesProductos);
 
@@ -273,13 +280,13 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         });
         jmAdministracion.add(jmiAdministracionCrearUsuario);
 
-        jmiAdministracionRestablecerPassword.setText("Restablecer Contraseña");
-        jmiAdministracionRestablecerPassword.addActionListener(new java.awt.event.ActionListener() {
+        jmiAdministracionModificarUsuario.setText("Modificar Usuario");
+        jmiAdministracionModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiAdministracionRestablecerPasswordActionPerformed(evt);
+                jmiAdministracionModificarUsuarioActionPerformed(evt);
             }
         });
-        jmAdministracion.add(jmiAdministracionRestablecerPassword);
+        jmAdministracion.add(jmiAdministracionModificarUsuario);
 
         jmbMenuPrincipal.add(jmAdministracion);
 
@@ -346,26 +353,33 @@ public class JfrmPrincipal extends javax.swing.JFrame {
         ventanaReporteMovimientoHistorico.setVisible(true);
     }//GEN-LAST:event_jmiReporteMovimientosHistoricoMovimientosActionPerformed
 
-    private void jmiReporteBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteBajoStockActionPerformed
+    private void jmiReporteProductosBajoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteProductosBajoStockActionPerformed
         JdlgReporteProductoBajoStock ventanaReporteProductoBajoStock = new JdlgReporteProductoBajoStock(
                 this, false);
         ventanaReporteProductoBajoStock.setVisible(true);
-    }//GEN-LAST:event_jmiReporteBajoStockActionPerformed
+    }//GEN-LAST:event_jmiReporteProductosBajoStockActionPerformed
 
-    private void jmiReporteInventarioActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteInventarioActualActionPerformed
+    private void jmiReporteProductosInventarioActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteProductosInventarioActualActionPerformed
         JdlgReporteProductoInventarioActual ventanaReporteProductoInventarioActual = new JdlgReporteProductoInventarioActual(
                 this, false);
         ventanaReporteProductoInventarioActual.setVisible(true);
-    }//GEN-LAST:event_jmiReporteInventarioActualActionPerformed
+    }//GEN-LAST:event_jmiReporteProductosInventarioActualActionPerformed
 
     private void jmiAdministracionCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAdministracionCrearUsuarioActionPerformed
         JdlgCrearUsuario ventanaCrearUsuario = new JdlgCrearUsuario(this, false, this.usuarioActual);
         ventanaCrearUsuario.setVisible(true);
     }//GEN-LAST:event_jmiAdministracionCrearUsuarioActionPerformed
 
-    private void jmiAdministracionRestablecerPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAdministracionRestablecerPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmiAdministracionRestablecerPasswordActionPerformed
+    private void jmiAdministracionModificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAdministracionModificarUsuarioActionPerformed
+        JdlgModificarUsuario ventanaModificarUsuario = new JdlgModificarUsuario(this, false, this.usuarioActual);
+        ventanaModificarUsuario.setVisible(true);
+    }//GEN-LAST:event_jmiAdministracionModificarUsuarioActionPerformed
+
+    private void jmiReporteProductosHistoricoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiReporteProductosHistoricoProductosActionPerformed
+        JdlgReporteProductoHistorico ventanaReporteProductoHistorico = new JdlgReporteProductoHistorico(
+                this, false);
+        ventanaReporteProductoHistorico.setVisible(true);
+    }//GEN-LAST:event_jmiReporteProductosHistoricoProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,17 +435,18 @@ public class JfrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jmReportesProductos;
     private javax.swing.JMenuBar jmbMenuPrincipal;
     private javax.swing.JMenuItem jmiAdministracionCrearUsuario;
-    private javax.swing.JMenuItem jmiAdministracionRestablecerPassword;
+    private javax.swing.JMenuItem jmiAdministracionModificarUsuario;
     private javax.swing.JMenuItem jmiMovimientoAsignarCheque;
     private javax.swing.JMenuItem jmiMovimientoEntrada;
     private javax.swing.JMenuItem jmiMovimientoSalida;
     private javax.swing.JMenuItem jmiProductoConsultar;
     private javax.swing.JMenuItem jmiProveedorModificar;
     private javax.swing.JMenuItem jmiProveedorNuevo;
-    private javax.swing.JMenuItem jmiReporteBajoStock;
-    private javax.swing.JMenuItem jmiReporteInventarioActual;
     private javax.swing.JMenuItem jmiReporteMovimientosDetalleMovimientos;
     private javax.swing.JMenuItem jmiReporteMovimientosHistoricoMovimientos;
+    private javax.swing.JMenuItem jmiReporteProductosBajoStock;
+    private javax.swing.JMenuItem jmiReporteProductosHistoricoProductos;
+    private javax.swing.JMenuItem jmiReporteProductosInventarioActual;
     private javax.swing.JMenuItem jmiproductoBajoStock;
     private javax.swing.JPanel jpnlBarraEstado;
     private VistaJPanelConFondo.JPanelConFondo jpnlFondo;

@@ -116,7 +116,7 @@ ORDER BY
 	<columnHeader>
 		<band height="49" splitType="Stretch">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" isPrintRepeatedValues="false" x="0" y="4" width="555" height="42" isPrintInFirstWholeBand="true"/>
+				<reportElement key="table 1" style="table 1" isPrintRepeatedValues="false" mode="Transparent" x="0" y="4" width="555" height="42" isPrintInFirstWholeBand="true"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="dstProductos">
 						<datasetParameter name="dstCondicion">
@@ -156,7 +156,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
 							<textField isStretchWithOverflow="true">
-								<reportElement x="0" y="0" width="80" height="20"/>
+								<reportElement x="0" y="0" width="80" height="20" backcolor="#FFFFFF"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Times New Roman"/>
 								</textElement>

@@ -66,4 +66,29 @@ public class Usuario {
             return false;
         }
     }
+    
+    //MODIFICAR USUARIO
+    public boolean modificarUsuario(char[] pass) { 
+        String password = new String(pass);
+
+        ConexionBaseDatos conexion = new ConexionBaseDatos();
+        if (conexion.abrirConexion()) {
+            try {
+                String sentenciaSQL = "UPDATE Usuarios SET "
+                        + "Password = '" + password.replace("'", "''") + "', "
+                        + "Rol = '" + rol.replace("'", "''") + "' "
+                        + "WHERE Usuario = '" + usuario + "'";
+                if (conexion.executeUpdate(sentenciaSQL)) {
+                    conexion.cerrarConexion();
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

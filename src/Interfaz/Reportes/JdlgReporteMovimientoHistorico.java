@@ -377,7 +377,7 @@ public class JdlgReporteMovimientoHistorico extends javax.swing.JDialog {
                                 .addComponent(jlblHastaFecha)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jdchFechaMovimientoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(321, Short.MAX_VALUE))
+                        .addContainerGap(68, Short.MAX_VALUE))
                     .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
                         .addGroup(jpnlDatosBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpnlDatosBuscarLayout.createSequentialGroup()
